@@ -1,11 +1,50 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflanzenblog</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
 
-        </title>
-        <link rel="stylesheet" href="stylesheet.css">
-    </head>
-    <body>
-    </body>
+<header>
+    <h1>🌿 Mein Pflanzenblog</h1>
+    <nav>
+        <a href="#">Start</a>
+        <a href="#">Pflanzen</a>
+        <a href="#">Über</a>
+    </nav>
+</header>
+
+<main>
+    <section class="plant-list">
+        <article class="plant-card">
+            <h2>Monstera deliciosa</h2>
+            <p class="meta">Licht: Halbschatten | Wasser: Mittel</p>
+            <p>Beliebte Zimmerpflanze mit großen Blättern.</p>
+
+            <div class="comments">
+                <h3>Kommentare</h3>
+
+                <div class="comment">
+                    <strong>Max:</strong>
+                    <p>Sehr pflegeleicht!</p>
+                </div>
+
+                <form class="comment-form">
+                    <input type="text" placeholder="Name">
+                    <textarea placeholder="Kommentar"></textarea>
+                    <button type="submit">Absenden</button>
+                </form>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 Pflanzenblog</p>
+</footer>
+
+</body>
 </html>
