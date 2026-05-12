@@ -4,7 +4,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
 function loadDotEnv(string $path): array
 {
     if (!is_file($path) || !is_readable($path)) {
@@ -40,10 +39,17 @@ function getDbConfig(): array
 {
     $env = loadDotEnv(__DIR__ . '/.env');
 
+    // --- TEST BEREICH ANFANG ---
+    echo "<pre>Debug: Suche .env in: " . __DIR__ . "/.env\n";
+    echo "Inhalt der Variable \$env:\n";
+    print_r($env);
+    echo "</pre>";
+    // --- TEST BEREICH ENDE ---
+
     return [
         'DB_HOST'     => getenv('DB_HOST') ?: ($env['DB_HOST'] ?? 'localhost'),
-        'DB_NAME'     => getenv('DB_NAME') ?: ($env['DB_NAME'] ?? 'webdev2'),
-        'DB_USER'     => getenv('DB_USER') ?: ($env['DB_USER'] ?? 'webdev2'),
+        'DB_NAME'     => getenv('DB_NAME') ?: ($env['DB_NAME'] ?? ''),
+        'DB_USER'     => getenv('DB_USER') ?: ($env['DB_USER'] ?? ''),
         'DB_PASSWORD' => getenv('DB_PASSWORD') ?: ($env['DB_PASSWORD'] ?? ''),
     ];
 }
