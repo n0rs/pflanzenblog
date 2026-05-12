@@ -43,7 +43,7 @@ function getDbConfig(): array
     return [
         'DB_HOST'     => getenv('DB_HOST') ?: ($env['DB_HOST'] ?? 'localhost'),
         'DB_NAME'     => getenv('DB_NAME') ?: ($env['DB_NAME'] ?? 'webdev2'),
-        'DB_USER'     => getenv('DB_USER') ?: ($env['DB_USER'] ?? ''),
+        'DB_USER'     => getenv('DB_USER') ?: ($env['DB_USER'] ?? 'webdev2'),
         'DB_PASSWORD' => getenv('DB_PASSWORD') ?: ($env['DB_PASSWORD'] ?? ''),
     ];
 }
