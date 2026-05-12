@@ -18,6 +18,8 @@ if (isset($_POST['submit_post'])) {
 }
 ?>
 
+<a href="index.php">⬅ Zurück zur Übersicht</a>
+
 <form method="post" action="erstellen.php">
     <input type="text" name="titel" id="titel" placeholder="Titel">
     <label for="titel">Titel:</label>

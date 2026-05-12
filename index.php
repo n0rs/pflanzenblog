@@ -19,8 +19,8 @@ $query = $pdo->query("
         <header>
             <h1>🌿 Mein Pflanzenblog</h1>
             <nav>
-                <a href="#">Start</a>
-                <a href="#">Pflanzen</a>
+                <a href="index.php">Start</a>
+                <a href="erstellen.php" class="btn-create">➕ Neuer Beitrag</a>
                 <a href="#">Über</a>
             </nav>
         </header>
