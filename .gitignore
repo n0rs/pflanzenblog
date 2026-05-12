@@ -68,6 +68,9 @@ node_modules/
 /bower_components
 
 # ignore jekyll build directory
+
+# ignore local environment files containing secrets
+.env
 /_site
 
 # ignore OS generated files
