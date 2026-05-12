@@ -43,7 +43,7 @@ $query = $pdo->query("
             </div>
         </main>
             <footer>
-                <p>© 2026 Pflanzenblog</p>
+                <p>© 2026 Pflanzenblog </p>
             </footer>
         </div>
     </body>
