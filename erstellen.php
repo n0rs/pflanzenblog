@@ -21,11 +21,11 @@ if (isset($_POST['submit_post'])) {
 <a href="index.php">⬅ Zurück zur Übersicht</a>
 
 <form method="post" action="erstellen.php">
-    <input type="text" name="titel" id="titel" placeholder="Titel">
     <label for="titel">Titel:</label>
-    <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
+    <input type="text" name="titel" id="titel" placeholder="Titel">
     <label for ="inhalt">Inhalt:</label>
-    <input type="number" name="autor_id" id="autor_id" placeholder="autor_id">
+    <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
     <label for ="autor_id">Autorennummer:</label>
+    <input type="number" name="autor_id" id="autor_id" placeholder="autor_id">
     <input type="submit" name="submit_post" id="submit_post">
 </form>
