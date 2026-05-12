@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php
+require_once 'db.php';
+/** @var PDO $pdo */
+$query = $pdo->query("
+    SELECT beitraege.*, autoren.name AS autor_name 
+    FROM beitraege 
+    LEFT JOIN autoren ON beitraege.autor_id = autoren.id
+");?>
+
 <html lang="de">
     <head>
         <meta charset="UTF-8">
@@ -17,25 +25,22 @@
             </nav>
         </header>
         <main>
-            <section class="plant-list">
-                <article class="plant-card">
-                    <h2>Monstera deliciosa</h2>
-                    <p class="meta">Licht: Halbschatten | Wasser: Mittel</p>
-                    <p>Beliebte Zimmerpflanze mit großen Blättern.</p>
-                    <div class="comments">
-                        <h3>Kommentare</h3>
-                        <div class="comment">
-                            <strong>Max:</strong>
-                            <p>Sehr pflegeleicht!</p>
+            <div class="blog-container">
+                <?php
+                $beitraege = $query->fetchAll();
+                foreach ($beitraege as $beitrag):
+                    ?>
+                    <div class="post-card">
+                        <h2><?php echo htmlspecialchars($beitrag['titel']); ?></h2>
+                        <p><?php echo nl2br(htmlspecialchars($beitrag['inhalt'])); ?></p>
+
+                        <div class="meta">
+                            <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
+                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_name']) ? $beitrag['autor_name'] : 'Unbekannt'); ?></strong></small>
                         </div>
-                        <form class="comment-form">
-                            <input type="text" placeholder="Name">
-                            <textarea placeholder="Kommentar"></textarea>
-                            <button type="submit">Absenden</button>
-                        </form>
-                     </div>
-                </article>
-            </section>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </main>
             <footer>
                 <p>© 2026 Pflanzenblog</p>
