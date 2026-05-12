@@ -25,4 +25,5 @@ if (isset($_POST['submit_post'])) {
     <label for ="inhalt">Inhalt:</label>
     <input type="number" name="autor_id" id="autor_id" placeholder="autor_id">
     <label for ="autor_id">Autorennummer:</label>
+    <input type="submit" name="submit_post" id="submit_post">
 </form>
