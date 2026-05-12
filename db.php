@@ -39,13 +39,6 @@ function getDbConfig(): array
 {
     $env = loadDotEnv(__DIR__ . '/.env');
 
-    // --- TEST BEREICH ANFANG ---
-    echo "<pre>Debug: Suche .env in: " . __DIR__ . "/.env\n";
-    echo "Inhalt der Variable \$env:\n";
-    print_r($env);
-    echo "</pre>";
-    // --- TEST BEREICH ENDE ---
-
     return [
         'DB_HOST'     => getenv('DB_HOST') ?: ($env['DB_HOST'] ?? 'localhost'),
         'DB_NAME'     => getenv('DB_NAME') ?: ($env['DB_NAME'] ?? ''),
