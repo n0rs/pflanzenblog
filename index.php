@@ -36,7 +36,7 @@ $query = $pdo->query("
 
                         <div class="meta">
                             <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
-                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_name']) ? $beitrag['autor_name'] : 'Unbekannt'); ?></strong></small>
+                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_name']) ? $beitrag['autor_name'] : 'Gast'); ?></strong></small>
                         </div>
                     </div>
                 <?php endforeach; ?>
