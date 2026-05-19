@@ -6,7 +6,6 @@ if (isset($_POST['registrieren'])) {
     $benutzername = $_POST['benutzername'];
     $passwort_raw = $_POST['passwort'];
 
-    // 1. Passwort sicher verschlüsseln
     $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
     // 2. In die Datenbank schreiben
