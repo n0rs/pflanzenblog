@@ -1,24 +1,31 @@
 <?php
 require_once 'db.php';
+require_once 'session.php';
+
 /** @var PDO $pdo */
 
-if (isset($_POST['registrieren'])) {
-    $benutzername = $_POST['benutzername'];
+$meldung = '';
+if (istAngemeldet()) {
+    $meldung = 'Du bist bereits angemeldet als: ' . sichereAusgabe(holeBenutzername());
+} elseif (isset($_POST['registrieren'])) {
+    $benutzername = trim($_POST['benutzername']);
     $passwort_raw = $_POST['passwort'];
 
-    $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
+    if ($benutzername === '' || $passwort_raw === '') {
+        $meldung = 'Bitte fülle alle Felder aus.';
+    } else {
+        $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO autoren (benutzername, passwort) VALUES (?, ?)");
 
-    // 2. In die Datenbank schreiben
-    $stmt = $pdo->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
-
-    try {
-        $stmt->execute([$benutzername, $passwort_hash]);
-        echo "Registrierung erfolgreich <a href='login.php'>Hier einloggen</a>";
-    } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Fehlercode für "Duplicate Entry"
-            echo "Fehler: Dieser Benutzername ist bereits vergeben.";
-        } else {
-            echo "Ein Fehler ist aufgetreten: " . $e->getMessage();
+        try {
+            $stmt->execute([$benutzername, $passwort_hash]);
+            $meldung = 'Registrierung erfolgreich. <a href="login.php">Hier einloggen</a>';
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23000') {
+                $meldung = 'Fehler: Dieser Benutzername ist bereits vergeben.';
+            } else {
+                $meldung = 'Ein Fehler ist aufgetreten: ' . sichereAusgabe($e->getMessage());
+            }
         }
     }
 }
@@ -34,20 +41,28 @@ if (isset($_POST['registrieren'])) {
 <body>
 <div class="container">
     <h2>Neuen Account erstellen</h2>
-    <form action="registrieren.php" method="POST">
-        <div class="input-group">
-            <label>Benutzername:</label>
-            <input type="text" name="benutzername" required>
-        </div>
+    <?php if ($meldung !== ''): ?>
+        <p class="meldung"><?php echo $meldung; ?></p>
+    <?php endif; ?>
 
-        <div class="input-group">
-            <label>Passwort:</label>
-            <input type="password" name="passwort" required>
-        </div>
+    <?php if (!istAngemeldet()): ?>
+        <form action="registrieren.php" method="POST">
+            <div class="input-group">
+                <label>Benutzername:</label>
+                <input type="text" name="benutzername" required>
+            </div>
 
-        <button type="submit" name="registrieren">Konto erstellen</button>
-    </form>
-    <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
+            <div class="input-group">
+                <label>Passwort:</label>
+                <input type="password" name="passwort" required>
+            </div>
+
+            <button type="submit" name="registrieren">Konto erstellen</button>
+        </form>
+        <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
+    <?php else: ?>
+        <p><a href="index.php">Zurück zur Startseite</a></p>
+    <?php endif; ?>
 </div>
 </body>
 </html>

@@ -1,11 +1,15 @@
 <?php
 require_once 'db.php';
+require_once 'session.php';
+
 /** @var PDO $pdo */
+
 $query = $pdo->query("
     SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername 
     FROM beitraege 
     LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer_id
 ");?>
+
 
 <html lang="de">
     <head>
@@ -20,9 +24,16 @@ $query = $pdo->query("
             <h1>🌿 Mein Pflanzenblog</h1>
             <nav>
                 <a href="index.php">Start</a>
-                <a href="erstellen.php" class="btn-create">➕ Neuer Beitrag</a>
+                <?php if (istAngemeldet()): ?>
+                    <a href="beitrag_erstellen.php" class="btn-create">➕ Neuer Beitrag</a>
+                    <a href="login.php?aktion=abmelden">Abmelden</a>
+                <?php else: ?>
+                    <a href="login.php">Anmelden</a>
+                    <a href="registrieren.php">Registrieren</a>
+                <?php endif; ?>
                 <a href="#">Über</a>
             </nav>
+            <p class="status">Angemeldet als: <strong><?php echo sichereAusgabe(holeBenutzername()); ?></strong></p>
         </header>
         <main>
             <div class="blog-container">
@@ -31,8 +42,8 @@ $query = $pdo->query("
                 foreach ($beitraege as $beitrag):
                     ?>
                     <div class="post-card">
-                        <h2><?php echo htmlspecialchars($beitrag['titel']); ?></h2>
-                        <p><?php echo nl2br(htmlspecialchars($beitrag['inhalt'])); ?></p>
+                        <h2><?php echo sichereAusgabe($beitrag['titel']); ?></h2>
+                        <p><?php echo nl2br(sichereAusgabe($beitrag['inhalt'])); ?></p>
 
                         <div class="meta">
                             <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
