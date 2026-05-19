@@ -1,10 +1,17 @@
 <?php
+session_start();
 require_once 'db.php';
 /** @var PDO $pdo */
+
+$sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
+$aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;
+$aktueller_benutzername = isset($_SESSION['benutzername']) ? $_SESSION['benutzername'] : 'Gast';
+
+
 $query = $pdo->query("
     SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername 
     FROM beitraege 
-    LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer_id
+    LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id;
 ");?>
 
 <html lang="de">
@@ -20,11 +27,23 @@ $query = $pdo->query("
             <h1>🌿 Mein Pflanzenblog</h1>
             <nav>
                 <a href="index.php">Start</a>
-                <a href="erstellen.php" class="btn-create">➕ Neuer Beitrag</a>
+                <?php if ($sicherheitsstufe >= 1): ?>
+                    <a href="beitrag_erstellen.php">Neuer Beitrag</a>
+                <?php endif; ?>
+                <?php if ($sicherheitsstufe == 0): ?>
+                    <a href="registrieren.php">Registrieren</a>
+                <?php endif; ?>
+                <?php if ($sicherheitsstufe >= 1): ?>
+                    <a href="logout.php">Logout</a>
+                <?php else: ?>
+                    <a href="login.php">Login</a>
+                <?php endif; ?>
                 <a href="#">Über</a>
+
             </nav>
         </header>
         <main>
+            <p>Hallo <?php echo($aktueller_benutzername);?>!</p>
             <div class="blog-container">
                 <?php
                 $beitraege = $query->fetchAll();

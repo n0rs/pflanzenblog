@@ -14,7 +14,7 @@ if (isset($_POST['registrieren'])) {
         $stmt->execute([$benutzername, $passwort_hash]);
         echo "Registrierung erfolgreich <a href='login.php'>Hier einloggen</a>";
     } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Fehlercode für "Duplicate Entry"
+        if ($e->getCode() == 23000) {
             echo "Fehler: Dieser Benutzername ist bereits vergeben.";
         } else {
             echo "Ein Fehler ist aufgetreten: " . $e->getMessage();

@@ -49,8 +49,10 @@ function getDbConfig(): array
 
 function validateDbConfig(array $config): void
 {
-    foreach ($config as $key => $value) {
-        if ($value === '') {
+    $requiredKeys = ['DB_HOST', 'DB_NAME', 'DB_USER'];
+
+    foreach ($requiredKeys as $key) {
+        if (!isset($config[$key]) || $config[$key] === '') {
             throw new RuntimeException("Datenbankkonfiguration fehlt: $key");
         }
     }
