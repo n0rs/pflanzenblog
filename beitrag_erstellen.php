@@ -5,11 +5,11 @@ require_once 'db.php';
 if (isset($_POST['submit_post'])) {
     $titel = $_POST['titel'];
     $inhalt = $_POST['inhalt'];
-    $autor_id = $_POST['autor_id'];
+    $benutzer_id = $_POST['benutzer_id'];
 
-    $stmt = $pdo->prepare("INSERT INTO beitraege(titel, inhalt, autor_id) VALUES (?,?,?)");
+    $stmt = $pdo->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id) VALUES (?,?,?)");
 
-    if ($stmt->execute([$titel, $inhalt, $autor_id])) {
+    if ($stmt->execute([$titel, $inhalt, $benutzer_id])) {
         echo "Beitrag erstellt";
         header("Location: index.php");
         exit;
@@ -24,7 +24,7 @@ if (isset($_POST['submit_post'])) {
     <input type="text" name="titel" id="titel" placeholder="Titel">
     <label for ="inhalt">Inhalt:</label>
     <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
-    <label for ="autor_id">Autorennummer:</label>
-    <input type="number" name="autor_id" id="autor_id" placeholder="autor_id">
+    <label for ="benutzer_id">Autorennummer:</label>
+    <input type="number" name="benutzer_id" id="benutzer_id" placeholder="benutzer_id">
     <input type="submit" name="submit_post" id="submit_post">
 </form>

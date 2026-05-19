@@ -6,11 +6,10 @@ if (isset($_POST['registrieren'])) {
     $benutzername = $_POST['benutzername'];
     $passwort_raw = $_POST['passwort'];
 
-    // 1. Passwort sicher verschlüsseln
     $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
     // 2. In die Datenbank schreiben
-    $stmt = $pdo->prepare("INSERT INTO autoren (benutzername, passwort) VALUES (?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
 
     try {
         $stmt->execute([$benutzername, $passwort_hash]);

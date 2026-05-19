@@ -2,9 +2,9 @@
 require_once 'db.php';
 /** @var PDO $pdo */
 $query = $pdo->query("
-    SELECT beitraege.*, autoren.benutzername AS autor_benutzername 
+    SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername 
     FROM beitraege 
-    LEFT JOIN autoren ON beitraege.autor_id = autoren.id
+    LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer_id
 ");?>
 
 <html lang="de">
@@ -36,7 +36,7 @@ $query = $pdo->query("
 
                         <div class="meta">
                             <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
-                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_benutzername']) ? $beitrag['autor_benutzername'] : 'Gast'); ?></strong></small>
+                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['benutzer_benutzername']) ? $beitrag['benutzer_benutzername'] : 'Gast'); ?></strong></small>
                         </div>
                     </div>
                 <?php endforeach; ?>
