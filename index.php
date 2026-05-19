@@ -2,7 +2,7 @@
 require_once 'db.php';
 /** @var PDO $pdo */
 $query = $pdo->query("
-    SELECT beitraege.*, autoren.name AS autor_name 
+    SELECT beitraege.*, autoren.benutzername AS autor_benutzername 
     FROM beitraege 
     LEFT JOIN autoren ON beitraege.autor_id = autoren.id
 ");?>
@@ -36,14 +36,14 @@ $query = $pdo->query("
 
                         <div class="meta">
                             <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
-                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_name']) ? $beitrag['autor_name'] : 'Gast'); ?></strong></small>
+                            <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['autor_benutzername']) ? $beitrag['autor_benutzername'] : 'Gast'); ?></strong></small>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </main>
             <footer>
-                <p>© 2026 Pflanzenblog</p>
+                <p>© 2026 Pflanzenblog </p>
             </footer>
         </div>
     </body>
