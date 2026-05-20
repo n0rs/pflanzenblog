@@ -7,6 +7,7 @@
     margin-right:auto;
     width:90%;
     max-width: 1200px;
+    background-color: lightcoral;
 }
 
 body {
@@ -32,15 +33,19 @@ main {
     padding: 2rem;
 }
 
-.plant-card {
-    background: white;
+.blog-container {
+    background-color: mediumseagreen;
+}
+
+.post-card {
+    background: beige;
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.meta {
+.metadaten {
     font-size: 0.9rem;
     color: #666;
 }

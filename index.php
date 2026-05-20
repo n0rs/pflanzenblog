@@ -51,9 +51,13 @@ $query = $pdo->query("
                     ?>
                     <div class="post-card">
                         <h2><?php echo htmlspecialchars($beitrag['titel']); ?></h2>
+                        <?php if (!empty($beitrag['bild'])): ?>
+                            <div class="post-bild">
+                                <img src="bilder/<?php echo htmlspecialchars($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo htmlspecialchars($beitrag['titel']); ?>">
+                            </div>
+                        <?php endif; ?>
                         <p><?php echo nl2br(htmlspecialchars($beitrag['inhalt'])); ?></p>
-
-                        <div class="meta">
+                        <div class="metadaten">
                             <small>Veröffentlicht am: <?php echo $beitrag['datum']; ?></small><br>
                             <small>Autor: <strong><?php echo htmlspecialchars(isset($beitrag['benutzer_benutzername']) ? $beitrag['benutzer_benutzername'] : 'Gast'); ?></strong></small>
                         </div>
