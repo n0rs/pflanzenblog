@@ -8,14 +8,13 @@ if (isset($_POST['registrieren'])) {
 
     $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
-    // 2. In die Datenbank schreiben
     $stmt = $pdo->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
 
     try {
         $stmt->execute([$benutzername, $passwort_hash]);
         echo "Registrierung erfolgreich <a href='login.php'>Hier einloggen</a>";
     } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Fehlercode für "Duplicate Entry"
+        if ($e->getCode() == 23000) {
             echo "Fehler: Dieser Benutzername ist bereits vergeben.";
         } else {
             echo "Ein Fehler ist aufgetreten: " . $e->getMessage();

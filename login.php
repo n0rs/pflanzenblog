@@ -1,4 +1,52 @@
 <?php
-echo("Hip Hip Hurra")
+session_start();
+require_once 'db.php';
+/** @var PDO $pdo */
 
+if(isset($_POST['login'])) {
+    $benutzername = $_POST['benutzername'];
+    $passwort = $_POST['passwort'];
+
+    $stmt = $pdo->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
+    $stmt->execute([$benutzername]);
+
+    $benutzer = $stmt->fetch();
+
+    if ($benutzer && password_verify($passwort, $benutzer['passwort'])) {
+        $_SESSION['benutzer_id'] = $benutzer['id'];
+        $_SESSION['sicherheitsstufe'] = $benutzer['sicherheitsstufe'];
+        $_SESSION['benutzername'] = $benutzer['benutzername'];
+        header("Location: index.php");
+        exit;
+    } else {
+        var_dump($benutzer);
+        echo "Benutzername oder Passwort sind nicht korrekt";
+    }
+}
 ?>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Pflanzenblog</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+    <form action="login.php" method="POST">
+        <div class="input-group">
+            <label>Benutzername:</label>
+            <input type="text" name="benutzername" required>
+        </div>
+
+        <div class="input-group">
+            <label>Passwort:</label>
+            <input type="password" name="passwort" required>
+        </div>
+        <button type="submit" name="login">Login</button>
+    </form>
+</div>
+</body>
+</html>
