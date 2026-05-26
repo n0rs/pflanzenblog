@@ -31,14 +31,58 @@ if (isset($_POST['submit_post'])) {
 }
 ?>
 
-<a href="index.php">⬅ Zurück zur Übersicht</a>
-
-<form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
-    <label for="titel">Titel:</label>
-    <input type="text" name="titel" id="titel" placeholder="Titel">
-    <label for ="inhalt">Inhalt:</label>
-    <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
-    <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-    <input type="file" name="beitrag_bild"  id="beitrag_bild">
-    <input type="submit" name="submit_post" id="submit_post">
-</form>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pflanzenblog</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+<div class="beitrag-erstellen-container">
+    <header>
+        <h1>🌿 Mein Pflanzenblog</h1>
+        <nav>
+            <a href="index.php">⬅ Zurück zur Übersicht</a>
+            <?php if ($sicherheitsstufe >= 1): ?>
+                <a href="beitrag_erstellen.php">Neuer Beitrag</a>
+            <?php endif; ?>
+            <?php if ($sicherheitsstufe == 0): ?>
+                <a href="registrieren.php">Registrieren</a>
+            <?php endif; ?>
+            <?php if ($sicherheitsstufe >= 1): ?>
+                <a href="logout.php">Logout</a>
+            <?php else: ?>
+                <a href="login.php">Login</a>
+            <?php endif; ?>
+            <a href="ueber_uns.php">Über uns</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Beitrag erstellen</h2>
+        <form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
+            <div class="zeile">
+                <div>
+                    <label for="titel">Titel:</label>
+                    <input type="text" name="titel" id="titel" placeholder="Titel">
+                </div>
+                <div>
+                    <label for ="inhalt">Inhalt:</label>
+                    <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
+                </div>
+                <div>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+                    <input type="file" name="beitrag_bild"  id="beitrag_bild">
+                </div>
+                <div>
+                    <input type="submit" name="submit_post" id="submit_post">
+                </div>
+            <div>
+        </form>
+    </main>
+    <footer>
+        <p><a href="impressum.php">Impressum</a></p>
+        <p>© 2026 Pflanzenblog </p>
+    </footer>
+</div>
+</body>

@@ -13,7 +13,7 @@
 body {
     font-family: verdana;
     margin: 0;
-    background: #f4f8f4;
+    background-color: #f4f8f4;
     color: #2f3e2f;
 }
 
@@ -23,10 +23,21 @@ header {
     padding: 1rem;
 }
 
+/*Navigation*/
+nav {
+    text-align: center;
+}
+
 nav a {
     color: white;
     margin-right: 15px;
     text-decoration: none;
+}
+
+nav a:hover {
+    color: #a3dca3;
+    border-bottom-color: #a3dca3;
+    border-bottom-width: 2px;
 }
 
 main {
@@ -76,9 +87,101 @@ button {
     cursor: pointer;
 }
 
-
 button:hover {
     background: #2e7d32;
+}
+
+footer {
+    background-color: #2e7d32;
+    text-align: center;
+    margin: 0px;
+    padding: 2px;
+}
+
+footer a, footer p {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+footer a:hover {
+    color: #a3dca3;
+    border-bottom-color: #a3dca3;
+    border-bottom-width: 2px;
+}
+
+/*Registrieren*/
+.registrieren-container {
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+    max-width: 1200px;
+    background-color: lightcoral;
+}
+
+.registrieren-container div{
+    padding: 5px;
+}
+
+/*Login*/
+.login-container {
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+    max-width: 1200px;
+    background-color: lightcoral;
+}
+
+.login-container div{
+    padding: 5px;
+}
+
+/*Beitrag erstellen*/
+.beitrag-erstellen-container {
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+    max-width: 1200px;
+    background-color: lightcoral;
+}
+
+.beitrag-erstellen-container div{
+    padding: 5px;
+}
+
+/*Über uns*/
+.ueber-uns-container {
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+    max-width: 1200px;
+    background-color: lightcoral;
+}
+
+/*Impressum*/
+.impressum-container {
+    margin-left: auto;
+    margin-right:auto;
+    width:90%;
+    max-width: 1200px;
+    background-color: lightcoral;
+}
+
+.impressum-container1{
+    padding-inline-start: 40px;
+    padding-inline-end: 40px;
+}
+
+.impressum-container2{
+    padding-inline-start: 40px;
+    padding-inline-end: 40px;
+}
+
+.zeile {
+    align-content: center;
+}
+.zeile div{
+    padding:5px;
 }
 
 @media screen AND (max-width: 900px) {

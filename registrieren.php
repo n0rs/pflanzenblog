@@ -2,6 +2,8 @@
 require_once 'db.php';
 /** @var PDO $pdo */
 
+$sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
+
 if (isset($_POST['registrieren'])) {
     $benutzername = $_POST['benutzername'];
     $passwort_raw = $_POST['passwort'];
@@ -25,28 +27,52 @@ if (isset($_POST['registrieren'])) {
 
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrieren - Pflanzenblog</title>
-    <link rel="stylesheet" href="stylesheet.css">
-</head>
-<body>
-<div class="container">
-    <h2>Neuen Account erstellen</h2>
-    <form action="registrieren.php" method="POST">
-        <div class="input-group">
-            <label>Benutzername:</label>
-            <input type="text" name="benutzername" required>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Registrieren - Pflanzenblog</title>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <div class="registrieren-container">
+            <header>
+                <h1>🌿 Mein Pflanzenblog</h1>
 
-        <div class="input-group">
-            <label>Passwort:</label>
-            <input type="password" name="passwort" required>
-        </div>
+                <nav>
+                    <a href="index.php">Start</a>
+                    <?php if ($sicherheitsstufe >= 1): ?>
+                        <a href="beitrag_erstellen.php">Neuer Beitrag</a>
+                    <?php endif; ?>
+                    <?php if ($sicherheitsstufe == 0): ?>
+                        <a href="registrieren.php">Registrieren</a>
+                    <?php endif; ?>
+                    <?php if ($sicherheitsstufe >= 1): ?>
+                        <a href="logout.php">Logout</a>
+                    <?php else: ?>
+                        <a href="login.php">Login</a>
+                    <?php endif; ?>
+                    <a href="ueber_uns.php">Über uns</a>
+                </nav>
+            </header>
+            <main>
+                <h2>Neuen Account erstellen</h2>
+                <form action="registrieren.php" method="POST">
+                    <div class="input-group">
+                        <label>Benutzername:</label>
+                        <input type="text" name="benutzername" required>
+                    </div>
 
-        <button type="submit" name="registrieren">Konto erstellen</button>
-    </form>
-    <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
-</div>
-</body>
+                    <div class="input-group">
+                        <label>Passwort:</label>
+                        <input type="password" name="passwort" required>
+                    </div>
+                    <button type="submit" name="registrieren">Konto erstellen</button>
+                </form>
+                <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
+            </main>
+            <footer>
+                <p><a href="#">Impressum</a></p>
+                <p>© 2026 Pflanzenblog </p>
+            </footer>
+        </div>
+    </body>
 </html>
