@@ -27,14 +27,18 @@ $query = $pdo->query("
             <h1>🌿 Mein Pflanzenblog</h1>
             <nav>
                 <a href="index.php">Start</a>
+                <!-- beitrag erstellen wird nur angezeigt, wenn user eingeloggt -->
                 <?php if ($sicherheitsstufe >= 1): ?>
                     <a href="beitrag_erstellen.php">Neuer Beitrag</a>
                 <?php endif; ?>
+                <!-- registrieren wird nur angezeigt, wenn user nicht eingeloggt -->
                 <?php if ($sicherheitsstufe == 0): ?>
                     <a href="registrieren.php">Registrieren</a>
                 <?php endif; ?>
+                <!-- logout wird nur angezeigt, wenn user eingeloggt -->
                 <?php if ($sicherheitsstufe >= 1): ?>
                     <a href="logout.php">Logout</a>
+                    <!-- login wird nur angezeigt, wenn user nicht eingeloggt -->
                 <?php else: ?>
                     <a href="login.php">Login</a>
                 <?php endif; ?>
@@ -51,6 +55,15 @@ $query = $pdo->query("
                     ?>
                     <div class="post-card">
                         <h2><?php echo htmlspecialchars($beitrag['titel']); ?></h2>
+                        <!-- löschen/bearbeiten wird nur angezeigt, wenn user amdin ist oder der autor des beitrags -->
+                        <?php if($sicherheitsstufe == 2 || $aktueller_benutzer_id == $beitrag['benutzer_id']):?>
+                            <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
+                               class="btn-loeschen"
+                               onclick="return confirm('Diesen Beitrag löschen?');">
+                                Löschen
+                            </a>
+                            <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>" class="btn-bearbeiten">Bearbeiten</a>
+                        <?php endif; ?>
                         <?php if (!empty($beitrag['bild'])): ?>
                             <div class="post-bild">
                                 <img src="bilder/<?php echo htmlspecialchars($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo htmlspecialchars($beitrag['titel']); ?>">
