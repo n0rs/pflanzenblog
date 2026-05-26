@@ -40,6 +40,22 @@ nav a:hover {
     border-bottom-width: 2px;
 }
 
+nav a:visited {
+    text-decoration-line: underline;
+    border-bottom-color: #a3dca3;
+}
+
+/*Handy Navigation*/
+.nav-handy {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    height: 55px;
+    width: 70px;
+}
+
 main {
     padding: 2rem;
 }
@@ -54,6 +70,14 @@ main {
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.post-bild img{
+    background-color: red;
+    max-width: 100%;
+    height: 40%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
 }
 
 .metadaten {
@@ -145,10 +169,6 @@ footer a:hover {
     background-color: lightcoral;
 }
 
-.beitrag-erstellen-container div{
-    padding: 5px;
-}
-
 /*Über uns*/
 .ueber-uns-container {
     margin-left: auto;
@@ -180,14 +200,31 @@ footer a:hover {
 .zeile {
     align-content: center;
 }
+
 .zeile div{
     padding:5px;
 }
 
 @media screen AND (max-width: 900px) {
 
+    .post-bild img{
+        background-color: red;
+        max-width: 100%;
+        height: 30%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
 }
 
 @media screen AND (max-width: 600px) {
+
+    /*Die Bilder müssen in ein Rechteck umgewandelt werden, für eine bessere Übersicht*/
+    .post-bild img{
+        background-color: red;
+        max-width: 100%;
+        height: 20%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
 
 }
