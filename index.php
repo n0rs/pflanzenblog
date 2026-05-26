@@ -50,6 +50,15 @@ $query = $pdo->query("
                         ?>
                         <div class="post-card">
                             <h2><?php echo htmlspecialchars($beitrag['titel']); ?></h2>
+                            <!-- löschen/bearbeiten wird nur angezeigt, wenn user amdin ist oder der autor des beitrags -->
+                            <?php if($sicherheitsstufe == 2 || $aktueller_benutzer_id == $beitrag['benutzer_id']):?>
+                                <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
+                                   class="btn-loeschen"
+                                   onclick="return confirm('Diesen Beitrag löschen?');">
+                                    Löschen
+                                </a>
+                                <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>" class="btn-bearbeiten">Bearbeiten</a>
+                            <?php endif; ?>
                             <?php if (!empty($beitrag['bild'])): ?>
                                 <div class="post-bild">
                                     <img src="bilder/<?php echo htmlspecialchars($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo htmlspecialchars($beitrag['titel']); ?>">
