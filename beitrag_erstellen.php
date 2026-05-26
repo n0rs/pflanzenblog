@@ -70,7 +70,7 @@ if (isset($_POST['submit_post'])) {
                     <label for ="inhalt">Inhalt:</label>
                     <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
                 </div>
-                <div>
+                <div class="bild-hochladen">
                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
                     <input type="file" name="beitrag_bild"  id="beitrag_bild">
                 </div>
