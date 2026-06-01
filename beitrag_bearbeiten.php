@@ -8,12 +8,6 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
 $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;
 $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-//erste Sperre
-if ($beitrag_id <= 0) {
-    header("Location: index.php");
-    exit;
-}
-
 eingeloggtCheck($sicherheitsstufe);
 
 //daten laden
