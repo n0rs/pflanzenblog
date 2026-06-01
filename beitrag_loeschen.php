@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var PDO $pdo */
+/** @var mysqli $mysqli */
 
 //sicherheitsstufe des eingeloggten users speichern
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -17,9 +17,10 @@ if ($beitrag_id <= 0 || $sicherheitsstufe <= 0) {
 }
 
 //beitrag aus der db ziehen anhand von id
-$stmt = $pdo->prepare("SELECT * FROM beitraege WHERE id=?");
-$stmt->execute([$beitrag_id]);
-$beitrag = $stmt->fetch();
+$anweisung = $mysqli->prepare("SELECT * FROM beitraege WHERE id=?");
+$anweisung->bind_param('i', $beitrag_id);
+$anweisung->execute();
+$beitrag = $anweisung->get_result()->fetch_assoc();
 
 //prüfen, ob der beitrag existiert und ob der eingeloggte benutzer wirklich derselbe ist wie der autor
 if (!$beitrag || ($sicherheitsstufe != 2 && $beitrag['benutzer_id'] != $aktueller_benutzer_id)) {
@@ -32,8 +33,9 @@ if(!empty($beitrag['bild']) && file_exists("bilder/".$beitrag['bild'])) {
     unlink("bilder/" . $beitrag['bild']);
 }
 //beitrag aus db löschen
-$loesch_stmt = $pdo->prepare("DELETE FROM beitraege WHERE id=?");
-$loesch_stmt->execute([$beitrag_id]);
+$loeschAnweisung = $mysqli->prepare("DELETE FROM beitraege WHERE id=?");
+$loeschAnweisung->bind_param('i', $beitrag_id);
+$loeschAnweisung->execute();
 
 //zurück auf die startseite
 header("Location: index.php");

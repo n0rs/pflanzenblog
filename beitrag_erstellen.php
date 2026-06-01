@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var PDO $pdo */
+/** @var mysqli $mysqli */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
@@ -21,9 +21,10 @@ if (isset($_POST['submit_post'])) {
     $dateiname=time()."_".rand(1000000,9999999).".".$fragmente[count($fragmente)-1];
     move_uploaded_file($_FILES["beitrag_bild"]["tmp_name"],"bilder/".$dateiname);
 
-    $stmt = $pdo->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
+    $anweisung = $mysqli->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
+    $anweisung->bind_param('ssis', $titel, $inhalt, $benutzer_id, $dateiname);
 
-    if ($stmt->execute([$titel, $inhalt, $benutzer_id, $dateiname])) {
+    if ($anweisung->execute()) {
         echo "Beitrag erstellt";
         header("Location: index.php");
         exit;

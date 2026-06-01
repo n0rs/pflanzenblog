@@ -4,71 +4,75 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-function loadDotEnv(string $path): array
+function credentialsLaden(string $pfad): array
 {
-    if (!is_file($path) || !is_readable($path)) {
+    if (!is_file($pfad) || !is_readable($pfad)) {
         return [];
     }
 
-    $result = [];
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if ($line === '' || $line[0] === '#') {
+    $ergebnis = [];
+    $zeilen = file($pfad, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($zeilen as $zeile) {
+        $zeile = trim($zeile);
+        if ($zeile === '' || $zeile[0] === '#') {
             continue;
         }
-        if (strpos($line, '=') === false) {
+        if (strpos($zeile, '=') === false) {
             continue;
         }
 
-        [$key, $value] = explode('=', $line, 2);
-        $key = trim($key);
-        $value = trim($value);
+        [$schluessel, $wert] = explode('=', $zeile, 2);
+        $schluessel = trim($schluessel);
+        $wert = trim($wert);
 
-        if (strlen($value) >= 2 && (($value[0] === '"' && substr($value, -1) === '"') || ($value[0] === "'" && substr($value, -1) === "'"))) {
-            $value = substr($value, 1, -1);
+        if (strlen($wert) >= 2 && (($wert[0] === '"' && substr($wert, -1) === '"') || ($wert[0] === "'" && substr($wert, -1) === "'"))) {
+            $wert = substr($wert, 1, -1);
         }
 
-        $result[$key] = $value;
+        $ergebnis[$schluessel] = $wert;
     }
 
-    return $result;
+    return $ergebnis;
 }
 
-function getDbConfig(): array
+function erhalteDbKonfig(): array
 {
-    $env = loadDotEnv(__DIR__ . '/.env');
+    $umgebung = credentialsLaden(__DIR__ . '/.env');
 
     return [
-        'DB_HOST'     => getenv('DB_HOST') ?: ($env['DB_HOST'] ?? 'localhost'),
-        'DB_NAME'     => getenv('DB_NAME') ?: ($env['DB_NAME'] ?? ''),
-        'DB_USER'     => getenv('DB_USER') ?: ($env['DB_USER'] ?? ''),
-        'DB_PASSWORD' => getenv('DB_PASSWORD') ?: ($env['DB_PASSWORD'] ?? ''),
+        'DB_HOST'     => getenv('DB_HOST') ?: ($umgebung['DB_HOST'] ?? 'localhost'),
+        'DB_NAME'     => getenv('DB_NAME') ?: ($umgebung['DB_NAME'] ?? ''),
+        'DB_USER'     => getenv('DB_USER') ?: ($umgebung['DB_USER'] ?? ''),
+        'DB_PASSWORD' => getenv('DB_PASSWORD') ?: ($umgebung['DB_PASSWORD'] ?? ''),
     ];
 }
 
-function validateDbConfig(array $config): void
+function pruefeDbKonfig(array $konfiguration): void
 {
-    $requiredKeys = ['DB_HOST', 'DB_NAME', 'DB_USER'];
+    $erforderlicheSchlussel = ['DB_HOST', 'DB_NAME', 'DB_USER'];
 
-    foreach ($requiredKeys as $key) {
-        if (!isset($config[$key]) || $config[$key] === '') {
-            throw new RuntimeException("Datenbankkonfiguration fehlt: $key");
+    foreach ($erforderlicheSchlussel as $schluessel) {
+        if (!isset($konfiguration[$schluessel]) || $konfiguration[$schluessel] === '') {
+            throw new RuntimeException("Datenbankkonfiguration fehlt: $schluessel");
         }
     }
 }
 
-$config = getDbConfig();
-validateDbConfig($config);
+$konfiguration = erhalteDbKonfig();
+pruefeDbKonfig($konfiguration);
 
-$dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $config['DB_HOST'], $config['DB_NAME']);
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    $pdo = new PDO($dsn, $config['DB_USER'], $config['DB_PASSWORD'], $options);
-} catch (PDOException $e) {
+    $datenbankverbindung = new mysqli(
+        $konfiguration['DB_HOST'],
+        $konfiguration['DB_USER'],
+        $konfiguration['DB_PASSWORD'],
+        $konfiguration['DB_NAME']
+    );
+    $datenbankverbindung->set_charset('utf8mb4');
+} catch (mysqli_sql_exception $e) {
     die('Verbindung zur Datenbank fehlgeschlagen: ' . $e->getMessage());
 }
+
+$mysqli = $datenbankverbindung;

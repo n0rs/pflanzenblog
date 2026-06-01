@@ -1,18 +1,19 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var PDO $pdo */
+/** @var mysqli $mysqli */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
-if(isset($_POST['login'])) {
+if(isset($_POST['anmelden'])) {
     $benutzername = $_POST['benutzername'];
     $passwort = $_POST['passwort'];
 
-    $stmt = $pdo->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
-    $stmt->execute([$benutzername]);
+    $anweisung = $mysqli->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
+    $anweisung->bind_param('s', $benutzername);
+    $anweisung->execute();
 
-    $benutzer = $stmt->fetch();
+    $benutzer = $anweisung->get_result()->fetch_assoc();
 
     if ($benutzer && password_verify($passwort, $benutzer['passwort'])) {
         $_SESSION['benutzer_id'] = $benutzer['id'];
@@ -66,7 +67,7 @@ if(isset($_POST['login'])) {
                         <label>Passwort:</label>
                         <input type="password" name="passwort" required>
                     </div>
-                    <button type="submit" name="login">Login</button>
+                    <button type="submit" name="anmelden">Anmelden</button>
                     <p>Noch kein Konto? <a href="registrieren.php">Zur Registrierung</a></p>
                 </form>
             </main>
