@@ -4,6 +4,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+require_once 'funktionen.php';
+
 function loadDotEnv(string $path): array
 {
     if (!is_file($path) || !is_readable($path)) {
