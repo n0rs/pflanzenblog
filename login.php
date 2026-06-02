@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var mysqli $datenbank */
+/** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
@@ -9,7 +9,7 @@ if(isset($_POST['anmelden'])) {
     $benutzername = $_POST['benutzername'];
     $passwort = $_POST['passwort'];
 
-    $anweisung = $datenbank->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
+    $anweisung = $datenbankverbindung->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
     $anweisung->bind_param('s', $benutzername);
     $anweisung->execute();
 

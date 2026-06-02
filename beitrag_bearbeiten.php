@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var mysqli $datenbank */
+/** @var mysqli $datenbankverbindung */
 
 //variablen vorbereiten
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -11,14 +11,14 @@ $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 pruefeEingeloggt($sicherheitsstufe);
 
 //daten laden
-$beitrag = holeBeitrag($datenbank, $beitrag_id);
+$beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
 if (!istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
     header("Location: index.php");
     exit;
 }
 //beitrag aus der db ziehen anhand von id (Sicherheits-Backup)
-$anweisung = $datenbank->prepare("SELECT * FROM beitraege WHERE id=?");
+$anweisung = $datenbankverbindung->prepare("SELECT * FROM beitraege WHERE id=?");
 $anweisung->bind_param('i', $beitrag_id);
 $anweisung->execute();
 $beitrag = $anweisung->get_result()->fetch_assoc();
@@ -38,7 +38,7 @@ if (isset($_POST['edit_speichern'])) {
         $bild_dateiname = $hochgeladenes_bild;
     }
 
-$updateAnweisung = $datenbank->prepare("UPDATE beitraege SET titel = ?, inhalt = ?, bild = ? WHERE id = ?");
+$updateAnweisung = $datenbankverbindung->prepare("UPDATE beitraege SET titel = ?, inhalt = ?, bild = ? WHERE id = ?");
 $updateAnweisung->bind_param('sssi', $neuer_titel, $neuer_inhalt, $bild_dateiname, $beitrag_id);
 if ($updateAnweisung->execute()) {
     header("Location: index.php");

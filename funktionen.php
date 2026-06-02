@@ -1,8 +1,8 @@
 <?php
 
-function holeBeitrag(mysqli $datenbank, int $id)
+function holeBeitrag(mysqli $datenbankverbindung, int $id)
 {
-    $anweisung = $datenbank->prepare("SELECT * FROM beitraege WHERE id = ?");
+    $anweisung = $datenbankverbindung->prepare("SELECT * FROM beitraege WHERE id = ?");
     $anweisung->bind_param('i', $id);
     $anweisung->execute();
     $ergebnis = $anweisung->get_result();

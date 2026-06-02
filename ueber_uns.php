@@ -1,6 +1,6 @@
 <?php
 require_once 'db.php';
-/** @var mysqli $datenbank */
+/** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 

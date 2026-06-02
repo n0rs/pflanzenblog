@@ -1,14 +1,14 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var mysqli $datenbank */
+/** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;
 $aktueller_benutzername = isset($_SESSION['benutzername']) ? $_SESSION['benutzername'] : 'Gast';
 
 
-$abfrage = $datenbank->query("
+$abfrage = $datenbankverbindung->query("
     SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername 
     FROM beitraege 
     LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id;

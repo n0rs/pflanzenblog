@@ -75,4 +75,4 @@ try {
     die('Verbindung zur Datenbank fehlgeschlagen: ' . $e->getMessage());
 }
 
-// $datenbank ist die mysqli-Verbindung, verwende diese in anderen Dateien
+// $datenbankverbindung ist die mysqli-Verbindung, verwende diese in anderen Dateien
