@@ -1,6 +1,6 @@
 <?php
 require_once 'db.php';
-/** @var mysqli $mysqli */
+/** @var mysqli $datenbank */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
@@ -10,7 +10,7 @@ if (isset($_POST['registrieren'])) {
 
     $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
-    $anweisung = $mysqli->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
+    $anweisung = $datenbank->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
     $anweisung->bind_param('ss', $benutzername, $passwort_hash);
 
     try {

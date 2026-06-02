@@ -1,11 +1,11 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var mysqli $mysqli */
+/** @var mysqli $datenbank */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
-eingeloggtCheck($sicherheitsstufe);
+pruefeEingeloggt($sicherheitsstufe);
 
 
 if (isset($_POST['submit_post'])) {
@@ -17,7 +17,7 @@ if (isset($_POST['submit_post'])) {
 
     $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
-    $anweisung = $mysqli->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
+    $anweisung = $datenbank->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
     $anweisung->bind_param('ssis', $titel, $inhalt, $benutzer_id, $dateiname);
 
     if ($anweisung->execute()) {

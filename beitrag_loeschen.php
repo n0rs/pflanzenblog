@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var mysqli $mysqli */
+/** @var mysqli $datenbank */
 
 //sicherheitsstufe des eingeloggten users speichern
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -10,10 +10,10 @@ $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_i
 //beitrag_id aus der URL übernehmen
 $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-eingeloggtCheck($sicherheitsstufe);
+pruefeEingeloggt($sicherheitsstufe);
 
 //beitrag aus der db ziehen anhand von id
-$anweisung = $mysqli->prepare("SELECT * FROM beitraege WHERE id=?");
+$anweisung = $datenbank->prepare("SELECT * FROM beitraege WHERE id=?");
 $anweisung->bind_param('i', $beitrag_id);
 $anweisung->execute();
 $beitrag = $anweisung->get_result()->fetch_assoc();
@@ -30,7 +30,7 @@ if(!empty($beitrag['bild']) && file_exists("bilder/".$beitrag['bild'])) {
     unlink("bilder/" . $beitrag['bild']);
 }
 //beitrag aus db löschen
-$loeschAnweisung = $mysqli->prepare("DELETE FROM beitraege WHERE id=?");
+$loeschAnweisung = $datenbank->prepare("DELETE FROM beitraege WHERE id=?");
 $loeschAnweisung->bind_param('i', $beitrag_id);
 $loeschAnweisung->execute();
 
