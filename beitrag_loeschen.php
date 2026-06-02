@@ -10,11 +10,7 @@ $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_i
 //beitrag_id aus der URL übernehmen
 $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-//prüfen, ob user berechtigt ist, den beitrag zu löschen (man könnte ja theoretisch über url aufrufen)
-if ($beitrag_id <= 0 || $sicherheitsstufe <= 0) {
-    header("Location: index.php");
-    exit;
-}
+eingeloggtCheck($sicherheitsstufe);
 
 //beitrag aus der db ziehen anhand von id
 $anweisung = $mysqli->prepare("SELECT * FROM beitraege WHERE id=?");
@@ -22,11 +18,12 @@ $anweisung->bind_param('i', $beitrag_id);
 $anweisung->execute();
 $beitrag = $anweisung->get_result()->fetch_assoc();
 
-//prüfen, ob der beitrag existiert und ob der eingeloggte benutzer wirklich derselbe ist wie der autor
-if (!$beitrag || ($sicherheitsstufe != 2 && $beitrag['benutzer_id'] != $aktueller_benutzer_id)) {
+
+if (!istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
     header("Location: index.php");
     exit;
 }
+
 //prüfen, ob ein bild am beitrag existiert und ob die datei im bilder-ordner abgelegt ist
 if(!empty($beitrag['bild']) && file_exists("bilder/".$beitrag['bild'])) {
     //wenn ja, dann das bild aus dem ordner löschen
