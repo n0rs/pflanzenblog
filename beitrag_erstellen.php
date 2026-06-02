@@ -1,11 +1,12 @@
 <?php
 session_start();
 require_once 'db.php';
-/** @var PDO $pdo */
+require_once 'funktionen.php';
+/** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
-eingeloggtCheck($sicherheitsstufe);
+pruefeEingeloggt($sicherheitsstufe);
 
 
 if (isset($_POST['submit_post'])) {
@@ -17,9 +18,10 @@ if (isset($_POST['submit_post'])) {
 
     $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
-    $stmt = $pdo->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
+    $anweisung = $datenbankverbindung->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
+    $anweisung->bind_param('ssis', $titel, $inhalt, $benutzer_id, $dateiname);
 
-    if ($stmt->execute([$titel, $inhalt, $benutzer_id, $bild_dateiname])) {
+    if ($anweisung->execute()) {
         echo "Beitrag erstellt";
         header("Location: index.php");
         exit;

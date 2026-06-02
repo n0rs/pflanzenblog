@@ -1,6 +1,6 @@
 <?php
 require_once 'db.php';
-/** @var PDO $pdo */
+/** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
@@ -10,13 +10,14 @@ if (isset($_POST['registrieren'])) {
 
     $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
+    $anweisung = $datenbankverbindung->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
+    $anweisung->bind_param('ss', $benutzername, $passwort_hash);
 
     try {
-        $stmt->execute([$benutzername, $passwort_hash]);
+        $anweisung->execute();
         echo "Registrierung erfolgreich <a href='login.php'>Hier einloggen</a>";
-    } catch (PDOException $e) {
-        if ($e->getCode() == 23000) {
+    } catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062) {
             echo "Fehler: Dieser Benutzername ist bereits vergeben.";
         } else {
             echo "Ein Fehler ist aufgetreten: " . $e->getMessage();
