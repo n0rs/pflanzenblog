@@ -5,10 +5,8 @@ require_once 'db.php';
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
-if($sicherheitsstufe <= 0) {
-    header("Location: index.php");
-    exit;
-}
+eingeloggtCheck($sicherheitsstufe);
+
 
 if (isset($_POST['submit_post'])) {
    // print_r($_FILES);
@@ -17,13 +15,11 @@ if (isset($_POST['submit_post'])) {
     $inhalt = $_POST['inhalt'];
     $benutzer_id = $_SESSION['benutzer_id'];
 
-    $fragmente=explode(".",$_FILES["beitrag_bild"]["name"]);
-    $dateiname=time()."_".rand(1000000,9999999).".".$fragmente[count($fragmente)-1];
-    move_uploaded_file($_FILES["beitrag_bild"]["tmp_name"],"bilder/".$dateiname);
+    $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
     $stmt = $pdo->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id,bild) VALUES (?,?,?,?)");
 
-    if ($stmt->execute([$titel, $inhalt, $benutzer_id, $dateiname])) {
+    if ($stmt->execute([$titel, $inhalt, $benutzer_id, $bild_dateiname])) {
         echo "Beitrag erstellt";
         header("Location: index.php");
         exit;
@@ -40,24 +36,9 @@ if (isset($_POST['submit_post'])) {
 </head>
 <body>
 <div class="beitrag-erstellen-container">
-    <header>
-        <h1>🌿 Mein Pflanzenblog</h1>
-        <nav>
-            <a href="index.php">⬅ Zurück zur Übersicht</a>
-            <?php if ($sicherheitsstufe >= 1): ?>
-                <a href="beitrag_erstellen.php">Neuer Beitrag</a>
-            <?php endif; ?>
-            <?php if ($sicherheitsstufe == 0): ?>
-                <a href="registrieren.php">Registrieren</a>
-            <?php endif; ?>
-            <?php if ($sicherheitsstufe >= 1): ?>
-                <a href="logout.php">Logout</a>
-            <?php else: ?>
-                <a href="login.php">Login</a>
-            <?php endif; ?>
-            <a href="ueber_uns.php">Über uns</a>
-        </nav>
-    </header>
+
+    <?php include 'header.php'; ?>
+
     <main>
         <h2>Beitrag erstellen</h2>
         <form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
@@ -68,7 +49,7 @@ if (isset($_POST['submit_post'])) {
                 </div>
                 <div>
                     <label for ="inhalt">Inhalt:</label>
-                    <input type="text" name="inhalt" id="inhalt" placeholder="inhalt">
+                    <textarea name="inhalt" id="inhalt" placeholder="Inhalt"></textarea>
                 </div>
                 <div class="bild-hochladen">
                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
