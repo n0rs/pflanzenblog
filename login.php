@@ -1,29 +1,41 @@
 <?php
 session_start();
 require_once 'db.php';
+require_once 'funktionen.php';
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
+if (isset($_SESSION['benutzer_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+$meldung = '';
+$benutzername = '';
+
 if(isset($_POST['anmelden'])) {
-    $benutzername = $_POST['benutzername'];
-    $passwort = $_POST['passwort'];
+    $benutzername = trim($_POST['benutzername'] ?? '');
+    $passwort = $_POST['passwort'] ?? '';
 
-    $anweisung = $datenbankverbindung->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
-    $anweisung->bind_param('s', $benutzername);
-    $anweisung->execute();
-
-    $benutzer = $anweisung->get_result()->fetch_assoc();
-
-    if ($benutzer && password_verify($passwort, $benutzer['passwort'])) {
-        $_SESSION['benutzer_id'] = $benutzer['id'];
-        $_SESSION['sicherheitsstufe'] = $benutzer['sicherheitsstufe'];
-        $_SESSION['benutzername'] = $benutzer['benutzername'];
-        header("Location: index.php");
-        exit;
+    if ($benutzername === '' || $passwort === '') {
+        $meldung = 'Bitte Benutzername und Passwort eingeben.';
     } else {
-        var_dump($benutzer);
-        echo "Benutzername oder Passwort sind nicht korrekt";
+        $anweisung = $datenbankverbindung->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
+        $anweisung->bind_param('s', $benutzername);
+        $anweisung->execute();
+
+        $benutzer = $anweisung->get_result()->fetch_assoc();
+
+        if ($benutzer && password_verify($passwort, $benutzer['passwort'])) {
+            $_SESSION['benutzer_id'] = $benutzer['id'];
+            $_SESSION['sicherheitsstufe'] = $benutzer['sicherheitsstufe'];
+            $_SESSION['benutzername'] = $benutzer['benutzername'];
+            header("Location: index.php");
+            exit;
+        } else {
+            $meldung = 'Benutzername oder Passwort sind nicht korrekt.';
+        }
     }
 }
 ?>
@@ -32,6 +44,8 @@ if(isset($_POST['anmelden'])) {
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Melde dich im Pflanzenblog an, um Beiträge zu erstellen und Kommentare zu schreiben.">
     <title>Login - Pflanzenblog</title>
     <link rel="stylesheet" href="stylesheet.css">
 </head>
@@ -42,10 +56,13 @@ if(isset($_POST['anmelden'])) {
 
             <main>
                 <h2>Login</h2>
+                <?php if ($meldung !== ''): ?>
+                    <p class="message error"><?php echo htmlspecialchars($meldung, ENT_QUOTES, 'UTF-8'); ?></p>
+                <?php endif; ?>
                 <form action="login.php" method="POST">
                     <div class="input-group">
                         <label>Benutzername:</label>
-                        <input type="text" name="benutzername" required>
+                        <input type="text" name="benutzername" required value="<?php echo htmlspecialchars($benutzername, ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
 
                     <div class="input-group">
@@ -56,10 +73,7 @@ if(isset($_POST['anmelden'])) {
                     <p>Noch kein Konto? <a href="registrieren.php">Zur Registrierung</a></p>
                 </form>
             </main>
-            <footer>
-                <p><a href="impressum.php">Impressum</a></p>
-                <p>© 2026 Pflanzenblog </p>
-            </footer>
+            <?php include 'footer.php'; ?>
         </div>
     </body>
 </html>

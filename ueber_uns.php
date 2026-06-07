@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once 'db.php';
+require_once 'funktionen.php';
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -9,6 +11,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
 <html lang="de">
     <head>
         <meta charset="UTF-8">
+        <meta name="description" content="Erfahre mehr über das Team und die Mission hinter dem Pflanzenblog.">
         <title>Über uns - Pflanzenblog</title>
         <link rel="stylesheet" href="stylesheet.css">
     </head>
@@ -20,10 +23,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <main>
         <h2>Über uns</h2>
         </main>
-        <footer>
-            <p><a href="impressum.php">Impressum</a></p>
-            <p>© 2026 Pflanzenblog </p>
-        </footer>
+        <?php include 'footer.php'; ?>
     </div>
     </body>
 </html>

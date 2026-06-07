@@ -72,6 +72,9 @@ node_modules/
 # ignore local environment files containing secrets
 .env
 /_site
+/bilder/*
+!/bilder/.gitignore
+!/bilder/.htaccess
 
 # ignore OS generated files
 ehthumbs.db

@@ -1,26 +1,44 @@
 <?php
+session_start();
 require_once 'db.php';
+require_once 'funktionen.php';
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
+if (isset($_SESSION['benutzer_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+$meldung = '';
+$meldung_type = 'error';
+$benutzername = '';
+
 if (isset($_POST['registrieren'])) {
-    $benutzername = $_POST['benutzername'];
-    $passwort_raw = $_POST['passwort'];
+    $benutzername = trim($_POST['benutzername'] ?? '');
+    $passwort_raw = $_POST['passwort'] ?? '';
 
-    $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
+    if ($benutzername === '' || $passwort_raw === '') {
+        $meldung = 'Bitte einen Benutzernamen und ein Passwort eingeben.';
+    } elseif (strlen($passwort_raw) < 6) {
+        $meldung = 'Das Passwort muss mindestens 6 Zeichen lang sein.';
+    } else {
+        $passwort_hash = password_hash($passwort_raw, PASSWORD_DEFAULT);
 
-    $anweisung = $datenbankverbindung->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
-    $anweisung->bind_param('ss', $benutzername, $passwort_hash);
+        $anweisung = $datenbankverbindung->prepare("INSERT INTO benutzer (benutzername, passwort) VALUES (?, ?)");
+        $anweisung->bind_param('ss', $benutzername, $passwort_hash);
 
-    try {
-        $anweisung->execute();
-        echo "Registrierung erfolgreich <a href='login.php'>Hier einloggen</a>";
-    } catch (mysqli_sql_exception $e) {
-        if ($e->getCode() == 1062) {
-            echo "Fehler: Dieser Benutzername ist bereits vergeben.";
-        } else {
-            echo "Ein Fehler ist aufgetreten: " . $e->getMessage();
+        try {
+            $anweisung->execute();
+            $meldung_type = 'success';
+            $meldung = 'Registrierung erfolgreich. <a href="login.php">Hier einloggen</a>';
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() == 1062) {
+                $meldung = 'Fehler: Dieser Benutzername ist bereits vergeben.';
+            } else {
+                $meldung = 'Ein Fehler ist aufgetreten: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+            }
         }
     }
 }
@@ -30,6 +48,7 @@ if (isset($_POST['registrieren'])) {
 <html lang="de">
     <head>
         <meta charset="UTF-8">
+        <meta name="description" content="Erstelle einen Account im Pflanzenblog und teile deine Gartenbeiträge und Kommentare mit anderen Pflanzenfreunden.">
         <title>Registrieren - Pflanzenblog</title>
         <link rel="stylesheet" href="stylesheet.css">
     </head>
@@ -40,10 +59,15 @@ if (isset($_POST['registrieren'])) {
 
             <main>
                 <h2>Neuen Account erstellen</h2>
+                <?php if ($meldung !== ''): ?>
+                    <p class="message <?php echo $meldung_type; ?>">
+                        <?php echo $meldung_type === 'success' ? $meldung : htmlspecialchars($meldung, ENT_QUOTES, 'UTF-8'); ?>
+                    </p>
+                <?php endif; ?>
                 <form action="registrieren.php" method="POST">
                     <div class="input-group">
                         <label>Benutzername:</label>
-                        <input type="text" name="benutzername" required>
+                        <input type="text" name="benutzername" required value="<?php echo htmlspecialchars($benutzername, ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
 
                     <div class="input-group">
@@ -54,10 +78,7 @@ if (isset($_POST['registrieren'])) {
                 </form>
                 <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
             </main>
-            <footer>
-                <p><a href="#">Impressum</a></p>
-                <p>© 2026 Pflanzenblog </p>
-            </footer>
+            <?php include 'footer.php'; ?>
         </div>
     </body>
 </html>
