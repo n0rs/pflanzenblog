@@ -1,7 +1,0 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine Off
-</IfModule>
-
-<FilesMatch "\.(php|phtml|php[34578]?|cgi|pl|asp|aspx|jsp|sh)$">
-    Require all denied
-</FilesMatch>
