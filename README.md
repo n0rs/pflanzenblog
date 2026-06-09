@@ -1,5 +1,3 @@
-# Pflanzenshop WebDev
-## Datenbank setup
 CREATE TABLE IF NOT EXISTS benutzer (
     id INT AUTO_INCREMENT PRIMARY KEY,
     benutzername VARCHAR(100) NOT NULL UNIQUE,
@@ -26,4 +24,17 @@ CREATE TABLE IF NOT EXISTS kommentare (
     datum DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (beitrag_id) REFERENCES beitraege(id) ON DELETE CASCADE,
     FOREIGN KEY (benutzer_id) REFERENCES benutzer(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pflanzen (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    beitrag_id INT NOT NULL UNIQUE,
+    botanischer_name VARCHAR(255) DEFAULT NULL,
+    standort VARCHAR(100) DEFAULT NULL,
+    bewasserung ENUM('wenig', 'mittel', 'viel') NOT NULL DEFAULT 'mittel',
+    lichtmenge ENUM('wenig', 'mittel', 'viel') NOT NULL DEFAULT 'mittel',
+    winterhart VARCHAR(50) DEFAULT NULL,
+    schwierigkeitsgrad ENUM('einfach', 'mittel', 'anspruchsvoll') DEFAULT NULL,
+    pflegehinweise TEXT DEFAULT NULL,
+    FOREIGN KEY (beitrag_id) REFERENCES beitraege(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

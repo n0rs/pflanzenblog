@@ -17,6 +17,29 @@
         </div>
     <?php endif; ?>
     <p><?php echo nl2br(e($beitrag['inhalt'])); ?></p>
+    <?php if (!empty($beitrag['botanischer_name']) || !empty($beitrag['standort']) || !empty($beitrag['bewasserung']) || !empty($beitrag['lichtmenge']) || !empty($beitrag['winterhart']) || !empty($beitrag['schwierigkeitsgrad'])): ?>
+        <div class="pflanzen-details">
+            <h3>Pflanzen-Details</h3>
+            <?php if (!empty($beitrag['botanischer_name'])): ?>
+                <p><strong>Botanischer Name:</strong> <?php echo e($beitrag['botanischer_name']); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($beitrag['standort'])): ?>
+                <p><strong>Standort:</strong> <?php echo e($beitrag['standort']); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($beitrag['bewasserung'])): ?>
+                <p><strong>Bewässerung:</strong> <?php echo e(ucfirst($beitrag['bewasserung'])); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($beitrag['lichtmenge'])): ?>
+                <p><strong>Lichtmenge:</strong> <?php echo e(ucfirst($beitrag['lichtmenge'])); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($beitrag['winterhart'])): ?>
+                <p><strong>Winterhart:</strong> <?php echo e($beitrag['winterhart']); ?></p>
+            <?php endif; ?>
+            <?php if (!empty($beitrag['schwierigkeitsgrad'])): ?>
+                <p><strong>Schwierigkeitsgrad:</strong> <?php echo e(ucfirst($beitrag['schwierigkeitsgrad'])); ?></p>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
     <div class="metadaten">
         <small>Veröffentlicht am: <?php echo formatDate($beitrag['datum']); ?></small><br>
         <small>Autor: <strong><?php echo e(isset($beitrag['benutzer_benutzername']) ? $beitrag['benutzer_benutzername'] : 'Gast'); ?></strong></small>

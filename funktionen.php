@@ -2,7 +2,16 @@
 
 function holeBeitrag(mysqli $datenbankverbindung, int $id)
 {
-    $anweisung = $datenbankverbindung->prepare("SELECT * FROM beitraege WHERE id = ?");
+    $anweisung = $datenbankverbindung->prepare(
+        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername,
+                pflanzen.botanischer_name, pflanzen.standort, pflanzen.bewasserung,
+                pflanzen.lichtmenge, pflanzen.winterhart, pflanzen.schwierigkeitsgrad,
+                pflanzen.pflegehinweise
+         FROM beitraege
+         LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
+         LEFT JOIN pflanzen ON beitraege.id = pflanzen.beitrag_id
+         WHERE beitraege.id = ?"
+    );
     $anweisung->bind_param('i', $id);
     $anweisung->execute();
     $ergebnis = $anweisung->get_result();
@@ -12,9 +21,13 @@ function holeBeitrag(mysqli $datenbankverbindung, int $id)
 function holeAlleBeitraege(mysqli $datenbankverbindung): array
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
+        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername,
+                pflanzen.botanischer_name, pflanzen.standort, pflanzen.bewasserung,
+                pflanzen.lichtmenge, pflanzen.winterhart, pflanzen.schwierigkeitsgrad,
+                pflanzen.pflegehinweise
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
+         LEFT JOIN pflanzen ON beitraege.id = pflanzen.beitrag_id
          ORDER BY beitraege.datum DESC"
     );
     $anweisung->execute();
