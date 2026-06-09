@@ -6,6 +6,7 @@ require_once 'funktionen.php';
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
+// Nur eingeloggte Benutzer dürfen neue Beiträge anlegen
 pruefeEingeloggt($sicherheitsstufe);
 
 
@@ -33,17 +34,21 @@ if (isset($_POST['submit_post'])) {
     if ($titel === '' || $inhalt === '' || $bewasserung === '' || $lichtmenge === '') {
         $meldung = 'Bitte geben Sie Titel, Inhalt, Bewässerung und Lichtmenge ein.';
     } else {
+        // Bild hochladen, wenn eines ausgewählt wurde
         $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
         if (isset($_FILES['beitrag_bild']) && $_FILES['beitrag_bild']['error'] !== UPLOAD_ERR_NO_FILE && $bild_dateiname === null) {
             $meldung = 'Ungültiges Bildformat. Bitte JPG, PNG oder GIF verwenden.';
         } else {
+            // Transaktion verwenden, damit Beitrag und zugehörige Pflanzeninfos konsistent gespeichert werden
             $datenbankverbindung->begin_transaction();
             try {
+                // Beitragstext in die Tabelle beitraege einfügen
                 $anweisung = $datenbankverbindung->prepare("INSERT INTO beitraege(titel, inhalt, benutzer_id, bild) VALUES (?,?,?,?)");
                 $anweisung->bind_param('ssis', $titel, $inhalt, $benutzer_id, $bild_dateiname);
                 $anweisung->execute();
 
+                // ID des neu erstellten Beitrags für die zugehörige Pflanzeninformation verwenden
                 $beitrag_id = $datenbankverbindung->insert_id;
                 $pflanzenAnweisung = $datenbankverbindung->prepare(
                     "INSERT INTO pflanzen (beitrag_id, botanischer_name, standort, bewasserung, lichtmenge, winterhart, schwierigkeitsgrad)

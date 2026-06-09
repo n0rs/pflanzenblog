@@ -1,5 +1,6 @@
 <?php
 
+// Funktion zum Abrufen eines einzelnen Beitrags inklusive Autor- und Pflanzeninformationen
 function holeBeitrag(mysqli $datenbankverbindung, int $id)
 {
     $anweisung = $datenbankverbindung->prepare(
@@ -18,6 +19,7 @@ function holeBeitrag(mysqli $datenbankverbindung, int $id)
     return $ergebnis->fetch_assoc();
 }
 
+// Funktion zum Laden aller Beiträge mit zusätzlichen Informationen zum Autor und zur Pflanze
 function holeAlleBeitraege(mysqli $datenbankverbindung): array
 {
     $anweisung = $datenbankverbindung->prepare(
@@ -35,6 +37,8 @@ function holeAlleBeitraege(mysqli $datenbankverbindung): array
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
 
+// Diese Funktion leitet nicht eingeloggte Benutzer zurück zur Startseite
+// Dadurch sind bestimmte Seiten nur für angemeldete Nutzer zugänglich
 function pruefeEingeloggt($sicherheitsstufe)
 {
     if ($sicherheitsstufe <= 0) {
@@ -43,6 +47,7 @@ function pruefeEingeloggt($sicherheitsstufe)
     }
 }
 
+// Sicheres HTML-Encoding von Ausgabetexten
 function e($text)
 {
     return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
@@ -54,10 +59,12 @@ function formatDate(string $datum): string
         $date = new DateTimeImmutable($datum);
         return $date->format('d.m.Y H:i');
     } catch (Exception $e) {
+        // Falls das Datum nicht geparst werden kann, geben wir den ursprünglichen String sicher aus
         return htmlspecialchars($datum, ENT_QUOTES, 'UTF-8');
     }
 }
 
+// Prüft, ob der aktuelle Benutzer den Beitrag bearbeiten darf
 function istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)
 {
     if (!$beitrag) {
@@ -69,6 +76,7 @@ function istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)
     return $beitrag['benutzer_id'] == $aktueller_benutzer_id;
 }
 
+// Prüft das hochgeladene Bild und speichert es unter einem eindeutigen Dateinamen
 function uploadBild($datei_input)
 {
     if (!isset($datei_input) || $datei_input['error'] !== UPLOAD_ERR_OK) {
@@ -82,6 +90,7 @@ function uploadBild($datei_input)
     $erweiterung = strtolower(end($fragmente));
 
     if (!in_array($erweiterung, $erlaubteErweiterungen, true)) {
+        // Ungültige Dateiendung: Datei wird nicht akzeptiert
         return null;
     }
 
@@ -95,9 +104,11 @@ function uploadBild($datei_input)
     ];
 
     if (!isset($erlaubteMimeTypes[$erweiterung]) || $mimeType !== $erlaubteMimeTypes[$erweiterung]) {
+        // Mime-Type stimmt nicht mit der Dateiendung überein
         return null;
     }
 
+    // Eindeutigen Dateinamen erzeugen, um Kollisionen zu vermeiden
     $neuer_bildname = time() . '_' . rand(1000000, 9999999) . '.' . $erweiterung;
 
     if (move_uploaded_file($datei_tmp, __DIR__ . '/bilder/' . $neuer_bildname)) {
@@ -107,12 +118,14 @@ function uploadBild($datei_input)
     return null;
 }
 
+// Prüft, ob die Kommentar-Tabelle in der Datenbank existiert
 function kommentareTabelleExistiert(mysqli $datenbankverbindung): bool
 {
     $ergebnis = $datenbankverbindung->query("SHOW TABLES LIKE 'kommentare'");
     return $ergebnis && $ergebnis->num_rows > 0;
 }
 
+// Lädt alle Kommentare für einen bestimmten Beitrag, sortiert nach Datum absteigend
 function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
 {
     $anweisung = $datenbankverbindung->prepare(

@@ -4,6 +4,7 @@ require_once 'db.php';
 require_once 'funktionen.php';
 /** @var mysqli $datenbankverbindung */
 
+// Wenn bereits eingeloggt, zurück zur Startseite
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
 if (isset($_SESSION['benutzer_id'])) {
@@ -18,15 +19,18 @@ if(isset($_POST['anmelden'])) {
     $benutzername = trim($_POST['benutzername'] ?? '');
     $passwort = $_POST['passwort'] ?? '';
 
+    // Überprüfung, ob Benutzername und Passwort eingegeben wurden
     if ($benutzername === '' || $passwort === '') {
         $meldung = 'Bitte Benutzername und Passwort eingeben.';
     } else {
+        // Benutzername in der Datenbank suchen
         $anweisung = $datenbankverbindung->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
         $anweisung->bind_param('s', $benutzername);
         $anweisung->execute();
 
         $benutzer = $anweisung->get_result()->fetch_assoc();
 
+        // Passwort-Hash prüfen und Sitzung setzen
         if ($benutzer && password_verify($passwort, $benutzer['passwort'])) {
             $_SESSION['benutzer_id'] = $benutzer['id'];
             $_SESSION['sicherheitsstufe'] = $benutzer['sicherheitsstufe'];
