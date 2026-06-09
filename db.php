@@ -4,6 +4,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+// Lädt Datenbankzugangsdaten aus einer lokalen .env-Datei
 function credentialsLaden(string $pfad): array
 {
     if (!is_file($pfad) || !is_readable($pfad)) {
@@ -49,6 +50,7 @@ function erhalteDbKonfig(): array
 
 function pruefeDbKonfig(array $konfiguration): void
 {
+    // Sicherstellen, dass alle notwendigen Datenbankkonfigurationswerte vorhanden sind
     $erforderlicheSchlussel = ['DB_HOST', 'DB_NAME', 'DB_USER'];
 
     foreach ($erforderlicheSchlussel as $schluessel) {

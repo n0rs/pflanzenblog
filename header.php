@@ -1,5 +1,10 @@
-<header>
-    <h1>🌿 Mein Pflanzenblog</h1>
+<header class="site-header">
+    <div class="header-brand">
+        <h1>🌿 Pflanzenblog</h1>
+        <?php if ($sicherheitsstufe >= 1): ?>
+            <p class="user-status">Eingeloggt als <?php echo htmlspecialchars($_SESSION['benutzername'] ?? 'Gast', ENT_QUOTES, 'UTF-8'); ?></p>
+        <?php endif; ?>
+    </div>
     <nav>
         <a href="index.php">Übersicht</a>
         <?php if ($sicherheitsstufe >= 1): ?>
