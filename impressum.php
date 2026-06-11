@@ -16,12 +16,12 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <div class="impressum-container">
+        <div class="container">
 
             <?php include 'header.php'; ?>
 
             <main>
-                <div class = "impressum-container1">
+                <div class = "container">
                     <h2>Impressum</h2>
                     <h3>Angaben gemäß §5 DDG</h3>
                     <p>Rheinische Hochschule Köln gGmbH </p>
@@ -30,8 +30,6 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                         <br>
                         50676 Köln
                     </p>
-                </div>
-                <div class="impressum-container2">
                     <h3>Kontakt:</h3>
                     <p>
                         Telefon: +49 221 20302-0

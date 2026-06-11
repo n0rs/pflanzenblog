@@ -9,8 +9,9 @@
     <?php // Beitragstitel und Bearbeiten/Löschen nur für berechtigte Benutzer anzeigen ?>
     <h2><?php echo e($beitrag['titel']); ?></h2>
     <?php if (istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
-        <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>">Bearbeiten</a>
-        <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>">Löschen</a>
+        <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>"><img src="icons/pencil.svg" alt="Bearbeiten" class="icon"></a>
+        <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
+           onclick="return confirm('Beitrag \'<?php echo e($beitrag['titel']); ?>\' unwiderruflich löschen?');"><img src="icons/trash.svg" alt="Löschen" class="icon"></a>
     <?php endif; ?>
     <?php if (!empty($beitrag['bild'])): ?>
         <?php // Zeigt ein Beitragsbild an, falls eines hochgeladen wurde ?>
@@ -61,6 +62,10 @@
                     <div class="comment">
                         <p><?php echo nl2br(e($kommentar['inhalt'])); ?></p>
                         <small>Von <strong><?php echo e(isset($kommentar['benutzername']) ? $kommentar['benutzername'] : 'Gast'); ?></strong> am <?php echo formatDate($kommentar['datum']); ?></small>
+                        <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
+                            <a href="kommentar_loeschen.php?id=<?php echo $kommentar['id']; ?>"
+                               onclick="return confirm('Kommentar wirklich löschen?');"><img src="icons/trash.svg" alt="Löschen" class="icon"></a>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -72,7 +77,10 @@
                 <form action="kommentar_erstellen.php?beitrag_id=<?php echo $beitrag['id']; ?>" method="POST" class="comment-form">
                     <label for="kommentar_<?php echo $beitrag['id']; ?>">Kommentar hinzufügen</label>
                     <textarea id="kommentar_<?php echo $beitrag['id']; ?>" name="inhalt" required></textarea>
-                    <button type="submit" name="kommentar_submit">Kommentar senden</button>
+                    <button type="submit" name="kommentar_submit">
+                        <img src="icons/send.svg" alt="Senden" class="icon-button">
+                        <span class="text-button">Kommentieren</span>
+                    </button>
                 </form>
             <?php else: ?>
                 <p><a href="login.php">Einloggen</a>, um zu kommentieren.</p>
