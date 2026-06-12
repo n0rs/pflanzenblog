@@ -37,7 +37,7 @@ if (isset($_POST['submit_post'])) {
         $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
         if (isset($_FILES['beitrag_bild']) && $_FILES['beitrag_bild']['error'] !== UPLOAD_ERR_NO_FILE && $bild_dateiname === null) {
-            $meldung = 'Ungültiges Bildformat. Bitte JPG, PNG oder GIF verwenden.';
+            $message ="Ungültiges Dateiformat. JPG, PNG und GIF erlaubt.";
         } else {
             try {
                 $anweisung = $datenbankverbindung->prepare(
@@ -60,6 +60,7 @@ if (isset($_POST['submit_post'])) {
                 );
 
                 if ($anweisung->execute()) {
+                    sendeToast("Beitrag erstellt");
                     header("Location: index.php");
                     exit;
                 } else {
@@ -114,7 +115,7 @@ if (isset($_POST['submit_post'])) {
                     </label>
                 </div>
 
-                <details class="ausklappen-box">
+                <details class="ausklappen-box plus">
                     <summary> Details</summary>
 
                     <div class="ausklappen-inhalt">

@@ -32,6 +32,7 @@ $loeschAnweisung->bind_param('i', $kommentar_id);
 $loeschAnweisung->execute();
 
 //zurück auf die startseite
+sendeToast("Kommentar gelöscht");
 header("Location: index.php#post-$beitrag_kommentar");
 exit;
 

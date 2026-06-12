@@ -36,6 +36,7 @@ $loeschAnweisung->bind_param('i', $beitrag_id);
 $loeschAnweisung->execute();
 
 //zurück auf die startseite
+sendeToast("Beitrag gelöscht");
 header("Location: index.php");
 exit;
 
