@@ -76,6 +76,16 @@ function istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)
     return $beitrag['benutzer_id'] == $aktueller_benutzer_id;
 }
 
+function istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe) {
+    if (!$kommentar) {
+        return false;
+    }
+    if($sicherheitsstufe == 2) {
+        return true;
+    }
+    return $kommentar['benutzer_id'] == $aktueller_benutzer_id;
+}
+
 // Prüft das hochgeladene Bild und speichert es unter einem eindeutigen Dateinamen
 function uploadBild($datei_input)
 {
@@ -129,7 +139,7 @@ function kommentareTabelleExistiert(mysqli $datenbankverbindung): bool
 function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT kommentare.inhalt, kommentare.datum, benutzer.benutzername
+        "SELECT kommentare.inhalt, kommentare.datum, kommentare.id, kommentare.benutzer_id, benutzer.benutzername
          FROM kommentare
          LEFT JOIN benutzer ON kommentare.benutzer_id = benutzer.id
          WHERE kommentare.beitrag_id = ?
@@ -140,5 +150,4 @@ function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
     $ergebnis = $anweisung->get_result();
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
-
 ?>

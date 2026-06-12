@@ -87,20 +87,20 @@ if (isset($_POST['submit_post'])) {
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-<div class="beitrag-erstellen-container">
+<div class="container">
 
     <?php include 'header.php'; ?>
 
     <main>
         <h2>Beitrag erstellen</h2>
         <?php if ($meldung !== ''): ?>
-            <p class="message error"><?php echo htmlspecialchars($meldung, ENT_QUOTES, 'UTF-8'); ?></p>
+            <p class="message error"><?php echo e($meldung, ENT_QUOTES, 'UTF-8'); ?></p>
         <?php endif; ?>
         <form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
             <div class="zeile">
                 <div>
                     <label for="titel">Titel:</label>
-                    <input type="text" name="titel" id="titel" placeholder="Titel" value="<?php echo htmlspecialchars($titel, ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="text" name="titel" id="titel" placeholder="Titel" value="<?php echo e($titel, ENT_QUOTES, 'UTF-8'); ?>">
                 </div>
                 <div>
                     <label for="botanischer_name">Botanischer Name (optional):</label>
@@ -140,7 +140,7 @@ if (isset($_POST['submit_post'])) {
                 </div>
                 <div>
                     <label for ="inhalt">Inhalt:</label>
-                    <textarea name="inhalt" id="inhalt" placeholder="Inhalt"><?php echo htmlspecialchars($inhalt, ENT_QUOTES, 'UTF-8'); ?></textarea>
+                    <textarea name="inhalt" id="inhalt" placeholder="Inhalt"><?php echo e($inhalt, ENT_QUOTES, 'UTF-8'); ?></textarea>
                 </div>
                 <div class="bild-hochladen">
                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">

@@ -16,7 +16,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-    <div class="ueber-uns-container">
+    <div class="container">
 
         <?php include 'header.php'; ?>
 

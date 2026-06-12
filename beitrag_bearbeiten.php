@@ -70,7 +70,7 @@ if (isset($_POST['edit_speichern'])) {
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-<div class="beitrag-erstellen-container">
+<div class="container">
 
     <?php include 'header.php'; ?>
 

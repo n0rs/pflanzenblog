@@ -37,9 +37,8 @@ $beitraege = holeAlleBeitraege($datenbankverbindung);
             <?php include 'header.php'; ?>
 
             <main>
-                <p>Hallo <?php echo($aktueller_benutzername);?>!</p>
                 <?php if (!empty($message)): ?>
-                    <p class="message <?php echo e($messageType); ?>"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="message <?php echo e($messageType); ?>"><?php echo e($message); ?></p>
                 <?php endif; ?>
                 <div class="blog-container">
                     <?php foreach ($beitraege as $beitrag): ?>
