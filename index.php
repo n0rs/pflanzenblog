@@ -4,6 +4,10 @@ require_once 'db.php';
 require_once 'funktionen.php';
 /** @var mysqli $datenbankverbindung */
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Sicherheitsstufe und Benutzerinfos aus der Session laden
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;

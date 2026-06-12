@@ -4,13 +4,9 @@
 function holeBeitrag(mysqli $datenbankverbindung, int $id)
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername,
-                pflanzen.botanischer_name, pflanzen.standort, pflanzen.bewasserung,
-                pflanzen.lichtmenge, pflanzen.winterhart, pflanzen.schwierigkeitsgrad,
-                pflanzen.pflegehinweise
+        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
-         LEFT JOIN pflanzen ON beitraege.id = pflanzen.beitrag_id
          WHERE beitraege.id = ?"
     );
     $anweisung->bind_param('i', $id);
@@ -23,13 +19,9 @@ function holeBeitrag(mysqli $datenbankverbindung, int $id)
 function holeAlleBeitraege(mysqli $datenbankverbindung): array
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername,
-                pflanzen.botanischer_name, pflanzen.standort, pflanzen.bewasserung,
-                pflanzen.lichtmenge, pflanzen.winterhart, pflanzen.schwierigkeitsgrad,
-                pflanzen.pflegehinweise
+        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
-         LEFT JOIN pflanzen ON beitraege.id = pflanzen.beitrag_id
          ORDER BY beitraege.datum DESC"
     );
     $anweisung->execute();
@@ -150,4 +142,43 @@ function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
     $ergebnis = $anweisung->get_result();
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
+
+function zeigePflanzenDetails(array $beitrag): void
+{
+    if (!empty($beitrag['botanischer_name']) || !empty($beitrag['standort']) ||
+        !empty($beitrag['bewasserung']) || !empty($beitrag['lichtmenge']) ||
+        !empty($beitrag['winterhart']) || !empty($beitrag['schwierigkeitsgrad'])):
+
+        ?>
+        <div class="pflanzen-details">
+            <h3>Pflanzen-Details</h3>
+
+            <?php if (!empty($beitrag['botanischer_name'])): ?>
+                <p><strong>Botanischer Name:</strong> <?php echo e($beitrag['botanischer_name']); ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($beitrag['standort'])): ?>
+                <p><strong>Standort:</strong> <?php echo e($beitrag['standort']); ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($beitrag['bewasserung'])): ?>
+                <p><strong>Bewässerung:</strong> <?php echo e(ucfirst($beitrag['bewasserung'])); ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($beitrag['lichtmenge'])): ?>
+                <p><strong>Lichtmenge:</strong> <?php echo e(ucfirst($beitrag['lichtmenge'])); ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($beitrag['winterhart'])): ?>
+                <p><strong>Winterhart:</strong> <?php echo e($beitrag['winterhart']); ?></p>
+            <?php endif; ?>
+
+            <?php if (!empty($beitrag['schwierigkeitsgrad'])): ?>
+                <p><strong>Schwierigkeitsgrad:</strong> <?php echo e(ucfirst($beitrag['schwierigkeitsgrad'])); ?></p>
+            <?php endif; ?>
+        </div>
+    <?php
+    endif;
+}
 ?>
+

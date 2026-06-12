@@ -1,40 +1,33 @@
-CREATE TABLE IF NOT EXISTS benutzer (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    benutzername VARCHAR(100) NOT NULL UNIQUE,
-    passwort VARCHAR(255) NOT NULL,
-    sicherheitsstufe TINYINT NOT NULL DEFAULT 1,
-    erstellt_am DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `beitraege` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titel` varchar(266) NOT NULL,
+  `inhalt` text NOT NULL,
+  `bild` varchar(255) DEFAULT NULL,
+  `botanischer_name` varchar(255) DEFAULT NULL,
+  `standort` varchar(255) DEFAULT NULL,
+  `bewasserung` varchar(50) DEFAULT NULL,
+  `lichtmenge` varchar(50) DEFAULT NULL,
+  `winterhart` varchar(255) DEFAULT NULL,
+  `schwierigkeitsgrad` varchar(50) DEFAULT NULL,
+  `datum` timestamp NOT NULL DEFAULT current_timestamp(),
+  `benutzer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS beitraege (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    benutzer_id INT NOT NULL,
-    titel VARCHAR(255) NOT NULL,
-    inhalt TEXT NOT NULL,
-    bild VARCHAR(255) DEFAULT NULL,
-    datum DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (benutzer_id) REFERENCES benutzer(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `benutzer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `benutzername` varchar(255) NOT NULL,
+  `passwort` varchar(255) NOT NULL,
+  `sicherheitsstufe` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `benutzername` (`benutzername`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS kommentare (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    beitrag_id INT NOT NULL,
-    benutzer_id INT NOT NULL,
-    inhalt TEXT NOT NULL,
-    datum DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (beitrag_id) REFERENCES beitraege(id) ON DELETE CASCADE,
-    FOREIGN KEY (benutzer_id) REFERENCES benutzer(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS pflanzen (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    beitrag_id INT NOT NULL UNIQUE,
-    botanischer_name VARCHAR(255) DEFAULT NULL,
-    standort VARCHAR(100) DEFAULT NULL,
-    bewasserung ENUM('wenig', 'mittel', 'viel') NOT NULL DEFAULT 'mittel',
-    lichtmenge ENUM('wenig', 'mittel', 'viel') NOT NULL DEFAULT 'mittel',
-    winterhart VARCHAR(50) DEFAULT NULL,
-    schwierigkeitsgrad ENUM('einfach', 'mittel', 'anspruchsvoll') DEFAULT NULL,
-    pflegehinweise TEXT DEFAULT NULL,
-    FOREIGN KEY (beitrag_id) REFERENCES beitraege(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `kommentare` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `benutzer_id` int(11) NOT NULL,
+  `inhalt` text NOT NULL,
+  `datum` timestamp NOT NULL DEFAULT current_timestamp(),
+  `beitrag_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
