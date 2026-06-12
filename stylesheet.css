@@ -242,6 +242,76 @@ footer a:hover {
     filter: invert(1) brightness(2);
 }
 
+.ausklappen-box {
+    background-color: #ffffff;
+    border: 1px solid #c5e1a5;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.ausklappen-box:hover {
+    background-color: #f1f8e9 ;
+}
+
+.ausklappen-box summary {
+    font-weight: bold;
+    color: #2e7d32;
+    cursor: pointer;
+}
+
+.ausklappen-inhalt {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.bild-hochladen {
+    margin: 15px 0;
+}
+
+#beitrag_bild {
+    display: none;
+}
+
+.foto-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    max-width: 400px;
+    height: 150px;
+
+    border: 2px dashed #c5e1a5;
+    background-color: #fafafa;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.foto-box:hover {
+    background-color: #f1f8e9;
+    border-color: #2e7d32;
+}
+
+.foto-icon {
+    width: 40px;
+    height: 40px;
+    opacity: 0.6;
+}
+
+.foto-box span {
+    font-size: 14px;
+    color: #666;
+}
+
 /* MEDIA */
 
 @media screen and (max-width: 600px) {
