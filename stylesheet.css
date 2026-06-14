@@ -364,29 +364,18 @@ footer a:hover {
     color: #666;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+#reset-bild {
+    margin-top: 5px;
+    background: #e0e0e0;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 12px;
+    color: #333;
 }
 
-.tooltiptext {
-    visibility: hidden; /* Hidden by default */
-    width: 130px;
-    background-color: black;
-    color: #ffffff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1; /* Ensure tooltip is displayed above content */
-}
 
-/* Show the tooltip text on hover */
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
 /* MEDIA */
 
 @media screen and (max-width: 600px) {

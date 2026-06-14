@@ -113,6 +113,9 @@ if (isset($_POST['submit_post'])) {
                         <img src="icons/camera.svg" alt="Kamera" class="foto-icon">
                         <span id="upload-text">Foto auswählen</span>
                     </label>
+                    <button type="button" id="reset-bild" style="display: none;">
+                        ❌ Auswahl aufheben
+                    </button>
                 </div>
 
                 <details class="ausklappen-box plus">
@@ -177,11 +180,21 @@ if (isset($_POST['submit_post'])) {
 </body>
 
 <script>
-    document.getElementById('beitrag_bild').addEventListener('change', function(event) {
+    const bildInput = document.getElementById('beitrag_bild');
+    const textElement = document.getElementById('upload-text');
+    const resetButton = document.getElementById('reset-bild');
+
+    bildInput.addEventListener('change', function(event) {
         const datei = event.target.files[0];
-        const textElement = document.getElementById('upload-text');
         if (datei) {
             textElement.textContent = "Ausgewählt: " + datei.name;
+            resetButton.style.display = "inline-block";
         }
+    });
+
+    resetButton.addEventListener('click', function() {
+        bildInput.value = "";
+        textElement.textContent = "Foto auswählen";
+        resetButton.style.display = "none";
     });
 </script>
