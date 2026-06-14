@@ -19,10 +19,8 @@ if (!$beitrag) {
     exit;
 }
 
-// Prüfen, ob die Kommentar-Funktion verfügbar ist
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 
-// WICHTIG: Diese Variable teilt der post_card.php mit, dass sie nicht nach 150 Zeichen abschneiden soll
 $detailansicht = true;
 ?>
 
@@ -43,7 +41,7 @@ $detailansicht = true;
     <main>
         <div class="blog-container">
             <div style="margin-bottom: 10px;">
-                <a href="index.php" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
+                <a href="index.php#post-<?php echo($beitrag_id) ?>" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
                     ⬅ Zurück zur Übersicht
                 </a>
             </div>
