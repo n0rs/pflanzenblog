@@ -33,9 +33,9 @@
         <p><?php echo nl2br(e($beitrag['inhalt'])); ?></p>
     <?php else: ?>
         <p>
-            <?php echo nl2br(e(mb_substr($beitrag['inhalt'], 0, 150))) . "..."; ?>
+            <?php echo nl2br(e(mb_substr($beitrag['inhalt'], 0, 300))) . "..."; ?>
             <br>
-            <a href="beitrag_detail.php?id=<?php echo $beitrag['id']; ?>" class="weiterlesen-link" style="color: #2e7d32; font-weight: bold; text-decoration: none;">Weiterlesen ➔</a>
+            <a href="beitrag_detail.php?id=<?php echo $beitrag['id']; ?>" class="weiterlesen-link">Weiterlesen ➔</a>
         </p>
     <?php endif; ?>
 

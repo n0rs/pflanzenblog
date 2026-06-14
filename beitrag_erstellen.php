@@ -169,7 +169,7 @@ if (isset($_POST['submit_post'])) {
                     </div>
                 </details>
 
-                <div style="margin-top: 20px;">
+                <div class="submit-container">
                     <input type="submit" name="submit_post" id="submit_post" value="Beitrag veröffentlichen">
                 </div>
             </div>

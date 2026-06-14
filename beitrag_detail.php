@@ -40,8 +40,8 @@ $detailansicht = true;
 
     <main>
         <div class="blog-container">
-            <div style="margin-bottom: 10px;">
-                <a href="index.php#post-<?php echo($beitrag_id) ?>" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
+            <div class="zurueck-container">
+                <a href="index.php" class="zurueck-link">
                     ⬅ Zurück zur Übersicht
                 </a>
             </div>

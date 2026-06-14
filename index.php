@@ -21,6 +21,19 @@ if (isset($_SESSION['message_type'])) {
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 
 $beitraege = holeAlleBeitraege($datenbankverbindung);
+
+$beitraege_pro_seite = 5;
+
+$aktuelle_seite = isset($_GET['seite']) ? (int)$_GET['seite'] : 1;
+if ($aktuelle_seite < 1) {
+    $aktuelle_seite = 1;
+}
+
+$offset = ($aktuelle_seite - 1) * $beitraege_pro_seite;
+$gesamt_beitraege = zaehleAlleBeitraege($datenbankverbindung);
+$gesamt_seiten = ceil($gesamt_beitraege / $beitraege_pro_seite);
+
+$beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $offset);
 ?>
 
 <html lang="de">
@@ -45,6 +58,25 @@ $beitraege = holeAlleBeitraege($datenbankverbindung);
                         <?php include 'post_card.php'; ?>
                     <?php endforeach; ?>
                 </div>
+
+                <?php if ($gesamt_seiten > 1): ?>
+                    <div class="umblaettern">
+                        <?php if ($aktuelle_seite > 1): ?>
+                            <a href="?seite=<?php echo $aktuelle_seite - 1; ?>" class="btn-umblaettern davor">
+                                ⬅ <span class="btn-text">Neuere Beiträge</span>
+                            </a>
+                        <?php endif; ?>
+
+                        <span class="umblaettern-text"> Seite <?php echo $aktuelle_seite; ?> von <?php echo $gesamt_seiten; ?> </span>
+
+                        <?php if ($aktuelle_seite < $gesamt_seiten): ?>
+                            <a href="?seite=<?php echo $aktuelle_seite + 1; ?>" class="btn-umblaettern danach">
+                                <span class="btn-text">Ältere Beiträge</span> ➔
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
             </main>
             <?php include 'footer.php'; ?>
         </div>

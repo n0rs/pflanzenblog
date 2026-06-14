@@ -227,7 +227,7 @@ if (isset($_POST['submit_update'])) {
                     </div>
                 </details>
 
-                <div style="margin-top: 20px;">
+                <div class="submit-container">
                     <input type="submit" name="submit_update" id="submit_post" value="Änderungen speichern">
                 </div>
             </div>
