@@ -190,5 +190,32 @@ function zeigePflanzenDetails(array $beitrag): void
     <?php
     endif;
 }
+
+// Zählt, wie viele Beiträge insgesamt in der Datenbank existieren
+function zaehleAlleBeitraege(mysqli $datenbankverbindung): int
+{
+    $ergebnis = $datenbankverbindung->query("SELECT COUNT(*) AS anzahl FROM beitraege");
+    if ($ergebnis) {
+        $reihe = $ergebnis->fetch_assoc();
+        return (int)$reihe['anzahl'];
+    }
+    return 0;
+}
+
+// Lädt nur eine bestimmte Anzahl an Beiträgen (LIMIT) ab einem Startpunkt (OFFSET)
+function holeBeitraegeProSeite(mysqli $datenbankverbindung, int $limit, int $offset): array
+{
+    $anweisung = $datenbankverbindung->prepare(
+        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
+         FROM beitraege
+         LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
+         ORDER BY beitraege.datum DESC
+         LIMIT ? OFFSET ?"
+    );
+    $anweisung->bind_param('ii', $limit, $offset);
+    $anweisung->execute();
+    $ergebnis = $anweisung->get_result();
+    return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
+}
 ?>
 
