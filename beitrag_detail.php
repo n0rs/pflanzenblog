@@ -13,6 +13,17 @@ $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
+// Wenn die ID nicht in der Datenbank existiert (Beitrag wurde evtl. gelöscht)
+if (!$beitrag) {
+    header("Location: index.php");
+    exit;
+}
+
+// Prüfen, ob die Kommentar-Funktion verfügbar ist
+$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
+
+// WICHTIG: Diese Variable teilt der post_card.php mit, dass sie nicht nach 150 Zeichen abschneiden soll
+$detailansicht = true;
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +31,8 @@ $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Detailansicht eines Beitrags.">
-    <title>Beitrag - Pflanzenblog</title>
+    <meta name="description" content="Detailansicht für: <?php echo e($beitrag['titel']); ?>">
+    <title><?php echo e($beitrag['titel']); ?> - Pflanzenblog</title>
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
@@ -30,36 +41,16 @@ $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
     <?php include 'header.php'; ?>
 
     <main>
-        <div class="post-card">
-            <h2> <span> <a href="index.php#post-<?php echo $beitrag_id ?>"><img src="icons/back.svg" alt="Zurück" class="icon" title="Zurück"></a></span> <?php echo e($beitrag['titel']) ?></h2>
-            <?php if (istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
-              <div class="beitrag-aktionen">
-                 <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>">
-                       <img src="icons/pencil.svg" alt="Bearbeiten" class="icon" title="Bearbeiten">
-                 </a>
-                   <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
-                    onclick="return confirm('Beitrag \'<?php echo e($beitrag['titel']); ?>\' unwiderruflich löschen?');">
-                      <img src="icons/trash.svg" alt="Löschen" class="icon" title="Löschen">
-                  </a>
-             </div>
-            <?php endif; ?>
-            <?php if (!empty($beitrag['bild'])): ?>
-                <div class="post-bild">
-                    <img src="bilder/<?php echo e($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo htmlspecialchars($beitrag['titel'], ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-            <?php endif; ?>
-
-            <p><?php echo nl2br(e($beitrag['inhalt'])); ?></p>
-
-            <?php zeigePflanzenDetails($beitrag); ?>
-
-            <div class="metadaten">
-                    <small>Veröffentlicht am: <?php echo formatDate($beitrag['datum']); ?></small><br>
-                    <small>Autor: <strong><?php echo e(isset($beitrag['benutzer_benutzername']) ? $beitrag['benutzer_benutzername'] : 'Gast'); ?></strong></small>
+        <div class="blog-container">
+            <div style="margin-bottom: 10px;">
+                <a href="index.php" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
+                    ⬅ Zurück zur Übersicht
+                </a>
             </div>
 
-            <?php include 'kommentarbereich.php'; ?>
-
+            <?php
+            include 'post_card.php';
+            ?>
         </div>
 
     </main>
@@ -68,4 +59,3 @@ $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 </div>
 </body>
 </html>
-
