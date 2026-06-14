@@ -35,8 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $anweisung->bind_param('iis', $beitrag_id, $aktueller_benutzer_id, $inhalt);
     $anweisung->execute();
 
-    $_SESSION['message'] = 'Kommentar wurde hinzugefügt.';
-    $_SESSION['message_type'] = 'success';
+    sendeToast("Kommentar erstellt");
     header("Location: index.php#post-$beitrag_id");
     exit;
 }

@@ -31,6 +31,7 @@ main {
 
 /* HEADER & NAVIGATION*/
 header {
+    position: relative;
     background: #2e7d32;
     color: white;
     padding: 1.5rem 2rem;
@@ -42,9 +43,16 @@ header {
 }
 
 .user-status {
+    position: absolute;
     margin: 0;
     font-size: 0.85rem;
     opacity: 0.9;
+    right: 15px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    bottom:0.5rem;
 }
 
 nav {
@@ -80,6 +88,7 @@ nav a:hover {
     border-radius: 8px;
     border: 1px solid #e0e8e0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    position: relative;
 }
 
 .post-card h2 {
@@ -103,17 +112,12 @@ nav a:hover {
     margin-bottom: 1rem;
 }
 
-/* Bearbeiten/Löschen Links bei Beiträgen */
-.post-card > a {
-    display: inline-block;
-    margin-right: 15px;
-    color: #2e7d32;
-    font-size: 0.9rem;
-    text-decoration: none;
-    font-weight: bold;
-}
-.post-card > a:hover {
-    text-decoration: underline;
+.beitrag-aktionen {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px; /* Abstand zwischen den beiden Icons */
 }
 
 /*KOMMENTARE*/
@@ -125,10 +129,17 @@ nav a:hover {
 
 .comment {
     background: #f9fbf9;
+    position: relative;
     padding: 15px;
     margin-bottom: 12px;
     border-radius: 6px;
-    border-left: 4px solid #81c784; /* Grüner Akzentstreifen links am Kommentar */
+    border-left: 4px solid #81c784;
+}
+
+.comment img {
+    position:absolute;
+    right: 15px;
+    top: 15px;
 }
 
 .comment p {
@@ -218,12 +229,37 @@ footer a:hover {
     color: #a3dca3;
 }
 
+.toast-box {
+    position: fixed;
+    bottom: 20px;
+    display:none;
+    background-color: darkgrey;
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    align-items: center;
+    gap: 12px;
+    z-index: 9999;
+    font-weight: 500;
+    font-family: sans-serif;
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Schicker "Bounce"-Effekt */
+}
+
+.toast-box.show {
+    display: block;
+    right: 20px;
+}
+
 /* ICONS */
 
 .icon {
     width: 20px;
     height: 20px;
     vertical-align: middle;
+}
+
+.stay {
+    filter: invert(1) brightness(2);
 }
 
 .icon-header {
@@ -259,6 +295,22 @@ footer a:hover {
     font-weight: bold;
     color: #2e7d32;
     cursor: pointer;
+}
+
+.plus.ausklappen-box summary {
+    list-style: none;
+}
+
+.plus.ausklappen-box summary::before {
+    content: "+ ";
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.plus.ausklappen-box[open] summary::before {
+    content: "- ";
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .ausklappen-inhalt {
@@ -312,6 +364,29 @@ footer a:hover {
     color: #666;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    cursor: pointer;
+}
+
+.tooltiptext {
+    visibility: hidden; /* Hidden by default */
+    width: 130px;
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1; /* Ensure tooltip is displayed above content */
+}
+
+/* Show the tooltip text on hover */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
 /* MEDIA */
 
 @media screen and (max-width: 600px) {

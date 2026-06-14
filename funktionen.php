@@ -143,6 +143,16 @@ function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
 
+function sendeToast(string $nachricht): void
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    $_SESSION['toast_nachricht'] = $nachricht;
+}
+
+
 function zeigePflanzenDetails(array $beitrag): void
 {
     if (!empty($beitrag['botanischer_name']) || !empty($beitrag['standort']) ||

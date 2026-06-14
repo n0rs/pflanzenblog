@@ -53,7 +53,7 @@ if (isset($_POST['registrieren'])) {
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <div class="registrieren-container">
+        <div class="container">
 
             <?php include 'header.php'; ?>
 

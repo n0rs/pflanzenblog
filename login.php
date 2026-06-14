@@ -54,7 +54,7 @@ if(isset($_POST['anmelden'])) {
     <link rel="stylesheet" href="stylesheet.css">
 </head>
     <body>
-        <div class="login-container">
+        <div class="container">
 
             <?php include 'header.php'; ?>
 
