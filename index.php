@@ -34,6 +34,12 @@ $gesamt_beitraege = zaehleAlleBeitraege($datenbankverbindung);
 $gesamt_seiten = ceil($gesamt_beitraege / $beitraege_pro_seite);
 
 $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $offset);
+
+// --- TOAST TEST START ---
+    if (isset($_GET['seite'])) {
+    sendeToast("Test Toast");
+}
+// --- TOAST TEST ENDE ---
 ?>
 
 <html lang="de">
