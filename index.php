@@ -40,7 +40,7 @@ $beitraege = holeAlleBeitraege($datenbankverbindung);
                 <?php if (!empty($message)): ?>
                     <p class="message <?php echo e($messageType); ?>"><?php echo e($message); ?></p>
                 <?php endif; ?>
-                <div class="blog-container index-ansicht">
+                <div class="blog-container">
                     <?php foreach ($beitraege as $beitrag): ?>
                         <?php include 'post_card.php'; ?>
                     <?php endforeach; ?>

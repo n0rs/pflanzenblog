@@ -405,17 +405,4 @@ footer a:hover {
         width: 16px;
         height: 16px;
     }
-
-    .index-ansicht .pflanzen-details,
-    .index-ansicht .ausklappen-box {
-        display: none;
-    }
-
-    /*Blogbeitraege*/
-    .pflanzendetails-postcard{
-        display: none;
-    }
-    .kommentare-postcard{
-        display: none;
-    }
 }
