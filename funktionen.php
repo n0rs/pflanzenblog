@@ -198,12 +198,24 @@ function zeigeKommentarMitAntworten(
 
         <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
             <div class="comment-aktionen">
-                <a href="kommentar_bearbeiten.php?id=<?php echo (int)$kommentar['id']; ?>">
-                    <img src="icons/pencil.svg" alt="Bearbeiten" class="icon" title="Bearbeiten">
-                </a>
+                <details class="kommentar-edit-details-inline">
+                    <summary title="Bearbeiten">
+                        <img src="icons/pencil.svg" alt="Bearbeiten" class="icon" title="Bearbeiten">
+                    </summary>
+
+                    <form action="kommentar_aktualisieren.php"
+                        method="POST"
+                        class="comment-form kommentar-edit-form-inline">
+                        <input type="hidden" name="kommentar_id" value="<?php echo (int)$kommentar['id']; ?>">
+
+                        <textarea name="inhalt" required><?php echo e($kommentar['inhalt']); ?></textarea>
+
+                        <button type="submit">Speichern</button>
+                    </form>
+                </details>
 
                 <a href="kommentar_loeschen.php?id=<?php echo (int)$kommentar['id']; ?>"
-                   onclick="return confirm('Kommentar wirklich löschen?');">
+                onclick="return confirm('Kommentar wirklich löschen?');">
                     <img src="icons/trash.svg" alt="Löschen" class="icon" title="Löschen">
                 </a>
             </div>
