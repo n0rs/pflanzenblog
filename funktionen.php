@@ -45,22 +45,6 @@ function e($text)
     return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
 }
 
-function assetPath(string $relativePath): string
-{
-    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-
-    if ($scriptName === '') {
-        return ltrim($relativePath, '/');
-    }
-
-    $baseDir = str_replace('\\', '/', dirname($scriptName));
-    if ($baseDir === '/' || $baseDir === '.') {
-        $baseDir = '';
-    }
-
-    return ($baseDir !== '' ? $baseDir : '') . '/' . ltrim($relativePath, '/');
-}
-
 function inlineIcon(string $filename, array $attributes = []): string
 {
     $path = __DIR__ . '/icons/' . $filename;
