@@ -42,7 +42,7 @@ header {
     font-size: 1.8rem;
 }
 
-.user-status {
+.benutzer-status {
     position: absolute;
     margin: 0;
     font-size: 0.85rem;
@@ -82,7 +82,7 @@ nav a:hover {
     margin-top: 1.5rem;
 }
 
-.post-card {
+.beitrags-karte {
     background: #ffffff;
     padding: 2rem;
     border-radius: 8px;
@@ -93,7 +93,7 @@ nav a:hover {
     word-wrap: break-word;
 }
 
-.post-card h2 {
+.beitrags-karte h2 {
     margin-top: 0;
     color: #1b5e20;
 }
@@ -122,14 +122,13 @@ nav a:hover {
 }
 
 /*KOMMENTARE*/
-/*KOMMENTARE*/
 .comments {
     margin-top: 30px;
     border-top: 2px solid #e8f5e9;
     padding-top: 20px;
 }
 
-.comment {
+.kommentar {
     background: #f9fbf9;
     position: relative;
     padding: 15px;
@@ -141,26 +140,31 @@ nav a:hover {
     word-wrap: break-word;
 }
 
-.comment p {
+.kommentar img {
+    position:absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.kommentar p {
     margin: 0 0 8px 0;
 }
 
-.comment small {
+.kommentar small {
     color: #777;
 }
 
-.comment a {
-    color: #d32f2f;
+.kommentar a {
+    color: #d32f2f; /* Rote Farbe für den Kommentar-Löschen-Link */
     font-size: 0.85rem;
     text-decoration: none;
 }
-
-.comment a:hover {
+.kommentar a:hover {
     text-decoration: underline;
 }
 
 /* Bearbeiten/Löschen Icons */
-.comment-aktionen {
+.kommentar-aktionen {
     position: absolute;
     right: 15px;
     top: 15px;
@@ -169,13 +173,13 @@ nav a:hover {
     align-items: center;
 }
 
-.comment-aktionen a {
+.kommentar-aktionen a {
     margin-left: 0;
     display: inline-flex;
     align-items: center;
 }
 
-.comment-aktionen img {
+.kommentar-aktionen img {
     position: static;
     display: block;
 }
@@ -280,11 +284,11 @@ nav a:hover {
     margin-left: 15px;
 }
 /*FORMULARE & BUTTONS*/
-.input-group {
+.eingabe-gruppe {
     margin-bottom: 1.5rem;
 }
 
-.input-group label {
+.eingabe-gruppe label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
@@ -388,7 +392,7 @@ footer a:hover {
     filter: invert(1) brightness(2);
 }
 
-.icon-header {
+.kopfzeilen-icon {
     width: 24px;
     height: 24px;
     vertical-align: middle;
@@ -515,7 +519,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-.submit-container {
+.absenden-container {
     margin-top: 20px;
 }
 
@@ -541,7 +545,7 @@ footer a:hover {
     font-weight: bold;
     color: #2f3e2f;
 }
-.btn-umblaettern {
+.umblaettern-button {
     display: inline-block;
     text-decoration: none;
     padding: 10px 20px;
@@ -551,13 +555,13 @@ footer a:hover {
     font-weight: bold;
     transition: background-color 0.2s;
 }
-.btn-umblaettern:hover {
+.umblaettern-button:hover {
     background: #2e7d32;
 }
-.btn-umblaettern.davor {
+.umblaettern-button.davor {
     margin-right: 15px;
 }
-.btn-umblaettern.danach {
+.umblaettern-button.danach {
     margin-left: 15px;
 }
 
@@ -569,7 +573,7 @@ footer a:hover {
     margin-top: 1.5rem;
 }
 
-.team-card {
+.team-karte {
     display: flex;
     gap: 25px;
     align-items: center;
@@ -594,7 +598,7 @@ footer a:hover {
 }
 
 /* Die zweite Karte spiegelt den Inhalt nach rechts */
-.team-card.rechts-gerichtet {
+.team-karte.rechts-gerichtet {
     flex-direction: row-reverse;
     text-align: right;
 }
@@ -605,10 +609,10 @@ footer a:hover {
     main {
         padding: 1rem;
     }
-    .text-header, .text-button {
+    .kopfzeilen-text, .text-button {
         display: none;
     }
-    .icon-header, .icon-button {
+    .kopfzeilen-icon, .icon-button {
         color: white;
         display: inline-block;
     }
@@ -623,14 +627,9 @@ footer a:hover {
         display: none;
     }
 
-    .btn-text {
-        display: none;
-    }
-
-    .btn.umblaettern {
+    .umblaettern-button {
         padding: 10px 15px;
     }
-
 
     /* BLOGBEITRAEGE */
     .pflanzendetails-postcard{
@@ -640,23 +639,21 @@ footer a:hover {
         display: none;
     }
 
-    /* Macht aus dem Links-Rechts-Layout ein Oben-Unten-Layout */
-    .team-card,
-    .team-card.rechts-gerichtet {
+    .team-karte,
+    .team-karte.rechts-gerichtet {
         flex-direction: column;
         text-align: center;
     }
 
-    /* Ein kleiner Abstand unter dem Bild, damit es auf dem Handy nicht am Text klebt */
     .team-bild {
         margin-bottom: 5px;
     }
 
-    .comment {
+    .kommentar {
         padding-right: 50px;
     }
 
-    .comment-aktionen {
+    .kommentar-aktionen {
         right: 10px;
         top: 10px;
         gap: 6px;

@@ -36,7 +36,7 @@ $detailansicht = true;
 <body>
 <div class="container">
 
-    <?php include 'header.php'; ?>
+    <?php include 'kopfzeile.php'; ?>
 
     <main>
         <div class="blog-container">
@@ -47,13 +47,13 @@ $detailansicht = true;
             </div>
 
             <?php
-            include 'post_card.php';
+            include 'beitragskarte.php';
             ?>
         </div>
 
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'fusszeile.php'; ?>
 </div>
 </body>
 </html>

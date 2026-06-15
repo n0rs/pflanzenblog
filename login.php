@@ -56,7 +56,7 @@ if(isset($_POST['anmelden'])) {
     <body>
         <div class="container">
 
-            <?php include 'header.php'; ?>
+            <?php include 'kopfzeile.php'; ?>
 
             <main>
                 <h2>Login</h2>
@@ -64,12 +64,12 @@ if(isset($_POST['anmelden'])) {
                     <p class="message error"><?php echo e($meldung); ?></p>
                 <?php endif; ?>
                 <form action="login.php" method="POST">
-                    <div class="input-group">
+                    <div class="eingabe-gruppe">
                         <label>Benutzername:</label>
                         <input type="text" name="benutzername" required value="<?php echo e($benutzername); ?>">
                     </div>
 
-                    <div class="input-group">
+                    <div class="eingabe-gruppe">
                         <label>Passwort:</label>
                         <input type="password" name="passwort" required>
                     </div>
@@ -77,7 +77,7 @@ if(isset($_POST['anmelden'])) {
                     <p>Noch kein Konto? <a href="registrieren.php">Zur Registrierung</a></p>
                 </form>
             </main>
-            <?php include 'footer.php'; ?>
+            <?php include 'fusszeile.php'; ?>
         </div>
     </body>
 </html>

@@ -132,7 +132,7 @@ if (isset($_POST['submit_update'])) {
 <body>
 <div class="container">
 
-    <?php include 'header.php'; ?>
+    <?php include 'kopfzeile.php'; ?>
 
     <main>
         <div style="margin-bottom: 10px;">
@@ -227,13 +227,13 @@ if (isset($_POST['submit_update'])) {
                     </div>
                 </details>
 
-                <div class="submit-container">
+                <div class="absenden-container">
                     <input type="submit" name="submit_update" id="submit_post" value="Änderungen speichern">
                 </div>
             </div>
         </form>
     </main>
-    <?php include 'footer.php'; ?>
+    <?php include 'fusszeile.php'; ?>
 </div>
 </body>
 

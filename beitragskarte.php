@@ -5,7 +5,7 @@
 /** @var mysqli $datenbankverbindung */
 /** @var bool $kommentareTabelleVorhanden */
 ?>
-<div class="post-card" id="post-<?php echo $beitrag['id']; ?>">
+<div class="beitrags-karte" id="post-<?php echo $beitrag['id']; ?>">
 
     <?php // 1. BEITRAGSTITEL & AUTOR-AKTIONEN ?>
     <h2><?php echo e($beitrag['titel']); ?></h2>
@@ -23,7 +23,7 @@
 
     <?php // 2. BEITRAGSBILD ?>
     <?php if (!empty($beitrag['bild'])): ?>
-        <div class="post-bild">
+        <div class="beitrags-bild">
             <img src="bilder/<?php echo e($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo e($beitrag['titel']); ?>">
         </div>
     <?php endif; ?>
