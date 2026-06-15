@@ -37,7 +37,7 @@ if (isset($_POST['submit_post'])) {
         $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
         if (isset($_FILES['beitrag_bild']) && $_FILES['beitrag_bild']['error'] !== UPLOAD_ERR_NO_FILE && $bild_dateiname === null) {
-            $message ="Ungültiges Dateiformat. JPG, PNG und GIF erlaubt.";
+            $meldung = "Ungültiges Dateiformat. JPG, PNG und GIF erlaubt.";
         } else {
             try {
                 $anweisung = $datenbankverbindung->prepare(

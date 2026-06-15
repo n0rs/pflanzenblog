@@ -29,7 +29,7 @@
     <?php endif; ?>
 
     <?php // 3. DYNAMISCHE TEXTKÜRZUNG ?>
-    <?php if ((isset($detailansicht) && $detailansicht === true) || mb_strlen($beitrag['inhalt']) <= 150): ?>
+    <?php if ((isset($detailansicht) && $detailansicht === true) || mb_strlen($beitrag['inhalt']) <= 300): ?>
         <p><?php echo nl2br(e($beitrag['inhalt'])); ?></p>
     <?php else: ?>
         <p>
