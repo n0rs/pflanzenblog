@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($inhalt === '') {
         $_SESSION['message'] = 'Bitte geben Sie einen Kommentar ein.';
         $_SESSION['message_type'] = 'error';
-        header("Location: index.php#post-$beitrag_id");
+        header("Location: beitrag_detail.php?id=$beitrag_id");
         exit;
     }
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $anweisung->execute();
 
     sendeToast("Kommentar erstellt");
-    header("Location: index.php#post-$beitrag_id");
+    header("Location: beitrag_detail.php?id=$beitrag_id");
     exit;
 }
 ?>
