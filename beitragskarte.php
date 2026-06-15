@@ -12,11 +12,11 @@
     <?php if (istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
     <div class="beitrag-aktionen">
         <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>">
-            <img src="<?php echo e(assetPath('icons/pencil.svg')); ?>" alt="Bearbeiten" class="icon" title="Bearbeiten">
+            <?php echo inlineIcon('pencil.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Bearbeiten', 'title' => 'Bearbeiten']); ?>
         </a>
         <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
            onclick="return confirm('Beitrag \'<?php echo e($beitrag['titel']); ?>\' unwiderruflich löschen?');">
-            <img src="<?php echo e(assetPath('icons/trash.svg')); ?>" alt="Löschen" class="icon" title="Löschen">
+            <?php echo inlineIcon('trash.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Löschen', 'title' => 'Löschen']); ?>
         </a>
     </div>
     <?php endif; ?>

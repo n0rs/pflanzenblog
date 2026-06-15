@@ -61,6 +61,33 @@ function assetPath(string $relativePath): string
     return ($baseDir !== '' ? $baseDir : '') . '/' . ltrim($relativePath, '/');
 }
 
+function inlineIcon(string $filename, array $attributes = []): string
+{
+    $path = __DIR__ . '/icons/' . $filename;
+    if (!is_file($path)) {
+        return '';
+    }
+
+    $svg = file_get_contents($path);
+    if ($svg === false) {
+        return '';
+    }
+
+    $attributeString = '';
+    foreach ($attributes as $name => $value) {
+        if ($value === null || $value === '') {
+            continue;
+        }
+        $attributeString .= ' ' . e((string)$name) . '="' . e((string)$value) . '"';
+    }
+
+    if (strpos($svg, '<svg') !== false) {
+        $svg = preg_replace('/<svg\b([^>]*)>/', '<svg$1' . $attributeString . '>', $svg, 1);
+    }
+
+    return $svg;
+}
+
 function formatDate(string $datum): string
 {
     try {
@@ -216,7 +243,7 @@ function zeigeKommentarMitAntworten(
             <div class="comment-aktionen">
                 <details class="kommentar-edit-details-inline">
                     <summary title="Bearbeiten">
-                        <img src="<?php echo e(assetPath('icons/pencil.svg')); ?>" alt="Bearbeiten" class="icon" title="Bearbeiten">
+                        <?php echo inlineIcon('pencil.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Bearbeiten', 'title' => 'Bearbeiten']); ?>
                     </summary>
 
                     <form action="kommentar_aktualisieren.php"
@@ -232,7 +259,7 @@ function zeigeKommentarMitAntworten(
 
                 <a href="kommentar_loeschen.php?id=<?php echo (int)$kommentar['id']; ?>"
                 onclick="return confirm('Kommentar wirklich löschen?');">
-                    <img src="<?php echo e(assetPath('icons/trash.svg')); ?>" alt="Löschen" class="icon" title="Löschen">
+                    <?php echo inlineIcon('trash.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Löschen', 'title' => 'Löschen']); ?>
                 </a>
             </div>
         <?php endif; ?>
@@ -253,7 +280,7 @@ function zeigeKommentarMitAntworten(
                     <textarea id="antwort_<?php echo (int)$kommentar['id']; ?>" name="inhalt" required></textarea>
 
                     <button type="submit" name="kommentar_submit">
-                        <img src="<?php echo e(assetPath('icons/send.svg')); ?>" alt="Senden" class="icon-button">
+                        <?php echo inlineIcon('send.svg', ['class' => 'icon-button', 'role' => 'img', 'aria-label' => 'Senden', 'title' => 'Senden']); ?>
                         <span class="text-button">Antwort absenden</span>
                     </button>
                 </form>
@@ -312,7 +339,7 @@ function leereSuche($suchbegriff) {
     ?>
         <div class="container">
             <label class="icon-box">
-                <img src="<?php echo e(assetPath('icons/search.svg')); ?>" alt="Lupe" class="gross-icon">
+                <?php echo inlineIcon('search.svg', ['class' => 'gross-icon', 'role' => 'img', 'aria-label' => 'Lupe', 'title' => 'Suche']); ?>
                 <span >Keine Ergebnisse zu "<?php echo $suchbegriff ?>" gefunden.</span>
             </label>
         </div>
