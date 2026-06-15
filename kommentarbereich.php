@@ -35,10 +35,12 @@ $istDetailseite = isset($detailansicht) && $detailansicht === true;
             <input type="hidden" name="kom_id" value="">
             <label for="kommentar_<?php echo $beitrag['id']; ?>">Kommentar hinzufügen</label>
             <textarea id="kommentar_<?php echo $beitrag['id']; ?>" name="inhalt" required></textarea>
-            <button type="submit" name="kommentar_absenden">
-                <?php echo inlineIcon('send.svg', ['class' => 'icon-button', 'role' => 'img', 'aria-label' => 'Senden', 'title' => 'Senden']); ?>
-                <span class="text-button">Kommentieren</span>
-            </button>
+            <div class="kommentieren">
+                <button type="submit" name="kommentar_absenden">
+                    <?php echo inlineIcon('send.svg', ['class' => 'icon-button', 'role' => 'img', 'aria-label' => 'Senden', 'title' => 'Senden']); ?>
+                    <span class="text-button">Kommentieren</span>
+                </button>
+            </div>
         </form>
     <?php else: ?>
         <p><a href="login.php">Einloggen</a>, um zu kommentieren.</p>

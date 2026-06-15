@@ -119,7 +119,7 @@ if (isset($_POST['submit_post'])) {
                 </div>
 
                 <details class="ausklappen-box plus">
-                    <summary> Details</summary>
+                    <summary> Details </summary>
 
                     <div class="ausklappen-inhalt">
                         <div>
