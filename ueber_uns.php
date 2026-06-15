@@ -50,7 +50,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                     <div class="team-bild">
                         <img src="icons/account.svg" alt="Lisa">
                     </div>
-                    <div class="icons/account.svg">
+                    <div class="team-info">
                         <h3>Lisa Pham</h3>
                         <p><strong>Rolle:</strong> Co-Gründerin & Pflanzendoktor</p>
                         <p>Lisa schreibt die hilfreichen Ratgeber. Wenn eine Pflanze kränkelt, hat sie garantiert den passenden biologischen Tipp parat, um sie wieder aufzupeppeln.</p>

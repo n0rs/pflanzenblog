@@ -37,7 +37,7 @@ if (isset($_POST['registrieren'])) {
             if ($e->getCode() == 1062) {
                 $meldung = 'Fehler: Dieser Benutzername ist bereits vergeben.';
             } else {
-                $meldung = 'Ein Fehler ist aufgetreten: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+                $meldung = 'Ein Fehler ist aufgetreten: ' . e($e->getMessage());
             }
         }
     }
@@ -61,13 +61,13 @@ if (isset($_POST['registrieren'])) {
                 <h2>Neuen Account erstellen</h2>
                 <?php if ($meldung !== ''): ?>
                     <p class="message <?php echo $meldung_type; ?>">
-                        <?php echo $meldung_type === 'success' ? $meldung : htmlspecialchars($meldung, ENT_QUOTES, 'UTF-8'); ?>
+                        <?php echo $meldung_type === 'success' ? $meldung : e($meldung); ?>
                     </p>
                 <?php endif; ?>
                 <form action="registrieren.php" method="POST">
                     <div class="input-group">
                         <label>Benutzername:</label>
-                        <input type="text" name="benutzername" required value="<?php echo htmlspecialchars($benutzername, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="text" name="benutzername" required value="<?php echo e($benutzername); ?>">
                     </div>
 
                     <div class="input-group">

@@ -22,7 +22,7 @@ $kommentar = $anweisung->get_result()->fetch_assoc();
 $beitrag_kommentar=$kommentar['beitrag_id'];
 
 if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: index.php");
+    header("Location: index.php#post-$beitrag_kommentar");
     exit;
 }
 
@@ -33,7 +33,7 @@ $loeschAnweisung->execute();
 
 //zurück auf die startseite
 sendeToast("Kommentar gelöscht");
-header("Location: index.php#post-$beitrag_kommentar");
+header("Location: beitrag_detail.php?id=$beitrag_kommentar#post-$beitrag_kommentar");
 exit;
 
 ?>

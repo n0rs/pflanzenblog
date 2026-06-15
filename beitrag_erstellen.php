@@ -37,7 +37,7 @@ if (isset($_POST['submit_post'])) {
         $bild_dateiname = uploadBild($_FILES['beitrag_bild']);
 
         if (isset($_FILES['beitrag_bild']) && $_FILES['beitrag_bild']['error'] !== UPLOAD_ERR_NO_FILE && $bild_dateiname === null) {
-            $message ="Ungültiges Dateiformat. JPG, PNG und GIF erlaubt.";
+            $meldung = "Ungültiges Dateiformat. JPG, PNG und GIF erlaubt.";
         } else {
             try {
                 $anweisung = $datenbankverbindung->prepare(
@@ -91,7 +91,7 @@ if (isset($_POST['submit_post'])) {
     <main>
         <h2>Beitrag erstellen</h2>
         <?php if ($meldung !== ''): ?>
-            <p class="message error"><?php echo e($meldung, ENT_QUOTES, 'UTF-8'); ?></p>
+            <p class="message error"><?php echo e($meldung); ?></p>
         <?php endif; ?>
         <form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
             <div class="zeile">
@@ -124,12 +124,12 @@ if (isset($_POST['submit_post'])) {
                     <div class="ausklappen-inhalt">
                         <div>
                             <label for="botanischer_name">Botanischer Name:</label>
-                            <input type="text" name="botanischer_name" id="botanischer_name" placeholder="z. B. Ficus lyrata" value="<?php echo htmlspecialchars($botanischer_name, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type="text" name="botanischer_name" id="botanischer_name" placeholder="z. B. Ficus lyrata" value="<?php echo e($botanischer_name); ?>">
                         </div>
 
                         <div>
                             <label for="standort">Standort:</label>
-                            <input type="text" name="standort" id="standort" placeholder="z. B. Wohnzimmer, halbschattig" value="<?php echo htmlspecialchars($standort, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type="text" name="standort" id="standort" placeholder="z. B. Wohnzimmer, halbschattig" value="<?php echo e($standort); ?>">
                         </div>
 
                         <div>
@@ -154,7 +154,7 @@ if (isset($_POST['submit_post'])) {
 
                         <div>
                             <label for="winterhart">Winterhart:</label>
-                            <input type="text" name="winterhart" id="winterhart" placeholder="z. B. winterhart, frostempfindlich" value="<?php echo htmlspecialchars($winterhart, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type="text" name="winterhart" id="winterhart" placeholder="z. B. winterhart, frostempfindlich" value="<?php echo e($winterhart); ?>">
                         </div>
 
                         <div>

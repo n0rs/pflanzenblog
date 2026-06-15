@@ -3,8 +3,8 @@
         <h1>🌿 Pflanzenblog</h1>
         <?php if ($sicherheitsstufe >= 1): ?>
             <div class="user-status">
-              <img src="icons/account.svg" alt="Account" class="icon stay" title="<?php echo e($_SESSION['benutzername'], ENT_QUOTES, 'UTF-8'); ?>">
-               <p><?php echo e($_SESSION['benutzername'], ENT_QUOTES, 'UTF-8'); ?></p>
+              <img src="icons/account.svg" alt="Account" class="icon stay" title="<?php echo e($_SESSION['benutzername']); ?>">
+               <p><?php echo e($_SESSION['benutzername']); ?></p>
             </div>
         <?php endif; ?>
     </div>
