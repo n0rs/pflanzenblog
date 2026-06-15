@@ -21,7 +21,42 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <?php include 'header.php'; ?>
 
         <main>
-        <h2>Über uns</h2>
+            <h2>Über uns</h2>
+            <h3>Das Team, das hinter diesem Pflanzenblog steckt :)</h3>
+
+            <div class="team-container">
+                <div class="post-card team-card">
+                    <div class="team-bild">
+                        <img src="icons/account.svg" alt="Christian">
+                    </div>
+                    <div class="team-info">
+                        <h3>Liv Grimsehl-Schmitz</h3>
+                        <p><strong>Rolle:</strong> Co-Gründerin & Community Manager</p>
+                        <p>Liv sorgt für den Austausch unter den Gartenfreunden. Sie moderiert den Kommentarbereich und organisiert tolle Pflanzen-Tauschbörsen für die Community.</p>
+                    </div>
+                </div>
+
+                <div class="post-card team-card rechts-gerichtet">
+                    <div class="team-bild">
+                        <img src="icons/account.svg" alt="Liv">
+                    </div>
+                    <div class="team-info"><h3>Christian Müsse</h3>
+                        <p><strong>Rolle:</strong> Co-Gründer & Pflanzen-Experte</p>
+                        <p>Christian teilt leidenschaftlich gerne sein Wissen über tropische Zimmerpflanzen.</p>
+                    </div>
+                </div>
+
+                <div class="post-card team-card">
+                    <div class="team-bild">
+                        <img src="icons/account.svg" alt="Lisa">
+                    </div>
+                    <div class="icons/account.svg">
+                        <h3>Lisa Pham</h3>
+                        <p><strong>Rolle:</strong> Co-Gründerin & Pflanzendoktor</p>
+                        <p>Lisa schreibt die hilfreichen Ratgeber. Wenn eine Pflanze kränkelt, hat sie garantiert den passenden biologischen Tipp parat, um sie wieder aufzupeppeln.</p>
+                    </div>
+                </div>
+            </div>
         </main>
         <?php include 'footer.php'; ?>
     </div>

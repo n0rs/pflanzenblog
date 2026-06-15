@@ -240,10 +240,13 @@ footer a:hover {
     position: fixed;
     bottom: 20px;
     display:none;
-    background-color: darkgrey;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #2f3e2f;
     padding: 16px 24px;
+    border-width: 2px;
     border-radius: 8px;
+    border-style: dashed;
+    border-color: #2f3e2f;
     align-items: center;
     gap: 12px;
     z-index: 9999;
@@ -387,7 +390,6 @@ footer a:hover {
 }
 
 
-/* 1. Weiterlesen-Link (post_card.php) */
 .weiterlesen-link {
     color: #2e7d32;
     font-weight: bold;
@@ -397,12 +399,11 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* 2. Abstand für Submit-Buttons (beitrag_erstellen.php, beitrag_bearbeiten.php) */
 .submit-container {
     margin-top: 20px;
 }
 
-/* 3. Zurück-Link (beitrag_detail.php) */
+/* 3. ZURÜCK ZU INDEX */
 .zurueck-container {
     margin-bottom: 10px;
 }
@@ -415,7 +416,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* 4. Paginierung (index.php) */
+/* SEITE UMBLÄTTERN */
 .umblaettern {
     text-align: center;
     margin-top: 3rem;
@@ -442,6 +443,44 @@ footer a:hover {
 }
 .btn-umblaettern.danach {
     margin-left: 15px;
+}
+
+/*ÜBER UNS*/
+.team-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 1.5rem;
+}
+
+.team-card {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.team-bild img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%; /* Macht die Profilbilder schön rund */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: block;
+}
+
+.team-info {
+    flex: 1;
+}
+
+.team-info h3 {
+    margin-top: 0;
+    color: #1b5e20;
+}
+
+/* Die zweite Karte spiegelt den Inhalt nach rechts */
+.team-card.rechts-gerichtet {
+    flex-direction: row-reverse;
+    text-align: right;
 }
 
 /* MEDIA */
@@ -483,5 +522,17 @@ footer a:hover {
     }
     .kommentare-postcard{
         display: none;
+    }
+
+    /* Macht aus dem Links-Rechts-Layout ein Oben-Unten-Layout */
+    .team-card,
+    .team-card.rechts-gerichtet {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Ein kleiner Abstand unter dem Bild, damit es auf dem Handy nicht am Text klebt */
+    .team-bild {
+        margin-bottom: 5px;
     }
 }
