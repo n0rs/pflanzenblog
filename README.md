@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `kommentare` (
   `inhalt` text NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp(),
   `beitrag_id` int(11) NOT NULL,
+  `kom_id` int(11) DEFAULT NULL AFTER beitrag_id,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

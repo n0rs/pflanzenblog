@@ -131,17 +131,145 @@ function kommentareTabelleExistiert(mysqli $datenbankverbindung): bool
 function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT kommentare.inhalt, kommentare.datum, kommentare.id, kommentare.benutzer_id, benutzer.benutzername
+        "SELECT kommentare.inhalt,
+                kommentare.datum,
+                kommentare.id,
+                kommentare.benutzer_id,
+                kommentare.beitrag_id,
+                kommentare.kom_id,
+                benutzer.benutzername
          FROM kommentare
          LEFT JOIN benutzer ON kommentare.benutzer_id = benutzer.id
          WHERE kommentare.beitrag_id = ?
-         ORDER BY kommentare.datum DESC"
+         ORDER BY kommentare.datum ASC"
     );
+
     $anweisung->bind_param('i', $beitrag_id);
     $anweisung->execute();
+
     $ergebnis = $anweisung->get_result();
+
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
+
+function baueKommentarBaum(array $kommentare): array
+{
+    $nachId = [];
+    $baum = [];
+
+    foreach ($kommentare as $kommentar) {
+        $kommentar['antworten'] = [];
+        $nachId[$kommentar['id']] = $kommentar;
+    }
+
+    foreach ($nachId as $id => &$kommentar) {
+        if (!empty($kommentar['kom_id']) && isset($nachId[$kommentar['kom_id']])) {
+            $nachId[$kommentar['kom_id']]['antworten'][] = &$kommentar;
+        } else {
+            $baum[] = &$kommentar;
+        }
+    }
+
+    unset($kommentar);
+
+    return $baum;
+}
+
+function zeigeKommentarMitAntworten(
+    array $kommentar,
+    array $beitrag,
+    int|null $aktueller_benutzer_id,
+    int $sicherheitsstufe,
+    bool $istDetailseite,
+    int $tiefe = 0
+): void {
+    $maxTiefe = 5;
+    $cssKlasse = $tiefe > 0 ? 'comment antwort' : 'ausklappen-inhalt comment';
+
+    ?>
+    <div class="<?php echo $cssKlasse; ?>" id="kommentar-<?php echo (int)$kommentar['id']; ?>">
+        <p><?php echo nl2br(e($kommentar['inhalt'])); ?></p>
+
+        <small>
+            <?php echo $tiefe > 0 ? 'Antwort von' : 'Von'; ?>
+            <strong><?php echo e($kommentar['benutzername'] ?? 'Gast'); ?></strong>
+            am <?php echo formatDate($kommentar['datum']); ?>
+        </small>
+
+        <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
+            <div class="comment-aktionen">
+                <a href="kommentar_bearbeiten.php?id=<?php echo (int)$kommentar['id']; ?>">
+                    <img src="icons/pencil.svg" alt="Bearbeiten" class="icon" title="Bearbeiten">
+                </a>
+
+                <a href="kommentar_loeschen.php?id=<?php echo (int)$kommentar['id']; ?>"
+                   onclick="return confirm('Kommentar wirklich löschen?');">
+                    <img src="icons/trash.svg" alt="Löschen" class="icon" title="Löschen">
+                </a>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($istDetailseite && $sicherheitsstufe >= 1): ?>
+            <details class="antwort-details">
+                <summary class="antwort-button">Antworten</summary>
+
+                <form action="kommentar_erstellen.php?beitrag_id=<?php echo (int)$beitrag['id']; ?>"
+                    method="POST"
+                    class="comment-form antwort-form">
+                    <input type="hidden" name="kom_id" value="<?php echo (int)$kommentar['id']; ?>">
+
+                    <label for="antwort_<?php echo (int)$kommentar['id']; ?>">
+                        Antwort schreiben
+                    </label>
+
+                    <textarea id="antwort_<?php echo (int)$kommentar['id']; ?>" name="inhalt" required></textarea>
+
+                    <button type="submit" name="kommentar_submit">
+                        <img src="icons/send.svg" alt="Senden" class="icon-button">
+                        <span class="text-button">Antwort absenden</span>
+                    </button>
+                </form>
+            </details>
+        <?php endif; ?>
+
+        <?php if (!empty($kommentar['antworten'])): ?>
+            <div class="antworten tiefe-<?php echo min($tiefe + 1, $maxTiefe); ?>">
+                <?php foreach ($kommentar['antworten'] as $antwort): ?>
+                    <?php zeigeKommentarMitAntworten(
+                        $antwort,
+                        $beitrag,
+                        $aktueller_benutzer_id,
+                        $sicherheitsstufe,
+                        $istDetailseite,
+                        $tiefe + 1
+                    ); ?>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+function gruppiereKommentareNachAntworten(array $kommentare): array
+{
+    $gruppen = [];
+
+    foreach ($kommentare as $kommentar) {
+        if (empty($kommentar['kom_id'])) {
+            $kommentar['antworten'] = [];
+            $gruppen[$kommentar['id']] = $kommentar;
+        }
+    }
+
+    foreach ($kommentare as $kommentar) {
+        if (!empty($kommentar['kom_id']) && isset($gruppen[$kommentar['kom_id']])) {
+            $gruppen[$kommentar['kom_id']]['antworten'][] = $kommentar;
+        }
+    }
+
+    return array_values($gruppen);
+}
+
 
 function sendeToast(string $nachricht): void
 {
