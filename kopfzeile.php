@@ -19,6 +19,15 @@
                 <span class="kopfzeilen-text" title="Neuer Beitrag">Neuer Beitrag</span>
             </a>
         <?php endif; ?>
+
+        <form action="suchergebnisse.php" method="get" class="header-search-form">
+            <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
+            <button type="submit" class="search-icon-button">
+                <img src="icons/search.svg" alt="Suchen" class="icon stay">
+            </button>
+        </form>
+
+
         <?php if ($sicherheitsstufe == 0): ?>
             <a href="registrieren.php">
                 <img src="icons/registrieren.svg" alt="Registrieren" class="kopfzeilen-icon" title="Registrieren">

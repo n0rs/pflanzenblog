@@ -292,6 +292,18 @@ function sendeToast(string $nachricht): void
     $_SESSION['toast_nachricht'] = $nachricht;
 }
 
+function leereSuche($suchbegriff) {
+    ?>
+        <div class="container">
+            <label class="icon-box">
+                <img src="icons/search.svg" alt="Lupe" class="gross-icon">
+                <span >Keine Ergebnisse zu "<?php echo $suchbegriff ?>" gefunden.</span>
+            </label>
+        </div>
+
+    <?php
+}
+
 
 function zeigePflanzenDetails(array $beitrag): void
 {
