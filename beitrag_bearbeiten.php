@@ -165,7 +165,7 @@ if (isset($_POST['submit_update'])) {
 
                     <input type="file" name="beitrag_bild" id="beitrag_bild" style="display: none;">
                     <label for="beitrag_bild" class="icon-box clickable">
-                        <img src="icons/camera.svg" alt="Kamera" class="gross-icon">
+                        <?php echo inlineIcon('camera.svg', ['class' => 'gross-icon', 'role' => 'img', 'aria-label' => 'Kamera', 'title' => 'Kamera']); ?>
                         <span id="upload-text">
                             <?php echo $altes_bild ? "Bild ändern (Aktuell: $altes_bild)" : "Foto auswählen"; ?>
                         </span>
