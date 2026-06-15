@@ -86,7 +86,7 @@ if (isset($_POST['submit_post'])) {
 <body>
 <div class="container">
 
-    <?php include 'header.php'; ?>
+    <?php include 'kopfzeile.php'; ?>
 
     <main>
         <h2>Beitrag erstellen</h2>
@@ -169,13 +169,13 @@ if (isset($_POST['submit_post'])) {
                     </div>
                 </details>
 
-                <div class="submit-container">
+                <div class="absenden-container">
                     <input type="submit" name="submit_post" id="submit_post" value="Beitrag veröffentlichen">
                 </div>
             </div>
         </form>
     </main>
-    <?php include 'footer.php'; ?>
+    <?php include 'fusszeile.php'; ?>
 </div>
 </body>
 

@@ -18,14 +18,14 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
     <body>
     <div class="container">
 
-        <?php include 'header.php'; ?>
+        <?php include 'kopfzeile.php'; ?>
 
         <main>
             <h2>Über uns</h2>
             <h3>Das Team, das hinter diesem Pflanzenblog steckt :)</h3>
 
             <div class="team-container">
-                <div class="post-card team-card">
+                <div class="beitrags-karte team-karte">
                     <div class="team-bild">
                         <img src="icons/account.svg" alt="Christian">
                     </div>
@@ -36,7 +36,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                     </div>
                 </div>
 
-                <div class="post-card team-card rechts-gerichtet">
+                <div class="beitrags-karte team-karte rechts-gerichtet">
                     <div class="team-bild">
                         <img src="icons/account.svg" alt="Liv">
                     </div>
@@ -46,7 +46,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                     </div>
                 </div>
 
-                <div class="post-card team-card">
+                <div class="beitrags-karte team-karte">
                     <div class="team-bild">
                         <img src="icons/account.svg" alt="Lisa">
                     </div>
@@ -58,7 +58,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                 </div>
             </div>
         </main>
-        <?php include 'footer.php'; ?>
+        <?php include 'fusszeile.php'; ?>
     </div>
     </body>
 </html>

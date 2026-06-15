@@ -53,7 +53,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
     <body>
         <div class="container">
 
-            <?php include 'header.php'; ?>
+            <?php include 'kopfzeile.php'; ?>
 
             <main>
                 <?php if (!empty($message)): ?>
@@ -61,30 +61,30 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <?php endif; ?>
                 <div class="blog-container index-ansicht">
                     <?php foreach ($beitraege as $beitrag): ?>
-                        <?php include 'post_card.php'; ?>
+                        <?php include 'beitragskarte.php'; ?>
                     <?php endforeach; ?>
                 </div>
 
                 <?php if ($gesamt_seiten > 1): ?>
                     <div class="umblaettern">
                         <?php if ($aktuelle_seite > 1): ?>
-                            <a href="?seite=<?php echo $aktuelle_seite - 1; ?>" class="btn-umblaettern davor">
-                                ⬅ <span class="btn-text">Neuere Beiträge</span>
+                            <a href="?seite=<?php echo $aktuelle_seite - 1; ?>" class="umblaettern-button davor">
+                                ⬅ <span class="text-button">Neuere Beiträge</span>
                             </a>
                         <?php endif; ?>
 
                         <span class="umblaettern-text"> Seite <?php echo $aktuelle_seite; ?> von <?php echo $gesamt_seiten; ?> </span>
 
                         <?php if ($aktuelle_seite < $gesamt_seiten): ?>
-                            <a href="?seite=<?php echo $aktuelle_seite + 1; ?>" class="btn-umblaettern danach">
-                                <span class="btn-text">Ältere Beiträge</span> ➔
+                            <a href="?seite=<?php echo $aktuelle_seite + 1; ?>" class="umblaettern-button danach">
+                                <span class="text-button">Ältere Beiträge</span> ➔
                             </a>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
             </main>
-            <?php include 'footer.php'; ?>
+            <?php include 'fusszeile.php'; ?>
         </div>
     </body>
 </html>

@@ -31,11 +31,11 @@ $istDetailseite = isset($detailansicht) && $detailansicht === true;
     <?php if ($sicherheitsstufe >= 1): ?>
         <form action="kommentar_erstellen.php?beitrag_id=<?php echo $beitrag['id']; ?>"
             method="POST"
-            class="comment-form">
+            class="kommentar-formular">
             <input type="hidden" name="kom_id" value="">
             <label for="kommentar_<?php echo $beitrag['id']; ?>">Kommentar hinzufügen</label>
             <textarea id="kommentar_<?php echo $beitrag['id']; ?>" name="inhalt" required></textarea>
-            <button type="submit" name="kommentar_submit">
+            <button type="submit" name="kommentar_absenden">
                 <img src="icons/send.svg" alt="Senden" class="icon-button">
                 <span class="text-button">Kommentieren</span>
             </button>

@@ -55,7 +55,7 @@ if (isset($_POST['registrieren'])) {
     <body>
         <div class="container">
 
-            <?php include 'header.php'; ?>
+            <?php include 'kopfzeile.php'; ?>
 
             <main>
                 <h2>Neuen Account erstellen</h2>
@@ -65,12 +65,12 @@ if (isset($_POST['registrieren'])) {
                     </p>
                 <?php endif; ?>
                 <form action="registrieren.php" method="POST">
-                    <div class="input-group">
+                    <div class="eingabe-gruppe">
                         <label>Benutzername:</label>
                         <input type="text" name="benutzername" required value="<?php echo e($benutzername); ?>">
                     </div>
 
-                    <div class="input-group">
+                    <div class="eingabe-gruppe">
                         <label>Passwort:</label>
                         <input type="password" name="passwort" required>
                     </div>
@@ -78,7 +78,7 @@ if (isset($_POST['registrieren'])) {
                 </form>
                 <p>Schon ein Konto? <a href="login.php">Zum Login</a></p>
             </main>
-            <?php include 'footer.php'; ?>
+            <?php include 'fusszeile.php'; ?>
         </div>
     </body>
 </html>

@@ -18,7 +18,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
     <body>
         <div class="container">
 
-            <?php include 'header.php'; ?>
+            <?php include 'kopfzeile.php'; ?>
 
             <main>
                 <div class = "container impressum">
@@ -40,7 +40,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                     </p>
                 </div>
             </main>
-            <?php include 'footer.php'; ?>
+            <?php include 'fusszeile.php'; ?>
         </div>
     </body>
 </html>
