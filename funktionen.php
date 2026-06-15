@@ -45,6 +45,22 @@ function e($text)
     return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
 }
 
+function assetPath(string $relativePath): string
+{
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+
+    if ($scriptName === '') {
+        return ltrim($relativePath, '/');
+    }
+
+    $baseDir = str_replace('\\', '/', dirname($scriptName));
+    if ($baseDir === '/' || $baseDir === '.') {
+        $baseDir = '';
+    }
+
+    return ($baseDir !== '' ? $baseDir : '') . '/' . ltrim($relativePath, '/');
+}
+
 function formatDate(string $datum): string
 {
     try {
@@ -200,7 +216,7 @@ function zeigeKommentarMitAntworten(
             <div class="comment-aktionen">
                 <details class="kommentar-edit-details-inline">
                     <summary title="Bearbeiten">
-                        <img src="icons/pencil.svg" alt="Bearbeiten" class="icon" title="Bearbeiten">
+                        <img src="<?php echo e(assetPath('icons/pencil.svg')); ?>" alt="Bearbeiten" class="icon" title="Bearbeiten">
                     </summary>
 
                     <form action="kommentar_aktualisieren.php"
@@ -216,7 +232,7 @@ function zeigeKommentarMitAntworten(
 
                 <a href="kommentar_loeschen.php?id=<?php echo (int)$kommentar['id']; ?>"
                 onclick="return confirm('Kommentar wirklich löschen?');">
-                    <img src="icons/trash.svg" alt="Löschen" class="icon" title="Löschen">
+                    <img src="<?php echo e(assetPath('icons/trash.svg')); ?>" alt="Löschen" class="icon" title="Löschen">
                 </a>
             </div>
         <?php endif; ?>
@@ -237,7 +253,7 @@ function zeigeKommentarMitAntworten(
                     <textarea id="antwort_<?php echo (int)$kommentar['id']; ?>" name="inhalt" required></textarea>
 
                     <button type="submit" name="kommentar_submit">
-                        <img src="icons/send.svg" alt="Senden" class="icon-button">
+                        <img src="<?php echo e(assetPath('icons/send.svg')); ?>" alt="Senden" class="icon-button">
                         <span class="text-button">Antwort absenden</span>
                     </button>
                 </form>
@@ -296,7 +312,7 @@ function leereSuche($suchbegriff) {
     ?>
         <div class="container">
             <label class="icon-box">
-                <img src="icons/search.svg" alt="Lupe" class="gross-icon">
+                <img src="<?php echo e(assetPath('icons/search.svg')); ?>" alt="Lupe" class="gross-icon">
                 <span >Keine Ergebnisse zu "<?php echo $suchbegriff ?>" gefunden.</span>
             </label>
         </div>

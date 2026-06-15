@@ -27,7 +27,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
             <div class="team-container">
                 <div class="beitrags-karte team-karte">
                     <div class="team-bild">
-                        <img src="icons/account.svg" alt="Christian">
+                        <img src="<?php echo e(assetPath('icons/account.svg')); ?>" alt="Christian">
                     </div>
                     <div class="team-info">
                         <h3>Liv Grimsehl-Schmitz</h3>
@@ -38,7 +38,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
 
                 <div class="beitrags-karte team-karte rechts-gerichtet">
                     <div class="team-bild">
-                        <img src="icons/account.svg" alt="Liv">
+                        <img src="<?php echo e(assetPath('icons/account.svg')); ?>" alt="Liv">
                     </div>
                     <div class="team-info"><h3>Christian Müsse</h3>
                         <p><strong>Rolle:</strong> Co-Gründer & Pflanzen-Experte</p>
@@ -48,7 +48,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
 
                 <div class="beitrags-karte team-karte">
                     <div class="team-bild">
-                        <img src="icons/account.svg" alt="Lisa">
+                        <img src="<?php echo e(assetPath('icons/account.svg')); ?>" alt="Lisa">
                     </div>
                     <div class="team-info">
                         <h3>Lisa Pham</h3>

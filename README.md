@@ -29,8 +29,12 @@ CREATE TABLE IF NOT EXISTS `kommentare` (
   `inhalt` text NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp(),
   `beitrag_id` int(11) NOT NULL,
-  `kom_id` int(11) DEFAULT NULL AFTER beitrag_id,
-  PRIMARY KEY (`id`)
+  `kom_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `kom_id` (`kom_id`),
+  CONSTRAINT `kommentare_ibfk_1` FOREIGN KEY (`beitrag_id`) REFERENCES `beitraege` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `kommentare_ibfk_2` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `kommentare_ibfk_3` FOREIGN KEY (`kom_id`) REFERENCES `kommentare` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

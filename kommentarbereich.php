@@ -36,7 +36,7 @@ $istDetailseite = isset($detailansicht) && $detailansicht === true;
             <label for="kommentar_<?php echo $beitrag['id']; ?>">Kommentar hinzufügen</label>
             <textarea id="kommentar_<?php echo $beitrag['id']; ?>" name="inhalt" required></textarea>
             <button type="submit" name="kommentar_absenden">
-                <img src="icons/send.svg" alt="Senden" class="icon-button">
+                <img src="<?php echo e(assetPath('icons/send.svg')); ?>" alt="Senden" class="icon-button">
                 <span class="text-button">Kommentieren</span>
             </button>
         </form>
