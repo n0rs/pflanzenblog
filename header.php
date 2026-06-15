@@ -1,10 +1,11 @@
+
 <header class="site-header">
     <div class="header-brand">
         <h1>🌿 Pflanzenblog</h1>
         <?php if ($sicherheitsstufe >= 1): ?>
             <div class="user-status">
-              <img src="icons/account.svg" alt="Account" class="icon stay" title="<?php echo e($_SESSION['benutzername']); ?>">
-               <p><?php echo e($_SESSION['benutzername']); ?></p>
+                <img src="icons/account.svg" alt="Account" class="icon stay" title="<?php echo e($_SESSION['benutzername']); ?>">
+                <p><?php echo e($_SESSION['benutzername']); ?></p>
             </div>
         <?php endif; ?>
     </div>
@@ -19,6 +20,15 @@
                 <span class="text-header" title="Neuer Beitrag">Neuer Beitrag</span>
             </a>
         <?php endif; ?>
+
+        <form action="suchergebnisse.php" method="get" class="header-search-form">
+            <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
+            <button type="submit" class="search-icon-button">
+                <img src="icons/search.svg" alt="Suchen" class="icon stay">
+            </button>
+        </form>
+
+
         <?php if ($sicherheitsstufe == 0): ?>
             <a href="registrieren.php">
                 <img src="icons/registrieren.svg" alt="Registrieren" class="icon-header" title="Registrieren">

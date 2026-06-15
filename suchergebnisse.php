@@ -1,0 +1,73 @@
+<?php
+session_start();
+require_once 'db.php';
+require_once 'funktionen.php';
+/** @var mysqli $datenbankverbindung */
+$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
+$sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
+$aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;
+
+$ergebnis = null;
+$suchbegriff = '';
+
+if (isset($_GET['suchbegriff'])) {
+
+    if($_GET['suchbegriff'] == "" || $_GET['suchbegriff'] == null) {
+        sendeToast("Bitte Suchbegriff eingeben");
+        header('Location: index.php');
+        exit;
+    } else {
+        $suchbegriff = trim($_GET['suchbegriff']);
+
+        $suchbegriff_erweitert = $suchbegriff . '*';
+
+        $anweisung = $datenbankverbindung->prepare(
+            "SELECT * FROM beitraege b WHERE MATCH(b.titel, b.inhalt) AGAINST(? IN BOOLEAN MODE)"
+        );
+
+        $anweisung->bind_param(
+            's',
+            $suchbegriff_erweitert
+        );
+        $anweisung->execute();
+
+        $ergebnis = $anweisung->get_result();
+    }
+}
+?>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suchergebnisse für "<?php echo e($suchbegriff); ?>" - Pflanzenblog</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+<div class="container">
+
+    <?php include 'header.php'; ?>
+
+    <main>
+        <div class="zurueck-container">
+            <a href="index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
+        </div>
+
+        <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
+
+        <div class="blog-container">
+            <?php
+            if ($ergebnis && $ergebnis->num_rows > 0) {
+                while ($beitrag = $ergebnis->fetch_assoc()) {
+                    include 'post_card.php';
+                }
+            } else {
+                leereSuche(e($suchbegriff));
+            }
+            ?>
+        </div>
+    </main>
+
+    <?php include 'footer.php'; ?>
+</div>
+</body>
+</html>

@@ -109,8 +109,8 @@ if (isset($_POST['submit_post'])) {
                 <div class="bild-hochladen">
                     <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
                     <input type="file" name="beitrag_bild" id="beitrag_bild">
-                    <label for="beitrag_bild" class="foto-box">
-                        <img src="icons/camera.svg" alt="Kamera" class="foto-icon">
+                    <label for="beitrag_bild" class="icon-box clickable">
+                        <img src="icons/camera.svg" alt="Kamera" class="gross-icon">
                         <span id="upload-text">Foto auswählen</span>
                     </label>
                     <button type="button" id="reset-bild" style="display: none;">

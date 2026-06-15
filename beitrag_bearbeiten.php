@@ -164,8 +164,8 @@ if (isset($_POST['submit_update'])) {
                     <input type="hidden" name="bild_status" id="bild_status" value="behalten">
 
                     <input type="file" name="beitrag_bild" id="beitrag_bild" style="display: none;">
-                    <label for="beitrag_bild" class="foto-box">
-                        <img src="icons/camera.svg" alt="Kamera" class="foto-icon">
+                    <label for="beitrag_bild" class="icon-box clickable">
+                        <img src="icons/camera.svg" alt="Kamera" class="gross-icon">
                         <span id="upload-text">
                             <?php echo $altes_bild ? "Bild ändern (Aktuell: $altes_bild)" : "Foto auswählen"; ?>
                         </span>

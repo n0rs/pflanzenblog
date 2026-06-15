@@ -454,7 +454,7 @@ footer a:hover {
     display: none;
 }
 
-.foto-box {
+.icon-box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -474,18 +474,18 @@ footer a:hover {
     box-sizing: border-box;
 }
 
-.foto-box:hover {
+.icon-box:hover {
     background-color: #f1f8e9;
     border-color: #2e7d32;
 }
 
-.foto-icon {
+.gross-icon {
     width: 40px;
     height: 40px;
     opacity: 0.6;
 }
 
-.foto-box span {
+.icon-box span {
     font-size: 14px;
     color: #666;
 }

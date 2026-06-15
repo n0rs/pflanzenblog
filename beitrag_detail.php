@@ -41,7 +41,7 @@ $detailansicht = true;
     <main>
         <div class="blog-container">
             <div class="zurueck-container">
-                <a href="index.php" class="zurueck-link">
+                <a href="index.php#post-<?php echo $beitrag_id ?>" class="zurueck-link">
                     ⬅ Zurück zur Übersicht
                 </a>
             </div>
