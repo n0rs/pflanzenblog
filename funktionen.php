@@ -42,7 +42,7 @@ function pruefeEingeloggt($sicherheitsstufe)
 // Sicheres HTML-Encoding von Ausgabetexten
 function e($text)
 {
-    return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
+    return e($text ?? '');
 }
 
 function formatDate(string $datum): string
@@ -52,7 +52,7 @@ function formatDate(string $datum): string
         return $date->format('d.m.Y H:i');
     } catch (Exception $e) {
         // Falls das Datum nicht geparst werden kann, geben wir den ursprünglichen String sicher aus
-        return htmlspecialchars($datum, ENT_QUOTES, 'UTF-8');
+        return e($datum);
     }
 }
 

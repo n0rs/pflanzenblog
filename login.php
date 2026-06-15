@@ -61,12 +61,12 @@ if(isset($_POST['anmelden'])) {
             <main>
                 <h2>Login</h2>
                 <?php if ($meldung !== ''): ?>
-                    <p class="message error"><?php echo htmlspecialchars($meldung, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="message error"><?php echo e($meldung); ?></p>
                 <?php endif; ?>
                 <form action="login.php" method="POST">
                     <div class="input-group">
                         <label>Benutzername:</label>
-                        <input type="text" name="benutzername" required value="<?php echo htmlspecialchars($benutzername, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="text" name="benutzername" required value="<?php echo e($benutzername); ?>">
                     </div>
 
                     <div class="input-group">

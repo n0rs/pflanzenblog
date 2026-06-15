@@ -24,7 +24,7 @@
     <?php // 2. BEITRAGSBILD ?>
     <?php if (!empty($beitrag['bild'])): ?>
         <div class="post-bild">
-            <img src="bilder/<?php echo e($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo e($beitrag['titel'], ENT_QUOTES, 'UTF-8'); ?>">
+            <img src="bilder/<?php echo e($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo e($beitrag['titel']); ?>">
         </div>
     <?php endif; ?>
 
