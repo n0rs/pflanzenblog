@@ -42,7 +42,7 @@ function pruefeEingeloggt($sicherheitsstufe)
 // Sicheres HTML-Encoding von Ausgabetexten
 function e($text)
 {
-    return e($text ?? '');
+    return htmlspecialchars($text ?? '', ENT_QUOTES, 'UTF-8');
 }
 
 function formatDate(string $datum): string
