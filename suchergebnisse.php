@@ -45,7 +45,7 @@ if (isset($_GET['suchbegriff'])) {
 <body>
 <div class="container">
 
-    <?php include 'header.php'; ?>
+    <?php include 'kopfzeile.php'; ?>
 
     <main>
         <div class="zurueck-container">
