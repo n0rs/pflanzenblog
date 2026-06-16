@@ -52,7 +52,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
         <link rel="icon" type="image/svg+xml" href="<?php echo pleskAssetUrl('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body style="background-image: url('<?php echo pleskAssetUrl('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+    <body style="background-image: url('<?php echo pleskAssetUrl('icons/hb.jpg'); ?>');">
     <div class="container">
 
             <?php include 'kopfzeile.php'; ?>

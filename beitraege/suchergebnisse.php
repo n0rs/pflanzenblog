@@ -45,7 +45,7 @@ if (isset($_GET['suchbegriff'])) {
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+<body style="background-image: url('<?php echo projektPfad('icons/hb.jpg'); ?>');">
 
 <div class="container">
 
