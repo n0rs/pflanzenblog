@@ -291,10 +291,12 @@ nav a:hover {
     background: #f9fbf9;
     position: relative;
     padding: 15px;
-    padding-right: 70px;
     margin-bottom: 12px;
     border-radius: 6px;
     border-left: 4px solid #81c784;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     max-width: 100%;
     min-width: 0;
     overflow-wrap: anywhere;
@@ -308,7 +310,7 @@ nav a:hover {
 }
 
 .kommentar p {
-    margin: 0 0 8px 0;
+    margin: 0;
     min-width: 0;
     overflow-wrap: anywhere;
 }
@@ -330,13 +332,13 @@ nav a:hover {
 
 /* Bearbeiten/Löschen Icons */
 .kommentar-aktionen {
-    position: absolute;
-    right: 15px;
-    top: 15px;
     display: flex;
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    align-self: flex-end;
+    order: -1;
 }
 
 .kommentar-aktionen a {
@@ -361,8 +363,8 @@ nav a:hover {
 /* Antworten / verschachtelte Kommentare */
 .antworten {
     margin-top: 15px;
-    margin-left: clamp(8px, 2vw, 25px);
-    padding-left: clamp(8px, 1.5vw, 15px);
+    margin-left: 0;
+    padding-left: 10px;
     border-left: 3px solid #c5e1a5;
     max-width: 100%;
     min-width: 0;
@@ -455,19 +457,19 @@ nav a:hover {
 /* Einrückung nach Tiefe */
 .tiefe-1 {
     margin-top: 0.5em;
-    margin-left: 1.5em;
+    margin-left: 0;
 }
 
 .tiefe-2 {
     margin-top: 0.5em;
-    margin-left: 1.25em;
+    margin-left: 0;
 }
 
 .tiefe-3,
 .tiefe-4,
 .tiefe-5 {
     margin-top: 0.5em;
-    margin-left: 1em;
+    margin-left: 0;
 }
 /*FORMULARE & BUTTONS*/
 .eingabe-gruppe {
