@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/datenbank.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 
@@ -15,7 +15,7 @@ $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
 // Wenn die ID nicht in der Datenbank existiert (Beitrag wurde evtl. gelöscht)
 if (!$beitrag) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -31,30 +31,30 @@ $detailansicht = true;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Detailansicht für: <?php echo e($beitrag['titel']); ?>">
     <title><?php echo e($beitrag['titel']); ?> - Pflanzenblog</title>
-    <link rel="icon" type="image/png" href="icons/favicon.svg">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" type="image/png" href="../icons/favicon.svg">
+    <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
 <div class="container">
 
-    <?php include 'kopfzeile.php'; ?>
+    <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
 
     <main>
         <div class="blog-container">
             <div class="zurueck-container">
-                <a href="index.php#post-<?php echo $beitrag_id ?>" class="zurueck-link">
+                <a href="../index.php#post-<?php echo $beitrag_id ?>" class="zurueck-link">
                     ⬅ Zurück zur Übersicht
                 </a>
             </div>
 
             <?php
-            include 'beitragskarte.php';
+            include __DIR__ . '/beitragskarte.php';
             ?>
         </div>
 
     </main>
 
-    <?php include 'fusszeile.php'; ?>
+    <?php include dirname(__DIR__) . '/fusszeile.php'; ?>
 </div>
 </body>
 </html>

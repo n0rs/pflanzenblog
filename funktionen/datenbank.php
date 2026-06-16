@@ -4,7 +4,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-// Lädt Datenbankzugangsdaten aus einer lokalen .env-Datei
 function credentialsLaden(string $pfad): array
 {
     if (!is_file($pfad) || !is_readable($pfad)) {
@@ -38,7 +37,7 @@ function credentialsLaden(string $pfad): array
 
 function erhalteDbKonfig(): array
 {
-    $umgebung = credentialsLaden(__DIR__ . '/.env');
+    $umgebung = credentialsLaden(dirname(__DIR__) . '/.env');
 
     return [
         'DB_HOST'     => getenv('DB_HOST') ?: ($umgebung['DB_HOST'] ?? 'localhost'),
@@ -50,7 +49,6 @@ function erhalteDbKonfig(): array
 
 function pruefeDbKonfig(array $konfiguration): void
 {
-    // Sicherstellen, dass alle notwendigen Datenbankkonfigurationswerte vorhanden sind
     $erforderlicheSchlussel = ['DB_HOST', 'DB_NAME', 'DB_USER'];
 
     foreach ($erforderlicheSchlussel as $schluessel) {
@@ -76,5 +74,3 @@ try {
 } catch (mysqli_sql_exception $e) {
     die('Verbindung zur Datenbank fehlgeschlagen: ' . $e->getMessage());
 }
-
-// $datenbankverbindung ist die mysqli-Verbindung, verwende diese in anderen Dateien

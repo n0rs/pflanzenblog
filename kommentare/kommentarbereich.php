@@ -1,5 +1,5 @@
 <?php
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var array $beitrag */
 /** @var int|null $aktueller_benutzer_id */
 /** @var int $sicherheitsstufe */
@@ -29,7 +29,7 @@ $istDetailseite = isset($detailansicht) && $detailansicht === true;
     <?php endif; ?>
 
     <?php if ($sicherheitsstufe >= 1): ?>
-        <form action="kommentar_erstellen.php?beitrag_id=<?php echo $beitrag['id']; ?>"
+        <form action="<?php echo projektPfad('kommentare/kommentar_erstellen.php?beitrag_id=' . (int)$beitrag['id']); ?>"
             method="POST"
             class="kommentar-formular">
             <input type="hidden" name="kom_id" value="">
@@ -43,6 +43,6 @@ $istDetailseite = isset($detailansicht) && $detailansicht === true;
             </div>
         </form>
     <?php else: ?>
-        <p><a href="login.php">Einloggen</a>, um zu kommentieren.</p>
+        <p><a href="<?php echo projektPfad('login.php'); ?>">Einloggen</a>, um zu kommentieren.</p>
     <?php endif; ?>
 </details>

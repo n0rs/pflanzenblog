@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/datenbank.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 //sicherheitsstufe des eingeloggten users speichern
@@ -21,14 +21,14 @@ $beitrag = $anweisung->get_result()->fetch_assoc();
 
 
 if (!istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 
 //prüfen, ob ein bild am beitrag existiert und ob die datei im bilder-ordner abgelegt ist
-if(!empty($beitrag['bild']) && file_exists("bilder/".$beitrag['bild'])) {
+if(!empty($beitrag['bild']) && file_exists(dirname(__DIR__) . "/bilder/" . $beitrag['bild'])) {
     //wenn ja, dann das bild aus dem ordner löschen
-    unlink("bilder/" . $beitrag['bild']);
+    unlink(dirname(__DIR__) . "/bilder/" . $beitrag['bild']);
 }
 //beitrag aus db löschen
 $loeschAnweisung = $datenbankverbindung->prepare("DELETE FROM beitraege WHERE id=?");
@@ -37,7 +37,7 @@ $loeschAnweisung->execute();
 
 //zurück auf die startseite
 sendeToast("Beitrag gelöscht");
-header("Location: index.php");
+header("Location: ../index.php");
 exit;
 
 ?>

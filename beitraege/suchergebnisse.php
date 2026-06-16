@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/datenbank.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -14,7 +14,7 @@ if (isset($_GET['suchbegriff'])) {
 
     if($_GET['suchbegriff'] == "" || $_GET['suchbegriff'] == null) {
         sendeToast("Bitte Suchbegriff eingeben");
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit;
     } else {
         $suchbegriff = trim($_GET['suchbegriff']);
@@ -41,17 +41,17 @@ if (isset($_GET['suchbegriff'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suchergebnisse für "<?php echo e($suchbegriff); ?>" - Pflanzenblog</title>
-    <link rel="icon" type="image/png" href="icons/favicon.svg">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" type="image/png" href="../icons/favicon.svg">
+    <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
 <div class="container">
 
-    <?php include 'kopfzeile.php'; ?>
+    <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
 
     <main>
         <div class="zurueck-container">
-            <a href="index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
+            <a href="../index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
         </div>
 
         <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
@@ -60,7 +60,7 @@ if (isset($_GET['suchbegriff'])) {
             <?php
             if ($ergebnis && $ergebnis->num_rows > 0) {
                 while ($beitrag = $ergebnis->fetch_assoc()) {
-                    include 'beitragskarte.php';
+                    include __DIR__ . '/beitragskarte.php';
                 }
             } else {
                 leereSuche(e($suchbegriff));
@@ -69,7 +69,7 @@ if (isset($_GET['suchbegriff'])) {
         </div>
     </main>
 
-    <?php include 'fusszeile.php'; ?>
+    <?php include dirname(__DIR__) . '/fusszeile.php'; ?>
 </div>
 </body>
 </html>

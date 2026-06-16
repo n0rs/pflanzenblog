@@ -26,7 +26,7 @@ endif;
 
 
 <footer class="site-footer">
-    <p><a href="impressum.php" title="Impressum">Impressum</a></p>
+    <p><a href="<?php echo projektPfad('impressum.php'); ?>" title="Impressum">Impressum</a></p>
     <p>© 2026 Pflanzenblog</p>
 </footer>
 

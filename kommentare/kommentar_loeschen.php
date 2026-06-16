@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/datenbank.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 // Sicherheitsstufe des eingeloggten Users speichern
@@ -21,14 +21,14 @@ $kommentar = $anweisung->get_result()->fetch_assoc();
 
 if (!$kommentar) {
     sendeToast("Kommentar nicht gefunden");
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 
 $beitrag_kommentar = (int)$kommentar['beitrag_id'];
 
 if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: index.php#post-$beitrag_kommentar");
+    header("Location: ../index.php#post-$beitrag_kommentar");
     exit;
 }
 
@@ -39,5 +39,5 @@ $loeschAnweisung->execute();
 
 // Zurueck zur Beitragsseite
 sendeToast("Kommentar geloescht");
-header("Location: beitrag_detail.php?id=$beitrag_kommentar#post-$beitrag_kommentar");
+header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_kommentar#post-$beitrag_kommentar");
 exit;
