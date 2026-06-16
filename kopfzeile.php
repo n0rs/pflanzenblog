@@ -6,7 +6,7 @@
                     <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
                     <p style="margin: 0; display: inline;"><?php echo e($_SESSION['benutzername']); ?></p>
 
-                    <div id="benutzerDropdown" style="display: none; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #ccc; padding: 10px; z-index: 1000; min-width: 150px;">
+                    <div id="benutzerDropdown">
                         <a href="benutzer_loeschen.php?id=<?php echo $_SESSION['benutzer_id']; ?>" id="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
                         <a href="logout.php" id="dropdown-optionen">Logout</a>
                     </div>

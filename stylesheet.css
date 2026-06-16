@@ -149,6 +149,17 @@ nav a:hover {
     margin-bottom: 5px;
 }
 
+#benutzerDropdown {
+    display: none; position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+    min-width: 150px;
+}
+
 .metadaten {
     font-size: 0.85rem;
     color: #666;
