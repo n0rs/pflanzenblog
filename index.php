@@ -163,7 +163,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <?php endif; ?>
 
             </main>
-            <?php include 'fusszeile.php'; ?>
+        <?php include 'fusszeile.php'; ?>
         </div>
     </body>
 </html>

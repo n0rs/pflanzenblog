@@ -55,7 +55,7 @@ $detailansicht = true;
         </div>
 
     </main>
-    <?php include 'fusszeile.php'; ?>
+    <?php include dirname(__DIR__) . '/fusszeile.php'; ?>
 </body>
 </html>
 
