@@ -1,31 +1,31 @@
 <header class="kopfzeile">
     <div class="logo-bereich">
-        <h1>🌿 Pflanzenblog</h1>
+        <h1>🌿 Pflanzenblog
         <?php if ($sicherheitsstufe >= 1): ?>
             <div class="benutzer-status">
                 <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
                 <p><?php echo e($_SESSION['benutzername']); ?></p>
             </div>
         <?php endif; ?>
+        </h1>
     </div>
     <nav>
         <a href="index.php">
             <?php echo inlineIcon('house.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => 'Home', 'title' => 'Übersicht']); ?>
             <span class="kopfzeilen-text" title="Übersicht">Übersicht</span>
         </a>
+
+        <a href="ueber_uns.php">
+           <?php echo inlineIcon('question.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => 'Ueber uns', 'title' => 'Über uns']); ?>
+           <span class="kopfzeilen-text" title="Ueber uns">Über uns</span>
+        </a>
+
         <?php if ($sicherheitsstufe >= 1): ?>
             <a href="beitrag_erstellen.php">
                 <?php echo inlineIcon('new.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => 'Neuer Beitrag', 'title' => 'Neuer Beitrag']); ?>
                 <span class="kopfzeilen-text" title="Neuer Beitrag">Neuer Beitrag</span>
             </a>
         <?php endif; ?>
-
-        <form action="suchergebnisse.php" method="get" class="header-search-form">
-            <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
-            <button type="submit" class="search-icon-button">
-                <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
-            </button>
-        </form>
 
         <?php if ($sicherheitsstufe == 0): ?>
             <a href="registrieren.php">
@@ -41,9 +41,11 @@
             </span>
         </a>
 
-        <a href="ueber_uns.php">
-            <?php echo inlineIcon('question.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => 'Ueber uns', 'title' => 'Über uns']); ?>
-            <span class="kopfzeilen-text" title="Ueber uns">Über uns</span>
-        </a>
+        <form action="suchergebnisse.php" method="get" class="kopfzeile-suche-formular">
+             <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
+             <button type="submit" class="suche-icon-button">
+                 <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
+            </button>
+        </form>
     </nav>
 </header>

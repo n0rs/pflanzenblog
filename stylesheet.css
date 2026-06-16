@@ -9,6 +9,10 @@ body {
     background-color: #f4f8f4;
     color: #2f3e2f;
     line-height: 1.6;
+
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 /* Universeller Container */
@@ -43,12 +47,9 @@ header {
 }
 
 .benutzer-status {
-    position: absolute;
-    margin: 0;
     font-size: 0.85rem;
     opacity: 0.9;
-    right: 15px;
-    padding-bottom: 5px;
+    float: right;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -56,22 +57,48 @@ header {
 }
 
 nav {
-    margin-top: 1rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    justify-items: flex-start;
 }
 
 nav a {
+    align-content: center;
     color: white;
     margin-right: 20px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 0.95rem;
-    padding-bottom: 5px;
+    font-size: 0.95em;
     transition: color 0.2s, border-color 0.2s;
 }
 
 nav a:hover {
     color: #a3dca3;
     border-bottom: 2px solid #a3dca3;
+}
+
+#suchleiste{
+    width: 70%;
+}
+
+.kopfzeile-suche-formular{
+    display: inline;
+    float: right;
+    margin-block-end: 0.2em;
+}
+
+.suche-icon-button{
+    color: #2f3e2f;
+    background-color: #f9fbf9;
+    border-color: #2f3e2f;
+
+}
+
+.suche-icon-button:hover{
+    color: #2f3e2f;
+    background-color: #a3dca3;
+    border-color: #2f3e2f;
+
 }
 
 /* BLOG-BEITRÄGE (POST CARD)*/
