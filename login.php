@@ -51,7 +51,7 @@ if(isset($_POST['anmelden'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Melde dich im Pflanzenblog an, um Beiträge zu erstellen und Kommentare zu schreiben.">
     <title>Login - Pflanzenblog</title>
-    <link rel="icon" type="image/png" href="icons/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
     <body>

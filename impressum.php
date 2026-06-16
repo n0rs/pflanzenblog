@@ -13,7 +13,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <meta charset="UTF-8">
         <meta name="description" content="Impressum des Pflanzenblogs mit Kontaktdaten und rechtlichen Informationen.">
         <title>Impressum</title>
-        <link rel="icon" type="image/png" href="icons/favicon.svg">
+        <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>

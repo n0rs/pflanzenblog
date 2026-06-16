@@ -5,7 +5,14 @@
 /** @var mysqli $datenbankverbindung */
 /** @var bool $kommentareTabelleVorhanden */
 ?>
-<div class="beitrags-karte" id="post-<?php echo $beitrag['id']; ?>">
+<div class="beitrags-karte <?php echo (isset($detailansicht) && $detailansicht === true) ? 'detailansicht' : ''; ?>" id="post-<?php echo $beitrag['id']; ?>">
+
+    <?php // UNSICHTBARER HAUPTLINK FÜR DIE GANZE KARTE (nur in der Übersicht) ?>
+    <?php if (!isset($detailansicht) || $detailansicht !== true): ?>
+        <a href="<?php echo projektPfad('beitraege/beitrag_detail.php?id=' . (int)$beitrag['id']); ?>"
+           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"
+           aria-label="Weiterlesen: <?php echo e($beitrag['titel']); ?>"></a>
+    <?php endif; ?>
 
     <?php // 1. BEITRAGSTITEL & AUTOR-AKTIONEN ?>
     <h2><?php echo e($beitrag['titel']); ?></h2>

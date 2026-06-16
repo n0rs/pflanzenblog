@@ -81,7 +81,7 @@ if (isset($_POST['submit_post'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Erstelle einen neuen Pflanzenblog-Beitrag mit Titel, Inhalt und optionalem Bild.">
     <title>Neuen Beitrag erstellen - Pflanzenblog</title>
-    <link rel="icon" type="image/png" href="../icons/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
