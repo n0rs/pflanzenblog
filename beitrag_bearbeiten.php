@@ -127,6 +127,7 @@ if (isset($_POST['submit_update'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beitrag bearbeiten - Pflanzenblog</title>
+    <link rel="icon" type="image/png" href="icons/favicon.svg">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>

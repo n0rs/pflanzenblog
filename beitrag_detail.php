@@ -31,6 +31,7 @@ $detailansicht = true;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Detailansicht für: <?php echo e($beitrag['titel']); ?>">
     <title><?php echo e($beitrag['titel']); ?> - Pflanzenblog</title>
+    <link rel="icon" type="image/png" href="icons/favicon.svg">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>

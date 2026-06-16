@@ -51,6 +51,7 @@ if (isset($_POST['registrieren'])) {
         <meta charset="UTF-8">
         <meta name="description" content="Erstelle einen Account im Pflanzenblog und teile deine Gartenbeiträge und Kommentare mit anderen Pflanzenfreunden.">
         <title>Registrieren - Pflanzenblog</title>
+        <link rel="icon" type="image/png" href="icons/favicon.svg">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
