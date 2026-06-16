@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once dirname(__DIR__) . '/funktionen/datenbank.php';
+require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -61,7 +61,7 @@ if (isset($_POST['submit_post'])) {
 
                 if ($anweisung->execute()) {
                     sendeToast("Beitrag erstellt");
-                    header("Location: index.php");
+                    header("Location: ../index.php");
                     exit;
                 } else {
                     $meldung = 'Datenbank-Fehler beim Speichern: ' . $anweisung->error;
@@ -81,13 +81,13 @@ if (isset($_POST['submit_post'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Erstelle einen neuen Pflanzenblog-Beitrag mit Titel, Inhalt und optionalem Bild.">
     <title>Neuen Beitrag erstellen - Pflanzenblog</title>
-    <link rel="icon" type="image/png" href="icons/favicon.svg">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" type="image/png" href="../icons/favicon.svg">
+    <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
 <div class="container">
 
-    <?php include 'kopfzeile.php'; ?>
+    <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
 
     <main>
         <h2>Beitrag erstellen</h2>
@@ -176,7 +176,7 @@ if (isset($_POST['submit_post'])) {
             </div>
         </form>
     </main>
-    <?php include 'fusszeile.php'; ?>
+    <?php include dirname(__DIR__) . '/fusszeile.php'; ?>
 </div>
 </body>
 

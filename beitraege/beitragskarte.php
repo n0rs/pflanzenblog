@@ -11,10 +11,10 @@
     <h2><?php echo e($beitrag['titel']); ?></h2>
     <?php if (istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
     <div class="beitrag-aktionen">
-        <a href="beitrag_bearbeiten.php?id=<?php echo $beitrag['id']; ?>">
+        <a href="<?php echo projektPfad('beitraege/beitrag_bearbeiten.php?id=' . (int)$beitrag['id']); ?>">
             <?php echo inlineIcon('pencil.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Bearbeiten', 'title' => 'Bearbeiten']); ?>
         </a>
-        <a href="beitrag_loeschen.php?id=<?php echo $beitrag['id']; ?>"
+        <a href="<?php echo projektPfad('beitraege/beitrag_loeschen.php?id=' . (int)$beitrag['id']); ?>"
            onclick="return confirm('Beitrag \'<?php echo e($beitrag['titel']); ?>\' unwiderruflich löschen?');">
             <?php echo inlineIcon('trash.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Löschen', 'title' => 'Löschen']); ?>
         </a>
@@ -24,7 +24,7 @@
     <?php // 2. BEITRAGSBILD ?>
     <?php if (!empty($beitrag['bild'])): ?>
         <div class="beitrags-bild">
-            <img src="bilder/<?php echo e($beitrag['bild']); ?>" alt="Bild zum Beitrag: <?php echo e($beitrag['titel']); ?>">
+            <img src="<?php echo projektPfad('bilder/' . e($beitrag['bild'])); ?>" alt="Bild zum Beitrag: <?php echo e($beitrag['titel']); ?>">
         </div>
     <?php endif; ?>
 
@@ -35,7 +35,7 @@
         <p>
             <?php echo nl2br(e(mb_substr($beitrag['inhalt'], 0, 300))) . "..."; ?>
             <br>
-            <a href="beitrag_detail.php?id=<?php echo $beitrag['id']; ?>" class="weiterlesen-link">Weiterlesen ➔</a>
+            <a href="<?php echo projektPfad('beitraege/beitrag_detail.php?id=' . (int)$beitrag['id']); ?>" class="weiterlesen-link">Weiterlesen ➔</a>
         </p>
     <?php endif; ?>
 
@@ -49,6 +49,6 @@
     </div>
 
     <?php //KOMMENTARBEREICH ?>
-   <?php include 'kommentarbereich.php'; ?>
+   <?php include dirname(__DIR__) . '/kommentare/kommentarbereich.php'; ?>
 
 </div>

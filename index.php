@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once __DIR__ . '/funktionen/datenbank.php';
+require_once __DIR__ . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 // Sicherheitsstufe und Benutzerinfos aus der Session laden
@@ -135,7 +135,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <div class="blog-container index-ansicht">
                     <?php if (!empty($beitraege)): ?>
                         <?php foreach ($beitraege as $beitrag): ?>
-                            <?php include 'beitragskarte.php'; ?>
+                            <?php include __DIR__ . '/beitraege/beitragskarte.php'; ?>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="leerer-zustand">Keine Beiträge passen zu dieser Auswahl.</p>

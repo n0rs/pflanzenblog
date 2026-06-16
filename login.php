@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'db.php';
-require_once 'funktionen.php';
+require_once __DIR__ . '/funktionen/datenbank.php';
+require_once __DIR__ . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 
 // Wenn bereits eingeloggt, zurück zur Startseite
