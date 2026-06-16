@@ -2,6 +2,7 @@
 session_start();
 require_once dirname(__DIR__) . '/funktionen/datenbank.php';
 require_once dirname(__DIR__) . '/funktionen/laden.php';
+
 /** @var mysqli $datenbankverbindung */
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -44,7 +45,8 @@ if (isset($_GET['suchbegriff'])) {
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body>
+<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
@@ -52,6 +54,11 @@ if (isset($_GET['suchbegriff'])) {
     <main>
         <div class="zurueck-container">
             <a href="../index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
+        </div>
+
+        <div class="suchleiste">
+
+
         </div>
 
         <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>

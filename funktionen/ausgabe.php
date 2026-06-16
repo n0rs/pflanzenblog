@@ -40,6 +40,7 @@ function inlineIcon(string $filename, array $attributes = []): string
     return $svg;
 }
 
+
 function formatDate(string $datum): string
 {
     try {

@@ -2,6 +2,8 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
+require_once __DIR__ . '/funktionen/ausgabe.php';
+
 /** @var mysqli $datenbankverbindung */
 
 // Sicherheitsstufe und Benutzerinfos aus der Session laden
@@ -50,8 +52,8 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
         <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body>
-        <div class="container">
+    <body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+    <div class="container">
 
             <?php include 'kopfzeile.php'; ?>
 

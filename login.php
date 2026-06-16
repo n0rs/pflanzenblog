@@ -2,6 +2,8 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
+
+
 /** @var mysqli $datenbankverbindung */
 
 // Wenn bereits eingeloggt, zurück zur Startseite
@@ -54,7 +56,7 @@ if(isset($_POST['anmelden'])) {
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
-    <body>
+<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
         <div class="container">
 
             <?php include 'kopfzeile.php'; ?>

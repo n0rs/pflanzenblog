@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
+
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -16,7 +17,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body>
+    <body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
     <div class="container">
 
         <?php include 'kopfzeile.php'; ?>
