@@ -1,12 +1,17 @@
 <header class="kopfzeile">
     <div class="logo-bereich">
         <h1>🌿 Pflanzenblog
-        <?php if ($sicherheitsstufe >= 1): ?>
-            <div class="benutzer-status">
-                <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
-                <p><?php echo e($_SESSION['benutzername']); ?></p>
-            </div>
-        <?php endif; ?>
+            <?php if ($sicherheitsstufe >= 1): ?>
+                <div class="benutzer-status" id="benutzerStatusTrigger">
+                    <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
+                    <p style="margin: 0; display: inline;"><?php echo e($_SESSION['benutzername']); ?></p>
+
+                    <div id="benutzerDropdown">
+                        <a href="benutzer_loeschen.php?id=<?php echo $_SESSION['benutzer_id']; ?>" id="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
+                        <a href="logout.php" id="dropdown-optionen">Logout</a>
+                    </div>
+                </div>
+            <?php endif; ?>
         </h1>
     </div>
     <nav>
@@ -32,14 +37,13 @@
                 <?php echo inlineIcon('registrieren.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => 'Registrieren', 'title' => 'Registrieren']); ?>
                 <span class="kopfzeilen-text" title="Registrieren">Registrieren</span>
             </a>
+
+        <a href="login.php">
+            <?php echo inlineIcon('login.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' =>'Login', 'title' => 'Login']); ?>
+            <span class="kopfzeilen-text" title="Login">Login</span>
+        </a>
         <?php endif; ?>
 
-        <a href="<?php echo ($sicherheitsstufe >= 1) ? 'logout.php' : 'login.php'; ?>">
-            <?php echo inlineIcon(($sicherheitsstufe >= 1) ? 'logout.svg' : 'login.svg', ['class' => 'kopfzeilen-icon', 'role' => 'img', 'aria-label' => ($sicherheitsstufe >= 1) ? 'Logout' : 'Login', 'title' => ($sicherheitsstufe >= 1) ? 'Logout' : 'Login']); ?>
-            <span class="kopfzeilen-text" title="<?php echo ($sicherheitsstufe >= 1) ? 'Logout' : 'Login'; ?>">
-                <?php echo ($sicherheitsstufe >= 1) ? 'Logout' : 'Login'; ?>
-            </span>
-        </a>
 
         <form action="suchergebnisse.php" method="get" class="kopfzeile-suche-formular">
              <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
@@ -49,3 +53,25 @@
         </form>
     </nav>
 </header>
+
+
+<script>
+    const trigger = document.getElementById('benutzerStatusTrigger');
+    const dropdown = document.getElementById('benutzerDropdown');
+
+    if (trigger && dropdown) {
+        trigger.addEventListener('click', function(event) {
+            event.stopPropagation();
+
+            if (dropdown.style.display === 'none') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', function() {
+            dropdown.style.display = 'none';
+        });
+    }
+</script>

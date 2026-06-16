@@ -28,7 +28,7 @@ if (isset($_GET['suchbegriff'])) {
         $anweisung->bind_param(
             'ss',
             $suchbegriff_erweitert,
-                $suchbegriff_erweitert
+             $suchbegriff_erweitert
         );
         $anweisung->execute();
 
