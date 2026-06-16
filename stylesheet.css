@@ -222,12 +222,22 @@ nav a:hover {
     position: relative;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    transition: transform .2s;
 }
 
 .beitrags-karte h2 {
     margin: 0;
     color: #1b5e20;
 }
+
+.beitrags-karte:not(.detailansicht) {
+    cursor: pointer;
+}
+
+.beitrags-karte:not(.detailansicht):hover {
+    transform: scale(1.02);
+}
+
 
 .beitrags-bild img {
     width: 100%;
@@ -237,6 +247,7 @@ nav a:hover {
     border-radius: 6px;
     margin: 1rem 0;
 }
+
 
 #benutzerStatusTrigger {
     cursor: pointer;
@@ -702,7 +713,6 @@ footer a:hover {
 .index-ansicht .pflanzen-details{
     display: none;
 }
-
 
 .weiterlesen-link {
     color: #2e7d32;
