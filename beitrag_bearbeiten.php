@@ -66,8 +66,8 @@ if (isset($_POST['submit_update'])) {
     if (isset($_POST['bild_status']) && $_POST['bild_status'] === 'loeschen') {
         $bild_dateiname = null;
 
-        if ($altes_bild && file_exists("uploads/" . $altes_bild)) {
-            @unlink("uploads/" . $altes_bild);
+        if ($altes_bild && file_exists(__DIR__ . "/bilder/" . $altes_bild)) {
+            @unlink(__DIR__ . "/bilder/" . $altes_bild);
         }
     }
     elseif (isset($_FILES['beitrag_bild']) && $_FILES['beitrag_bild']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -77,8 +77,8 @@ if (isset($_POST['submit_update'])) {
         } else {
             $bild_dateiname = $neues_bild;
             // Altes Bild löschen
-            if ($altes_bild && file_exists("uploads/" . $altes_bild)) {
-                @unlink("uploads/" . $altes_bild);
+            if ($altes_bild && file_exists(__DIR__ . "/bilder/" . $altes_bild)) {
+                @unlink(__DIR__ . "/bilder/" . $altes_bild);
             }
         }
     }
