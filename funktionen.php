@@ -211,7 +211,7 @@ function zeigeKommentarMitAntworten(
     int $tiefe = 0
 ): void {
     $maxTiefe = 5;
-    $cssKlasse = $tiefe > 0 ? 'comment antwort' : 'ausklappen-inhalt comment';
+    $cssKlasse = $tiefe > 0 ? 'kommentar antwort' : 'ausklappen-inhalt kommentar';
 
     ?>
     <div class="<?php echo $cssKlasse; ?>" id="kommentar-<?php echo (int)$kommentar['id']; ?>">
@@ -224,15 +224,15 @@ function zeigeKommentarMitAntworten(
         </small>
 
         <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
-            <div class="comment-aktionen">
-                <details class="kommentar-edit-details-inline">
+            <div class="kommentar-aktionen">
+                <details class="kommentar-bearbeiten-details-inline">
                     <summary title="Bearbeiten">
                         <?php echo inlineIcon('pencil.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Bearbeiten', 'title' => 'Bearbeiten']); ?>
                     </summary>
 
                     <form action="kommentar_aktualisieren.php"
                         method="POST"
-                        class="comment-form kommentar-edit-form-inline">
+                        class="kommentar-formular kommentar-bearbeiten-formular-inline">
                         <input type="hidden" name="kommentar_id" value="<?php echo (int)$kommentar['id']; ?>">
 
                         <textarea name="inhalt" required><?php echo e($kommentar['inhalt']); ?></textarea>
@@ -254,7 +254,7 @@ function zeigeKommentarMitAntworten(
 
                 <form action="kommentar_erstellen.php?beitrag_id=<?php echo (int)$beitrag['id']; ?>"
                     method="POST"
-                    class="comment-form antwort-form">
+                    class="kommentar-formular antwort-formular">
                     <input type="hidden" name="kom_id" value="<?php echo (int)$kommentar['id']; ?>">
 
                     <label for="antwort_<?php echo (int)$kommentar['id']; ?>">
@@ -262,11 +262,12 @@ function zeigeKommentarMitAntworten(
                     </label>
 
                     <textarea id="antwort_<?php echo (int)$kommentar['id']; ?>" name="inhalt" required></textarea>
-
-                    <button type="submit" name="kommentar_submit">
-                        <?php echo inlineIcon('send.svg', ['class' => 'icon-button', 'role' => 'img', 'aria-label' => 'Senden', 'title' => 'Senden']); ?>
-                        <span class="text-button">Antwort absenden</span>
-                    </button>
+                    <div class="antwort_absenden">
+                        <button type="submit" name="kommentar_absenden">
+                            <?php echo inlineIcon('send.svg', ['class' => 'icon-button', 'role' => 'img', 'aria-label' => 'Senden', 'title' => 'Senden']); ?>
+                            <span class="text-button">Antwort absenden</span>
+                        </button>
+                    </div>
                 </form>
             </details>
         <?php endif; ?>
