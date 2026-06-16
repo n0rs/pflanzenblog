@@ -40,6 +40,24 @@ function inlineIcon(string $filename, array $attributes = []): string
     return $svg;
 }
 
+function pleskAssetUrl(string $pfad): string
+{
+    // Erkennt automatisch, ob es https oder http ist
+    $protokoll = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+
+    // Holt die aktuelle Domain (z.B. deine-domain.de oder eine Plesk-Vorschau-URL)
+    $domain = $_SERVER['HTTP_HOST'] ?? '';
+
+    // Ermittelt das Unterverzeichnis, falls das Projekt in einem Unterordner liegt
+    $projektOrdner = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+
+    // Falls wir uns in 'beitraege' oder 'kommentare' befinden, schneiden wir das für die URL ab
+    $projektOrdner = str_replace(['/beitraege', '/kommentare'], '', $projektOrdner);
+    $projektOrdner = rtrim($projektOrdner, '/');
+
+    // Gibt die perfekte, absolute URL zurück
+    return $protokoll . $domain . $projektOrdner . '/' . ltrim($pfad, '/');
+}
 
 function formatDate(string $datum): string
 {
