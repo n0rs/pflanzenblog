@@ -1,3 +1,16 @@
+FÜR CASCADE BENUTZER LÖSCHEN:
+
+ALTER TABLE beitraege
+ADD CONSTRAINT fk_beitraege_benutzer_cascade
+FOREIGN KEY (benutzer_id) REFERENCES benutzer(id)
+ON DELETE CASCADE;
+
+ALTER TABLE kommentare
+ADD CONSTRAINT fk_kommentare_benutzer_cascade
+FOREIGN KEY (benutzer_id) REFERENCES benutzer(id)
+ON DELETE CASCADE;
+
+
 CREATE TABLE IF NOT EXISTS `beitraege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titel` varchar(266) NOT NULL,

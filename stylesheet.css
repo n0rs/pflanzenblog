@@ -134,6 +134,21 @@ nav a:hover {
     margin: 1rem 0;
 }
 
+#benutzerStatusTrigger {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+}
+
+#dropdown-optionen {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
 .metadaten {
     font-size: 0.85rem;
     color: #666;
@@ -242,6 +257,10 @@ nav a:hover {
 
 .antwort-details summary::-webkit-details-marker {
     display: none;
+}
+
+.kommentar-bearbeiten-details-inline summary {
+    list-style: none;
 }
 
 .antwort-button {
