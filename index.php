@@ -47,6 +47,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Entdecke den Pflanzenblog mit aktuellen Beiträgen, Tipps und Kommentaren rund um Garten und Pflanzen.">
         <title>Pflanzenblog</title>
+        <link rel="icon" type="image/png" href="icons/favicon.svg">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>

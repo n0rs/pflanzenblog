@@ -13,6 +13,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <meta charset="UTF-8">
         <meta name="description" content="Erfahre mehr über das Team und die Mission hinter dem Pflanzenblog.">
         <title>Über uns - Pflanzenblog</title>
+        <link rel="icon" type="image/png" href="icons/favicon.svg">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
