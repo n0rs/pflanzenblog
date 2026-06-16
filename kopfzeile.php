@@ -1,12 +1,13 @@
 <header class="kopfzeile">
     <div class="logo-bereich">
-        <h1>🌿 Pflanzenblog</h1>
+        <h1>🌿 Pflanzenblog
         <?php if ($sicherheitsstufe >= 1): ?>
             <div class="benutzer-status">
                 <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
                 <p><?php echo e($_SESSION['benutzername']); ?></p>
             </div>
         <?php endif; ?>
+        </h1>
     </div>
     <nav>
         <a href="index.php">
@@ -40,9 +41,9 @@
             </span>
         </a>
 
-        <form action="suchergebnisse.php" method="get" class="header-search-form">
+        <form action="suchergebnisse.php" method="get" class="kopfzeile-suche-formular">
              <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
-             <button type="submit" class="search-icon-button">
+             <button type="submit" class="suche-icon-button">
                  <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
             </button>
         </form>
