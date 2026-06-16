@@ -59,75 +59,72 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                     <p class="message <?php echo e($messageType); ?>"><?php echo e($message); ?></p>
                 <?php endif; ?>
 
-                <form action="index.php" method="get" class="beitrags-filter">
-                    <div class="filter-gruppe filter-suche">
-                        <label for="filter-suchbegriff">Beiträge durchsuchen</label>
-                        <input
-                            type="text"
-                            id="filter-suchbegriff"
-                            name="suchbegriff"
-                            value="<?php echo e($beitragsFilter['suchbegriff']); ?>"
-                            placeholder="Titel, Inhalt oder botanischer Name"
+                <?php
+                    $datumSortierung = $beitragsFilter['sortierung'] === 'datum_desc' ? 'datum_asc' : 'datum_desc';
+                    $titelSortierung = $beitragsFilter['sortierung'] === 'titel_asc' ? 'titel_desc' : 'titel_asc';
+                    $datumAktiv = in_array($beitragsFilter['sortierung'], ['datum_desc', 'datum_asc'], true);
+                    $titelAktiv = in_array($beitragsFilter['sortierung'], ['titel_asc', 'titel_desc'], true);
+                ?>
+
+                <div class="beitrags-filter">
+                    <div class="sortier-buttons">
+                        <span class="filter-label">Sortieren:</span>
+                        <a
+                            href="?<?php echo e(beitragsQueryString($beitragsFilter, ['sortierung' => $datumSortierung, 'seite' => 1])); ?>"
+                            class="filter-button <?php echo $datumAktiv ? 'aktiv' : ''; ?>"
                         >
+                            Datum <?php echo $beitragsFilter['sortierung'] === 'datum_asc' ? '↑' : '↓'; ?>
+                        </a>
+                        <a
+                            href="?<?php echo e(beitragsQueryString($beitragsFilter, ['sortierung' => $titelSortierung, 'seite' => 1])); ?>"
+                            class="filter-button <?php echo $titelAktiv ? 'aktiv' : ''; ?>"
+                        >
+                            A-Z <?php echo $beitragsFilter['sortierung'] === 'titel_desc' ? '↓' : '↑'; ?>
+                        </a>
                     </div>
 
-                    <div class="filter-gruppe">
-                        <label for="filter-sortierung">Sortierung</label>
-                        <select id="filter-sortierung" name="sortierung">
-                            <option value="datum_desc" <?php echo $beitragsFilter['sortierung'] === 'datum_desc' ? 'selected' : ''; ?>>Neueste zuerst</option>
-                            <option value="datum_asc" <?php echo $beitragsFilter['sortierung'] === 'datum_asc' ? 'selected' : ''; ?>>Älteste zuerst</option>
-                            <option value="titel_asc" <?php echo $beitragsFilter['sortierung'] === 'titel_asc' ? 'selected' : ''; ?>>Alphabetisch A-Z</option>
-                            <option value="titel_desc" <?php echo $beitragsFilter['sortierung'] === 'titel_desc' ? 'selected' : ''; ?>>Alphabetisch Z-A</option>
-                        </select>
-                    </div>
+                    <details class="pflege-filter" <?php echo beitragsFilterAktiv($beitragsFilter) ? 'open' : ''; ?>>
+                        <summary class="filter-button">Filter</summary>
 
-                    <div class="filter-gruppe">
-                        <label for="filter-schwierigkeitsgrad">Schwierigkeit</label>
-                        <select id="filter-schwierigkeitsgrad" name="schwierigkeitsgrad">
-                            <option value="">Alle</option>
-                            <option value="einfach" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'einfach' ? 'selected' : ''; ?>>Einfach</option>
-                            <option value="mittel" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
-                            <option value="anspruchsvoll" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'anspruchsvoll' ? 'selected' : ''; ?>>Anspruchsvoll</option>
-                        </select>
-                    </div>
+                        <form action="index.php" method="get" class="pflege-filter-formular">
+                            <input type="hidden" name="sortierung" value="<?php echo e($beitragsFilter['sortierung']); ?>">
 
-                    <div class="filter-gruppe">
-                        <label for="filter-lichtmenge">Licht</label>
-                        <select id="filter-lichtmenge" name="lichtmenge">
-                            <option value="">Alle</option>
-                            <option value="wenig" <?php echo $beitragsFilter['lichtmenge'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
-                            <option value="mittel" <?php echo $beitragsFilter['lichtmenge'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
-                            <option value="viel" <?php echo $beitragsFilter['lichtmenge'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
-                        </select>
-                    </div>
+                            <select aria-label="Schwierigkeit" name="schwierigkeitsgrad">
+                                <option value="">Schwierigkeit</option>
+                                <option value="einfach" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'einfach' ? 'selected' : ''; ?>>Einfach</option>
+                                <option value="mittel" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="anspruchsvoll" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'anspruchsvoll' ? 'selected' : ''; ?>>Anspruchsvoll</option>
+                            </select>
 
-                    <div class="filter-gruppe">
-                        <label for="filter-bewasserung">Bewässerung</label>
-                        <select id="filter-bewasserung" name="bewasserung">
-                            <option value="">Alle</option>
-                            <option value="wenig" <?php echo $beitragsFilter['bewasserung'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
-                            <option value="mittel" <?php echo $beitragsFilter['bewasserung'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
-                            <option value="viel" <?php echo $beitragsFilter['bewasserung'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
-                        </select>
-                    </div>
+                            <select aria-label="Licht" name="lichtmenge">
+                                <option value="">Licht</option>
+                                <option value="wenig" <?php echo $beitragsFilter['lichtmenge'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
+                                <option value="mittel" <?php echo $beitragsFilter['lichtmenge'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="viel" <?php echo $beitragsFilter['lichtmenge'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
+                            </select>
 
-                    <div class="filter-gruppe">
-                        <label for="filter-winterhart">Winterhart</label>
-                        <select id="filter-winterhart" name="winterhart">
-                            <option value="">Alle</option>
-                            <option value="Winterhart" <?php echo $beitragsFilter['winterhart'] === 'Winterhart' ? 'selected' : ''; ?>>Winterhart</option>
-                            <option value="Bedingt winterhart" <?php echo $beitragsFilter['winterhart'] === 'Bedingt winterhart' ? 'selected' : ''; ?>>Bedingt winterhart</option>
-                            <option value="Nicht winterhart" <?php echo $beitragsFilter['winterhart'] === 'Nicht winterhart' ? 'selected' : ''; ?>>Nicht winterhart</option>
-                        </select>
-                    </div>
+                            <select aria-label="Bewässerung" name="bewasserung">
+                                <option value="">Bewässerung</option>
+                                <option value="wenig" <?php echo $beitragsFilter['bewasserung'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
+                                <option value="mittel" <?php echo $beitragsFilter['bewasserung'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="viel" <?php echo $beitragsFilter['bewasserung'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
+                            </select>
 
-                    <div class="filter-aktionen">
-                        <button type="submit">Anwenden</button>
-                        <?php if (beitragsFilterAktiv($beitragsFilter) || $beitragsFilter['sortierung'] !== 'datum_desc'): ?>
-                            <a href="index.php" class="filter-zuruecksetzen">Zurücksetzen</a>
-                        <?php endif; ?>
-                    </div>
-                </form>
+                            <select aria-label="Winterhart" name="winterhart">
+                                <option value="">Winterhart</option>
+                                <option value="Winterhart" <?php echo $beitragsFilter['winterhart'] === 'Winterhart' ? 'selected' : ''; ?>>Winterhart</option>
+                                <option value="Bedingt winterhart" <?php echo $beitragsFilter['winterhart'] === 'Bedingt winterhart' ? 'selected' : ''; ?>>Bedingt winterhart</option>
+                                <option value="Nicht winterhart" <?php echo $beitragsFilter['winterhart'] === 'Nicht winterhart' ? 'selected' : ''; ?>>Nicht winterhart</option>
+                            </select>
+
+                            <button type="submit" class="filter-button">OK</button>
+
+                            <?php if (beitragsFilterAktiv($beitragsFilter) || $beitragsFilter['sortierung'] !== 'datum_desc'): ?>
+                                <a href="index.php" class="filter-button filter-zuruecksetzen">Zurücksetzen</a>
+                            <?php endif; ?>
+                        </form>
+                    </details>
+                </div>
 
                 <p class="filter-ergebnis">
                     <?php echo (int)$gesamt_beitraege; ?>

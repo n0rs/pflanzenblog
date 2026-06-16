@@ -381,7 +381,6 @@ function bereinigeBeitragsFilter(array $quelle): array
 
     $filter = [
         'sortierung' => isset($quelle['sortierung']) ? trim((string)$quelle['sortierung']) : 'datum_desc',
-        'suchbegriff' => isset($quelle['suchbegriff']) ? trim((string)$quelle['suchbegriff']) : '',
         'bewasserung' => isset($quelle['bewasserung']) ? trim((string)$quelle['bewasserung']) : '',
         'lichtmenge' => isset($quelle['lichtmenge']) ? trim((string)$quelle['lichtmenge']) : '',
         'schwierigkeitsgrad' => isset($quelle['schwierigkeitsgrad']) ? trim((string)$quelle['schwierigkeitsgrad']) : '',
@@ -409,8 +408,7 @@ function bereinigeBeitragsFilter(array $quelle): array
 
 function beitragsFilterAktiv(array $filter): bool
 {
-    return $filter['suchbegriff'] !== ''
-        || $filter['bewasserung'] !== ''
+    return $filter['bewasserung'] !== ''
         || $filter['lichtmenge'] !== ''
         || $filter['schwierigkeitsgrad'] !== ''
         || $filter['winterhart'] !== '';
@@ -419,15 +417,6 @@ function beitragsFilterAktiv(array $filter): bool
 function baueBeitragsFilterSql(array $filter, array &$werte, string &$typen): string
 {
     $bedingungen = [];
-
-    if ($filter['suchbegriff'] !== '') {
-        $bedingungen[] = "(beitraege.titel LIKE ? OR beitraege.inhalt LIKE ? OR beitraege.botanischer_name LIKE ?)";
-        $suchmuster = '%' . $filter['suchbegriff'] . '%';
-        $werte[] = $suchmuster;
-        $werte[] = $suchmuster;
-        $werte[] = $suchmuster;
-        $typen .= 'sss';
-    }
 
     foreach (['bewasserung', 'lichtmenge', 'schwierigkeitsgrad', 'winterhart'] as $feld) {
         if ($filter[$feld] !== '') {
