@@ -51,10 +51,10 @@ if (isset($_POST['registrieren'])) {
         <meta charset="UTF-8">
         <meta name="description" content="Erstelle einen Account im Pflanzenblog und teile deine Gartenbeiträge und Kommentare mit anderen Pflanzenfreunden.">
         <title>Registrieren - Pflanzenblog</title>
-        <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
+        <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body>
+    <body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
         <div class="container">
 
             <?php include 'kopfzeile.php'; ?>

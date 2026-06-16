@@ -127,10 +127,10 @@ if (isset($_POST['submit_update'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beitrag bearbeiten - Pflanzenblog</title>
-    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body>
+<body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>

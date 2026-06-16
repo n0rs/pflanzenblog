@@ -41,10 +41,10 @@ if (isset($_GET['suchbegriff'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suchergebnisse für "<?php echo e($suchbegriff); ?>" - Pflanzenblog</title>
-    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body>
+<body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
@@ -52,6 +52,11 @@ if (isset($_GET['suchbegriff'])) {
     <main>
         <div class="zurueck-container">
             <a href="../index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
+        </div>
+
+        <div class="suchleiste">
+
+
         </div>
 
         <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
