@@ -289,18 +289,23 @@ nav a:hover {
 .kommentar-formular{
     margin-top: 0.5em;
     padding-top: 0.5em;
+    max-width: 100%;
 }
 
 .kommentar {
     background: #f9fbf9;
     position: relative;
     padding: 15px;
-    padding-right: 70px;
     margin-bottom: 12px;
     border-radius: 6px;
     border-left: 4px solid #81c784;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .kommentar img {
@@ -310,11 +315,15 @@ nav a:hover {
 }
 
 .kommentar p {
-    margin: 0 0 8px 0;
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .kommentar small {
     color: #777;
+    display: block;
+    overflow-wrap: anywhere;
 }
 
 .kommentar a {
@@ -328,12 +337,13 @@ nav a:hover {
 
 /* Bearbeiten/Löschen Icons */
 .kommentar-aktionen {
-    position: absolute;
-    right: 15px;
-    top: 15px;
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-self: flex-end;
+    order: -1;
 }
 
 .kommentar-aktionen a {
@@ -347,18 +357,29 @@ nav a:hover {
     display: block;
 }
 
+.kommentar-bearbeiten-details-inline {
+    max-width: 100%;
+}
+
+.kommentar-bearbeiten-formular-inline {
+    max-width: min(420px, 100%);
+}
+
 /* Antworten / verschachtelte Kommentare */
 .antworten {
     margin-top: 15px;
-    margin-left: 25px;
-    padding-left: 15px;
+    margin-left: 0;
+    padding-left: 10px;
     border-left: 3px solid #c5e1a5;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .kommentar.antwort {
     background: #f1f8e9;
     margin-top: 10px;
     border: none;
+    min-width: 0;
 }
 
 /* Antwort aufklappen */
@@ -399,6 +420,7 @@ nav a:hover {
     padding: 12px;
     background: #f9fbf9;
     border-radius: 6px;
+    max-width: 100%;
 }
 
 /* Kommentar direkt auf Detailseite bearbeiten */
@@ -440,19 +462,19 @@ nav a:hover {
 /* Einrückung nach Tiefe */
 .tiefe-1 {
     margin-top: 0.5em;
-    margin-left: 1.5em;
+    margin-left: 0;
 }
 
 .tiefe-2 {
     margin-top: 0.5em;
-    margin-left: 1.25em;
+    margin-left: 0;
 }
 
 .tiefe-3,
 .tiefe-4,
 .tiefe-5 {
     margin-top: 0.5em;
-    margin-left: 1em;
+    margin-left: 0;
 }
 /*FORMULARE & BUTTONS*/
 .eingabe-gruppe {
@@ -471,6 +493,7 @@ input[type="password"],
 textarea,
 select {
     width: 100%;
+    max-width: 100%;
     padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 4px;
@@ -860,18 +883,37 @@ footer a:hover {
     }
 
     .kommentar {
-        padding-right: 50px;
+        padding: 12px;
+        padding-right: 12px;
     }
 
     .kommentar-aktionen {
-        right: 10px;
-        top: 10px;
+        position: static;
+        justify-content: flex-end;
+        margin-bottom: 8px;
         gap: 6px;
     }
 
+    .kommentar-bearbeiten-details-inline {
+        max-width: 100%;
+    }
+
+    .kommentar-bearbeiten-formular-inline {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .antworten {
-        margin-left: 10px;
-        padding-left: 10px;
+        margin-left: 0;
+        padding-left: 8px;
+    }
+
+    .tiefe-1,
+    .tiefe-2,
+    .tiefe-3,
+    .tiefe-4,
+    .tiefe-5 {
+        margin-left: 0;
     }
 
     .antwort-formular,
