@@ -19,15 +19,16 @@ if (isset($_GET['suchbegriff'])) {
     } else {
         $suchbegriff = trim($_GET['suchbegriff']);
 
-        $suchbegriff_erweitert = $suchbegriff . '*';
+        $suchbegriff_erweitert = '%'. $suchbegriff . '%';
 
         $anweisung = $datenbankverbindung->prepare(
-            "SELECT * FROM beitraege b WHERE MATCH(b.titel, b.inhalt) AGAINST(? IN BOOLEAN MODE)"
+            "SELECT * FROM beitraege b WHERE b.titel LIKE ? OR b.inhalt LIKE ?"
         );
 
         $anweisung->bind_param(
-            's',
-            $suchbegriff_erweitert
+            'ss',
+            $suchbegriff_erweitert,
+                $suchbegriff_erweitert
         );
         $anweisung->execute();
 
@@ -58,7 +59,7 @@ if (isset($_GET['suchbegriff'])) {
             <?php
             if ($ergebnis && $ergebnis->num_rows > 0) {
                 while ($beitrag = $ergebnis->fetch_assoc()) {
-                    include 'post_card.php';
+                    include 'beitragskarte.php';
                 }
             } else {
                 leereSuche(e($suchbegriff));
@@ -67,7 +68,7 @@ if (isset($_GET['suchbegriff'])) {
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'fusszeile.php'; ?>
 </div>
 </body>
 </html>
