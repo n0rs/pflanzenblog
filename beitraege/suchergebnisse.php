@@ -15,8 +15,6 @@ if (isset($_GET['suchbegriff'])) {
 
     if($_GET['suchbegriff'] == "" || $_GET['suchbegriff'] == null) {
         sendeToast("Bitte Suchbegriff eingeben");
-        header('Location: ../index.php');
-        exit;
     } else {
         $suchbegriff = trim($_GET['suchbegriff']);
 
@@ -56,12 +54,18 @@ if (isset($_GET['suchbegriff'])) {
             <a href="../index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
         </div>
 
-        <div class="suchleiste">
-
-
+        <div class="suchleiste-box">
+            <form action="<?php echo projektPfad('beitraege/suchergebnisse.php'); ?>" method="get" class="suchleiste">
+                <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste" value="<?php echo e($suchbegriff); ?>">
+                <button type="submit" class="suche-icon-button">
+                    <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
+                </button>
+            </form>
         </div>
 
-        <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
+        <?php if ($suchbegriff != ''): ?>
+            <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
+        <?php endif; ?>
 
         <div class="blog-container">
             <?php
@@ -70,7 +74,16 @@ if (isset($_GET['suchbegriff'])) {
                     include __DIR__ . '/beitragskarte.php';
                 }
             } else {
-                leereSuche(e($suchbegriff));
+                ?>
+                <div class="container">
+                    <div class="leer-box">
+                        <?php echo inlineIcon('search.svg', ['class' => 'gross-icon', 'role' => 'img', 'aria-label' => 'Lupe', 'title' => 'Suche']); ?>
+                        <?php if ($suchbegriff != ''): ?>
+                            <span>Keine Ergebnisse gefunden.</span>
+                        <?php else: ?> <span>Kein Suchbegriff eingegeben.</span>
+                        <?php endif; ?> </div>
+                </div>
+                <?php
             }
             ?>
         </div>
