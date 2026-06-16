@@ -1,18 +1,18 @@
 <header class="kopfzeile">
     <div class="logo-bereich">
-        <h1>🌿 Pflanzenblog
-            <?php if ($sicherheitsstufe >= 1): ?>
-                <div class="benutzer-status" id="benutzerStatusTrigger">
-                    <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
-                    <p style="margin: 0; display: inline;"><?php echo e($_SESSION['benutzername']); ?></p>
+        <?php if ($sicherheitsstufe >= 1): ?>
+            <div class="benutzer-status" id="benutzerStatusTrigger">
+                 <?php echo inlineIcon('account.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Account', 'title' => $_SESSION['benutzername']]); ?>
+                 <p style="margin: 0; display: inline;"><?php echo e($_SESSION['benutzername']); ?></p>
 
-                    <div id="benutzerDropdown">
-                        <a href="benutzer_loeschen.php?id=<?php echo $_SESSION['benutzer_id']; ?>" id="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
-                        <a href="logout.php" id="dropdown-optionen">Logout</a>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </h1>
+                 <div id="benutzerDropdown">
+                    <a href="benutzer_loeschen.php?id=<?php echo $_SESSION['benutzer_id']; ?>" id="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
+                    <a href="logout.php" id="dropdown-optionen">Logout</a>
+                 </div>
+            </div>
+         <?php endif; ?>
+        <h1>🌿 Pflanzenblog</h1>
+        <h2>🌿 Pflanzenblog</h2>
     </div>
     <nav>
         <a href="index.php">
@@ -43,7 +43,6 @@
             <span class="kopfzeilen-text" title="Login">Login</span>
         </a>
         <?php endif; ?>
-
 
         <form action="suchergebnisse.php" method="get" class="kopfzeile-suche-formular">
              <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">

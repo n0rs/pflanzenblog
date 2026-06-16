@@ -1,6 +1,7 @@
 /* LAYOUT */
 * {
     box-sizing: border-box;
+    --polygon-smallest-viewport-height: 100svh;
 }
 
 body {
@@ -41,9 +42,13 @@ header {
     padding: 1.5rem 2rem;
 }
 
-.header-brand h1 {
+.logo-bereich h1 {
     margin: 0 0 0.5rem 0;
     font-size: 1.8rem;
+}
+
+.logo-bereich h2{
+    display: none;
 }
 
 .benutzer-status {
@@ -220,13 +225,13 @@ nav a:hover {
 }
 
 .beitrags-karte h2 {
-    margin-top: 0;
+    margin: 0;
     color: #1b5e20;
 }
 
 .beitrags-bild img {
     width: 100%;
-    aspect-ratio: 21/9;
+    aspect-ratio: 21/7;
     object-position: center;
     object-fit: cover;
     border-radius: 6px;
@@ -799,6 +804,19 @@ footer a:hover {
         padding: 1rem;
     }
 
+    .logo-bereich h1{
+        display: none;
+    }
+
+    .logo-bereich h2{
+        display: block;
+        margin: 0 ;
+    }
+
+    #suchleiste{
+        display: none;
+    }
+
     .beitrags-filter,
     .sortier-buttons,
     .pflege-filter-formular {
@@ -842,6 +860,11 @@ footer a:hover {
     }
 
     /* BLOGBEITRAEGE */
+
+    .beitrags-bild img {
+        aspect-ratio: 21/9;
+    }
+
     .pflanzendetails-postcard{
         display: none;
     }
