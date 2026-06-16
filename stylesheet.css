@@ -102,6 +102,105 @@ nav a:hover {
 }
 
 /* BLOG-BEITRÄGE (POST CARD)*/
+.beitrags-filter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.sortier-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.filter-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 11px;
+    background: #f9fbf9;
+    border: 1px solid #c5e1a5;
+    border-radius: 999px;
+    color: #2e7d32;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: bold;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.filter-button:hover,
+.filter-button.aktiv {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+}
+
+.pflege-filter {
+    position: relative;
+}
+
+.pflege-filter summary {
+    list-style: none;
+}
+
+.pflege-filter summary::-webkit-details-marker {
+    display: none;
+}
+
+.pflege-filter-formular {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #d9ead9;
+    border-radius: 8px;
+}
+
+.pflege-filter-formular select {
+    width: auto;
+    min-width: 120px;
+    padding: 6px 8px;
+    font-size: 0.88rem;
+}
+
+.pflege-filter-formular button.filter-button {
+    background: #388e3c;
+    border-color: #388e3c;
+    color: white;
+}
+
+.filter-zuruecksetzen {
+    color: #5d6f5d;
+}
+
+.filter-ergebnis {
+    margin: 1rem 0 0;
+    color: #666;
+    font-weight: bold;
+}
+
+.leerer-zustand {
+    padding: 1.5rem;
+    background: #f9fbf9;
+    border: 1px dashed #c5e1a5;
+    border-radius: 8px;
+    text-align: center;
+    color: #466046;
+}
+
 .blog-container {
     display: flex;
     flex-direction: column;
@@ -646,6 +745,27 @@ footer a:hover {
     main {
         padding: 1rem;
     }
+
+    .beitrags-filter,
+    .sortier-buttons,
+    .pflege-filter-formular {
+        align-items: flex-start;
+    }
+
+    .pflege-filter {
+        width: 100%;
+    }
+
+    .pflege-filter-formular {
+        flex-direction: column;
+    }
+
+    .pflege-filter-formular select,
+    .pflege-filter-formular .filter-button {
+        width: 100%;
+        justify-content: center;
+    }
+
     .kopfzeilen-text, .text-button {
         display: none;
     }

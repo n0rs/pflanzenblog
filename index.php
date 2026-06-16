@@ -20,7 +20,7 @@ if (isset($_SESSION['message_type'])) {
 
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 
-$beitraege = holeAlleBeitraege($datenbankverbindung);
+$beitragsFilter = bereinigeBeitragsFilter($_GET);
 
 $beitraege_pro_seite = 5;
 
@@ -30,16 +30,15 @@ if ($aktuelle_seite < 1) {
 }
 
 $offset = ($aktuelle_seite - 1) * $beitraege_pro_seite;
-$gesamt_beitraege = zaehleAlleBeitraege($datenbankverbindung);
-$gesamt_seiten = ceil($gesamt_beitraege / $beitraege_pro_seite);
+$gesamt_beitraege = zaehleAlleBeitraege($datenbankverbindung, $beitragsFilter);
+$gesamt_seiten = max(1, (int)ceil($gesamt_beitraege / $beitraege_pro_seite));
 
-$beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $offset);
-
-// --- TOAST TEST START ---
-    if (isset($_GET['seite'])) {
-    sendeToast("Test Toast");
+if ($aktuelle_seite > $gesamt_seiten) {
+    $aktuelle_seite = $gesamt_seiten;
+    $offset = ($aktuelle_seite - 1) * $beitraege_pro_seite;
 }
-// --- TOAST TEST ENDE ---
+
+$beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $offset, $beitragsFilter);
 ?>
 
 <html lang="de">
@@ -59,16 +58,93 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <?php if (!empty($message)): ?>
                     <p class="message <?php echo e($messageType); ?>"><?php echo e($message); ?></p>
                 <?php endif; ?>
-                <div class="blog-container index-ansicht">
-                    <?php foreach ($beitraege as $beitrag): ?>
-                        <?php include 'beitragskarte.php'; ?>
-                    <?php endforeach; ?>
+
+                <?php
+                    $datumSortierung = $beitragsFilter['sortierung'] === 'datum_desc' ? 'datum_asc' : 'datum_desc';
+                    $titelSortierung = $beitragsFilter['sortierung'] === 'titel_asc' ? 'titel_desc' : 'titel_asc';
+                    $datumAktiv = in_array($beitragsFilter['sortierung'], ['datum_desc', 'datum_asc'], true);
+                    $titelAktiv = in_array($beitragsFilter['sortierung'], ['titel_asc', 'titel_desc'], true);
+                ?>
+
+                <div class="beitrags-filter">
+                    <div class="sortier-buttons">
+                        <span class="filter-label">Sortieren:</span>
+                        <a
+                            href="?<?php echo e(beitragsQueryString($beitragsFilter, ['sortierung' => $datumSortierung, 'seite' => 1])); ?>"
+                            class="filter-button <?php echo $datumAktiv ? 'aktiv' : ''; ?>"
+                        >
+                            Datum <?php echo $beitragsFilter['sortierung'] === 'datum_asc' ? '↑' : '↓'; ?>
+                        </a>
+                        <a
+                            href="?<?php echo e(beitragsQueryString($beitragsFilter, ['sortierung' => $titelSortierung, 'seite' => 1])); ?>"
+                            class="filter-button <?php echo $titelAktiv ? 'aktiv' : ''; ?>"
+                        >
+                            A-Z <?php echo $beitragsFilter['sortierung'] === 'titel_desc' ? '↓' : '↑'; ?>
+                        </a>
+                    </div>
+
+                    <details class="pflege-filter" <?php echo beitragsFilterAktiv($beitragsFilter) ? 'open' : ''; ?>>
+                        <summary class="filter-button">Filter</summary>
+
+                        <form action="index.php" method="get" class="pflege-filter-formular">
+                            <input type="hidden" name="sortierung" value="<?php echo e($beitragsFilter['sortierung']); ?>">
+
+                            <select aria-label="Schwierigkeit" name="schwierigkeitsgrad">
+                                <option value="">Schwierigkeit</option>
+                                <option value="einfach" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'einfach' ? 'selected' : ''; ?>>Einfach</option>
+                                <option value="mittel" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="anspruchsvoll" <?php echo $beitragsFilter['schwierigkeitsgrad'] === 'anspruchsvoll' ? 'selected' : ''; ?>>Anspruchsvoll</option>
+                            </select>
+
+                            <select aria-label="Licht" name="lichtmenge">
+                                <option value="">Licht</option>
+                                <option value="wenig" <?php echo $beitragsFilter['lichtmenge'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
+                                <option value="mittel" <?php echo $beitragsFilter['lichtmenge'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="viel" <?php echo $beitragsFilter['lichtmenge'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
+                            </select>
+
+                            <select aria-label="Bewässerung" name="bewasserung">
+                                <option value="">Bewässerung</option>
+                                <option value="wenig" <?php echo $beitragsFilter['bewasserung'] === 'wenig' ? 'selected' : ''; ?>>Wenig</option>
+                                <option value="mittel" <?php echo $beitragsFilter['bewasserung'] === 'mittel' ? 'selected' : ''; ?>>Mittel</option>
+                                <option value="viel" <?php echo $beitragsFilter['bewasserung'] === 'viel' ? 'selected' : ''; ?>>Viel</option>
+                            </select>
+
+                            <select aria-label="Winterhart" name="winterhart">
+                                <option value="">Winterhart</option>
+                                <option value="Winterhart" <?php echo $beitragsFilter['winterhart'] === 'Winterhart' ? 'selected' : ''; ?>>Winterhart</option>
+                                <option value="Bedingt winterhart" <?php echo $beitragsFilter['winterhart'] === 'Bedingt winterhart' ? 'selected' : ''; ?>>Bedingt winterhart</option>
+                                <option value="Nicht winterhart" <?php echo $beitragsFilter['winterhart'] === 'Nicht winterhart' ? 'selected' : ''; ?>>Nicht winterhart</option>
+                            </select>
+
+                            <button type="submit" class="filter-button">OK</button>
+
+                            <?php if (beitragsFilterAktiv($beitragsFilter) || $beitragsFilter['sortierung'] !== 'datum_desc'): ?>
+                                <a href="index.php" class="filter-button filter-zuruecksetzen">Zurücksetzen</a>
+                            <?php endif; ?>
+                        </form>
+                    </details>
                 </div>
 
-                <?php if ($gesamt_seiten > 1): ?>
+                <p class="filter-ergebnis">
+                    <?php echo (int)$gesamt_beitraege; ?>
+                    <?php echo $gesamt_beitraege === 1 ? 'Beitrag gefunden' : 'Beiträge gefunden'; ?>
+                </p>
+
+                <div class="blog-container index-ansicht">
+                    <?php if (!empty($beitraege)): ?>
+                        <?php foreach ($beitraege as $beitrag): ?>
+                            <?php include 'beitragskarte.php'; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="leerer-zustand">Keine Beiträge passen zu dieser Auswahl.</p>
+                    <?php endif; ?>
+                </div>
+
+                <?php if ($gesamt_seiten > 1 && $gesamt_beitraege > 0): ?>
                     <div class="umblaettern">
                         <?php if ($aktuelle_seite > 1): ?>
-                            <a href="?seite=<?php echo $aktuelle_seite - 1; ?>" class="umblaettern-button davor">
+                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite - 1])); ?>" class="umblaettern-button davor">
                                 ⬅ <span class="text-button">Neuere Beiträge</span>
                             </a>
                         <?php endif; ?>
@@ -76,7 +152,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                         <span class="umblaettern-text"> Seite <?php echo $aktuelle_seite; ?> von <?php echo $gesamt_seiten; ?> </span>
 
                         <?php if ($aktuelle_seite < $gesamt_seiten): ?>
-                            <a href="?seite=<?php echo $aktuelle_seite + 1; ?>" class="umblaettern-button danach">
+                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite + 1])); ?>" class="umblaettern-button danach">
                                 <span class="text-button">Ältere Beiträge</span> ➔
                             </a>
                         <?php endif; ?>

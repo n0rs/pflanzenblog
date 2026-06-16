@@ -371,10 +371,111 @@ function zeigePflanzenDetails(array $beitrag): void
     endif;
 }
 
-// Zählt, wie viele Beiträge insgesamt in der Datenbank existieren
-function zaehleAlleBeitraege(mysqli $datenbankverbindung): int
+function bereinigeBeitragsFilter(array $quelle): array
 {
-    $ergebnis = $datenbankverbindung->query("SELECT COUNT(*) AS anzahl FROM beitraege");
+    $erlaubteSortierungen = ['datum_desc', 'datum_asc', 'titel_asc', 'titel_desc'];
+    $erlaubteBewasserung = ['wenig', 'mittel', 'viel'];
+    $erlaubteLichtmenge = ['wenig', 'mittel', 'viel'];
+    $erlaubteSchwierigkeit = ['einfach', 'mittel', 'anspruchsvoll'];
+    $erlaubteWinterhart = ['Winterhart', 'Bedingt winterhart', 'Nicht winterhart'];
+
+    $filter = [
+        'sortierung' => isset($quelle['sortierung']) ? trim((string)$quelle['sortierung']) : 'datum_desc',
+        'bewasserung' => isset($quelle['bewasserung']) ? trim((string)$quelle['bewasserung']) : '',
+        'lichtmenge' => isset($quelle['lichtmenge']) ? trim((string)$quelle['lichtmenge']) : '',
+        'schwierigkeitsgrad' => isset($quelle['schwierigkeitsgrad']) ? trim((string)$quelle['schwierigkeitsgrad']) : '',
+        'winterhart' => isset($quelle['winterhart']) ? trim((string)$quelle['winterhart']) : '',
+    ];
+
+    if (!in_array($filter['sortierung'], $erlaubteSortierungen, true)) {
+        $filter['sortierung'] = 'datum_desc';
+    }
+    if (!in_array($filter['bewasserung'], $erlaubteBewasserung, true)) {
+        $filter['bewasserung'] = '';
+    }
+    if (!in_array($filter['lichtmenge'], $erlaubteLichtmenge, true)) {
+        $filter['lichtmenge'] = '';
+    }
+    if (!in_array($filter['schwierigkeitsgrad'], $erlaubteSchwierigkeit, true)) {
+        $filter['schwierigkeitsgrad'] = '';
+    }
+    if (!in_array($filter['winterhart'], $erlaubteWinterhart, true)) {
+        $filter['winterhart'] = '';
+    }
+
+    return $filter;
+}
+
+function beitragsFilterAktiv(array $filter): bool
+{
+    return $filter['bewasserung'] !== ''
+        || $filter['lichtmenge'] !== ''
+        || $filter['schwierigkeitsgrad'] !== ''
+        || $filter['winterhart'] !== '';
+}
+
+function baueBeitragsFilterSql(array $filter, array &$werte, string &$typen): string
+{
+    $bedingungen = [];
+
+    foreach (['bewasserung', 'lichtmenge', 'schwierigkeitsgrad', 'winterhart'] as $feld) {
+        if ($filter[$feld] !== '') {
+            $bedingungen[] = "beitraege.$feld = ?";
+            $werte[] = $filter[$feld];
+            $typen .= 's';
+        }
+    }
+
+    return empty($bedingungen) ? '' : ' WHERE ' . implode(' AND ', $bedingungen);
+}
+
+function beitragsSortierungSql(string $sortierung): string
+{
+    switch ($sortierung) {
+        case 'datum_asc':
+            return 'beitraege.datum ASC, beitraege.id ASC';
+        case 'titel_asc':
+            return 'beitraege.titel ASC, beitraege.datum DESC';
+        case 'titel_desc':
+            return 'beitraege.titel DESC, beitraege.datum DESC';
+        case 'datum_desc':
+        default:
+            return 'beitraege.datum DESC, beitraege.id DESC';
+    }
+}
+
+function beitragsQueryString(array $filter, array $zusatz = []): string
+{
+    $parameter = array_merge($filter, $zusatz);
+
+    foreach ($parameter as $name => $wert) {
+        if ($wert === '' || $wert === null || ($name === 'sortierung' && $wert === 'datum_desc')) {
+            unset($parameter[$name]);
+        }
+    }
+
+    return http_build_query($parameter);
+}
+
+// Zählt, wie viele Beiträge zur aktuellen Auswahl passen
+function zaehleAlleBeitraege(mysqli $datenbankverbindung, array $filter = []): int
+{
+    $filter = bereinigeBeitragsFilter($filter);
+    $werte = [];
+    $typen = '';
+    $where = baueBeitragsFilterSql($filter, $werte, $typen);
+    $anweisung = $datenbankverbindung->prepare("SELECT COUNT(*) AS anzahl FROM beitraege" . $where);
+
+    if (!$anweisung) {
+        return 0;
+    }
+
+    if (!empty($werte)) {
+        $anweisung->bind_param($typen, ...$werte);
+    }
+
+    $anweisung->execute();
+    $ergebnis = $anweisung->get_result();
     if ($ergebnis) {
         $reihe = $ergebnis->fetch_assoc();
         return (int)$reihe['anzahl'];
@@ -383,16 +484,31 @@ function zaehleAlleBeitraege(mysqli $datenbankverbindung): int
 }
 
 // Lädt nur eine bestimmte Anzahl an Beiträgen (LIMIT) ab einem Startpunkt (OFFSET)
-function holeBeitraegeProSeite(mysqli $datenbankverbindung, int $limit, int $offset): array
+function holeBeitraegeProSeite(mysqli $datenbankverbindung, int $limit, int $offset, array $filter = []): array
 {
+    $filter = bereinigeBeitragsFilter($filter);
+    $werte = [];
+    $typen = '';
+    $where = baueBeitragsFilterSql($filter, $werte, $typen);
+    $orderBy = beitragsSortierungSql($filter['sortierung']);
+
     $anweisung = $datenbankverbindung->prepare(
         "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
-         ORDER BY beitraege.datum DESC
+         " . $where . "
+         ORDER BY " . $orderBy . "
          LIMIT ? OFFSET ?"
     );
-    $anweisung->bind_param('ii', $limit, $offset);
+
+    if (!$anweisung) {
+        return [];
+    }
+
+    $werte[] = $limit;
+    $werte[] = $offset;
+    $typen .= 'ii';
+    $anweisung->bind_param($typen, ...$werte);
     $anweisung->execute();
     $ergebnis = $anweisung->get_result();
     return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
