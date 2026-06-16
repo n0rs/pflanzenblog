@@ -31,8 +31,9 @@ if (isset($_POST['registrieren'])) {
 
         try {
             $anweisung->execute();
-            $meldung_type = 'success';
-            $meldung = 'Registrierung erfolgreich. <a href="login.php">Hier einloggen</a>';
+            sendeToast('Registrierung erfolgreich. Du kannst dich jetzt einloggen.');
+            header('Location: login.php');
+            exit;
         } catch (mysqli_sql_exception $e) {
             if ($e->getCode() == 1062) {
                 $meldung = 'Fehler: Dieser Benutzername ist bereits vergeben.';
