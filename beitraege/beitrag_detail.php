@@ -2,6 +2,7 @@
 session_start();
 require_once dirname(__DIR__) . '/funktionen/datenbank.php';
 require_once dirname(__DIR__) . '/funktionen/laden.php';
+
 /** @var mysqli $datenbankverbindung */
 
 
@@ -31,10 +32,11 @@ $detailansicht = true;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Detailansicht für: <?php echo e($beitrag['titel']); ?>">
     <title><?php echo e($beitrag['titel']); ?> - Pflanzenblog</title>
-    <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+
+<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
@@ -53,9 +55,8 @@ $detailansicht = true;
         </div>
 
     </main>
-
-    <?php include dirname(__DIR__) . '/fusszeile.php'; ?>
-</div>
+    <?php include 'fusszeile.php'; ?>
 </body>
 </html>
+
 

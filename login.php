@@ -2,6 +2,8 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
+
+
 /** @var mysqli $datenbankverbindung */
 
 // Wenn bereits eingeloggt, zurück zur Startseite
@@ -51,10 +53,10 @@ if(isset($_POST['anmelden'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Melde dich im Pflanzenblog an, um Beiträge zu erstellen und Kommentare zu schreiben.">
     <title>Login - Pflanzenblog</title>
-    <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
-    <body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
         <div class="container">
 
             <?php include 'kopfzeile.php'; ?>

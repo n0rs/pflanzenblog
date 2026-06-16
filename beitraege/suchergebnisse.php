@@ -2,6 +2,7 @@
 session_start();
 require_once dirname(__DIR__) . '/funktionen/datenbank.php';
 require_once dirname(__DIR__) . '/funktionen/laden.php';
+
 /** @var mysqli $datenbankverbindung */
 $kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -41,10 +42,11 @@ if (isset($_GET['suchbegriff'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suchergebnisse für "<?php echo e($suchbegriff); ?>" - Pflanzenblog</title>
-    <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+<body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>

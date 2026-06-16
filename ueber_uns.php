@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
+
 /** @var mysqli $datenbankverbindung */
 
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
@@ -13,10 +14,10 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <meta charset="UTF-8">
         <meta name="description" content="Erfahre mehr über das Team und die Mission hinter dem Pflanzenblog.">
         <title>Über uns - Pflanzenblog</title>
-        <link rel="icon" type="image/svg+xml" href="<?php echo serverAssetPfad('icons', 'favicon.svg'); ?>">
+        <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body style="background-image: url('<?php echo serverAssetPfad('icons', 'natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
+    <body style="background-image: url('<?php echo projektPfad('icons/natalie-kovach-ph7QQq63lCs-unsplash.jpg'); ?>');">
     <div class="container">
 
         <?php include 'kopfzeile.php'; ?>

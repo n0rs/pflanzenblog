@@ -40,15 +40,6 @@ function inlineIcon(string $filename, array $attributes = []): string
     return $svg;
 }
 
-function serverAssetPfad(string $ordner, string $filename): string
-{
-    $systemPath = dirname(__DIR__) . '/' . $ordner . '/' . $filename;
-
-    if (!is_file($systemPath)) {
-        return '';
-    }
-    return $ordner . '/' . $filename;
-}
 
 function formatDate(string $datum): string
 {

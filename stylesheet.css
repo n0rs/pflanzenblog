@@ -7,7 +7,7 @@
 body {
     font-family: 'Verdana', sans-serif;
     margin: 0;
-
+    background-color: #f4f8f4;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,7 +27,7 @@ body {
     margin-right: auto;
     width: 95%;
     max-width: 1100px;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
     min-height: 100vh;
     display: flex;
