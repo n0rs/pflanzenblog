@@ -36,7 +36,7 @@ $detailansicht = true;
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
 
-<body style="background-image: url('<?php echo projektPfad('icons/hb.jpg'); ?>');">
+<body style="background-image: url('<?= e(projektUrl('icons/hb.jpg')) ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>

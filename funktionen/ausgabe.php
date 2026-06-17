@@ -13,6 +13,22 @@ function projektPfad(string $pfad = ''): string
     return $prefix . ltrim($pfad, '/');
 }
 
+function projektUrl(string $pfad = ''): string
+{
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+    $ordner = basename(str_replace('\\', '/', $base));
+
+    if (in_array($ordner, ['beitraege', 'kommentare'], true)) {
+        $base = dirname($base);
+    }
+
+    if ($base === '/' || $base === '\\') {
+        $base = '';
+    }
+
+    return $base . '/' . ltrim($pfad, '/');
+}
+
 function inlineIcon(string $filename, array $attributes = []): string
 {
     $path = dirname(__DIR__) . '/icons/' . $filename;
