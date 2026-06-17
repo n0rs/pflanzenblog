@@ -43,13 +43,14 @@
             <span class="kopfzeilen-text" title="Login">Login</span>
         </a>
         <?php endif; ?>
-
-        <form action="<?php echo projektPfad('beitraege/suchergebnisse.php'); ?>" method="get" class="kopfzeile-suche-formular">
-             <input type="text" name="suchbegriff" placeholder="Suchen..." id="suchleiste">
-             <button type="submit" class="suche-icon-button">
-                 <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
-            </button>
-        </form>
+        <div class="kopfzeile-suche-box">
+            <form action="<?php echo projektPfad('beitraege/suchergebnisse.php'); ?>" method="get" class="kopfzeile-suche-formular">
+                 <input type="text" name="suchbegriff" placeholder="Suchen..." id="kopfzeile-suchleiste">
+                 <button type="submit" class="kopfzeile-suche-icon-button">
+                     <?php echo inlineIcon('search.svg', ['class' => 'icon stay', 'role' => 'img', 'aria-label' => 'Suchen', 'title' => 'Suchen']); ?>
+                </button>
+            </form>
+        </div>
     </nav>
 </header>
 
@@ -73,4 +74,23 @@
             dropdown.style.display = 'none';
         });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Holt genau deine Suchbox anhand der Klasse
+        const sucheBox = document.querySelector('.kopfzeile-suche-box');
+
+        // Lauscht auf jeden Klick/Tipp auf der gesamten Webseite
+        document.addEventListener('click', function(event) {
+            if (sucheBox) {
+                // Hat der Nutzer IN die Suchbox (oder auf die Lupe) geklickt?
+                if (sucheBox.contains(event.target)) {
+                    sucheBox.classList.add('offen'); // Klappt die Suche auf (für Handys)
+                }
+                // Hat der Nutzer irgendwo AUSSERHALB der Suchbox geklickt?
+                else {
+                    sucheBox.classList.remove('offen'); // Klappt die Suche wieder zu
+                }
+            }
+        });
+    });
 </script>
