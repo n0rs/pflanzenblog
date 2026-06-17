@@ -34,7 +34,7 @@ function baueKommentarBaum(array $kommentare): array
         $nachId[$kommentar['id']] = $kommentar;
     }
 
-    foreach ($nachId as $id => &$kommentar) {
+    foreach ($nachId as &$kommentar) {
         if (!empty($kommentar['kom_id']) && isset($nachId[$kommentar['kom_id']])) {
             $nachId[$kommentar['kom_id']]['antworten'][] = &$kommentar;
         } else {
