@@ -117,7 +117,6 @@ nav a:hover {
     padding: 0;
 }
 
-/* Das Eingabefeld (Eindeutige ID) */
 #kopfzeile-suchleiste {
     padding: 10px;
     width: 50px;
@@ -128,7 +127,6 @@ nav a:hover {
     border-radius: 999px;
     box-sizing: border-box;
     outline: none;
-
     transition: width 0.2s ease-in, background 0.2s, border-color 0.2s, border-radius 0.2s, color 0.2s;
 }
 
@@ -939,6 +937,7 @@ footer a:hover {
 
 /* MEDIA */
 @media screen and (max-width: 1130px){
+
     .pflege-filter {
         width: 100%;
     }
@@ -956,18 +955,8 @@ footer a:hover {
 
 
 @media screen and (max-width: 835px){
-    .kopfzeile-suche-box {
-        position: absolute; /* Nimmt die Box aus der Navigations-Reihe heraus */
-        top: 100%; /* Setzt sie direkt unter die Kopfzeile */
-        right: 15px; /* Rechtsbündig */
-        z-index: 100; /* Stellt sicher, dass sie über dem Text schwebt */
-    }
-
-    /* Auf dem Handy etwas breiter aufklappen */
-    .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
-    .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
-        width: 100%;
-        max-width: 350px;
+    #kopfzeile-suchleiste{
+        display: none;
     }
 }
 
@@ -1017,6 +1006,10 @@ footer a:hover {
     .icon {
         width: 16px;
         height: 16px;
+    }
+
+    #kopfzeile-suchleiste{
+        display: none;
     }
 
     .index-ansicht .pflanzen-details,
