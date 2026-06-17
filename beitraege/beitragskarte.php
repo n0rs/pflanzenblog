@@ -36,14 +36,41 @@
     <?php endif; ?>
 
     <?php // 3. DYNAMISCHE TEXTKÜRZUNG ?>
-    <?php if ((isset($detailansicht) && $detailansicht === true) || mb_strlen($beitrag['inhalt']) <= 300): ?>
-        <p><?php echo nl2br(e($beitrag['inhalt'])); ?></p>
+    <?php
+    $desktop_limit = 300;
+    $mobile_limit = 120; // Auf dem Handy kürzen wir früher (z. B. nach 120 Zeichen)
+    $inhalt = $beitrag['inhalt'];
+    $ist_detail = (isset($detailansicht) && $detailansicht === true);
+    ?>
+
+    <?php if ($ist_detail): ?>
+        <p><?php echo nl2br(e($inhalt)); ?></p>
     <?php else: ?>
-        <p>
-            <?php echo nl2br(e(mb_substr($beitrag['inhalt'], 0, 300))) . "..."; ?>
-            <br>
-            <a href="<?php echo projektPfad('beitraege/beitrag_detail.php?id=' . (int)$beitrag['id']); ?>" class="weiterlesen-link">Weiterlesen ➔</a>
-        </p>
+
+        <div class="text-desktop">
+            <?php if (mb_strlen($inhalt) <= $desktop_limit): ?>
+                <p><?php echo nl2br(e($inhalt)); ?></p>
+            <?php else: ?>
+                <p>
+                    <?php echo nl2br(e(mb_substr($inhalt, 0, $desktop_limit))) . "..."; ?>
+                    <br>
+                    <a href="<?php echo projektPfad('beitraege/beitrag_detail.php?id=' . (int)$beitrag['id']); ?>" class="weiterlesen-link">Weiterlesen ➔</a>
+                </p>
+            <?php endif; ?>
+        </div>
+
+        <div class="text-mobile">
+            <?php if (mb_strlen($inhalt) <= $mobile_limit): ?>
+                <p><?php echo nl2br(e($inhalt)); ?></p>
+            <?php else: ?>
+                <p>
+                    <?php echo nl2br(e(mb_substr($inhalt, 0, $mobile_limit))) . "..."; ?>
+                    <br>
+                    <a href="<?php echo projektPfad('beitraege/beitrag_detail.php?id=' . (int)$beitrag['id']); ?>" class="weiterlesen-link">Weiterlesen ➔</a>
+                </p>
+            <?php endif; ?>
+        </div>
+
     <?php endif; ?>
 
     <?php // 4. PFLANZEN-DETAILS ?>

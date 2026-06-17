@@ -20,6 +20,13 @@
     background-color: #2e7d32;
 }
 
+.text-mobile {
+    display: none;
+}
+.text-desktop {
+    display: block;
+}
+
 body {
     font-family: 'Verdana', sans-serif;
     margin: 0;
@@ -356,7 +363,7 @@ nav a:hover {
     top: 15px;
     right: 15px;
     display: flex;
-    gap: 10px; /* Abstand zwischen den beiden Icons */
+    gap: 10px;
 }
 
 /*KOMMENTARE*/
@@ -608,7 +615,7 @@ button:hover, input[type="submit"]:hover {
 footer {
     background-color: #2e7d32;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     margin-top: auto;
 }
 
@@ -859,7 +866,7 @@ footer a:hover {
 /* SEITE UMBLÄTTERN */
 .umblaettern {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .umblaettern-button{
@@ -950,6 +957,13 @@ footer a:hover {
 
 
 @media screen and (max-width: 600px) {
+    .text-desktop {
+        display: none; /* Desktop-Text verstecken */
+    }
+    .text-mobile {
+        display: block; /* Gekürzten Mobile-Text anzeigen */
+    }
+
     main {
         padding: 1rem;
     }
@@ -1004,10 +1018,6 @@ footer a:hover {
     .index-ansicht .pflanzen-details,
     .index-ansicht .ausklappen-box {
         display: none;
-    }
-
-    .umblaettern-button {
-        padding: 10px 15px;
     }
 
     /* BLOGBEITRAEGE */
