@@ -250,13 +250,12 @@ nav a:hover {
     border: 1px solid #d9ead9;
     border-radius: 8px;
 
-    /* NEU: Lässt das Formular über den Inhalten schweben */
-
-    top: 100%; /* Positioniert es exakt unterhalb des Buttons */
+    position: absolute;
+    top: 100%;
     left: 0;
-    z-index: 100; /* Stellt sicher, dass es über den Blog-Karten liegt */
-    min-width: max-content; /* Verhindert, dass die Dropdowns zusammengequetscht werden */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Leichter Schatten zur Abhebung */
+    z-index: 100;
+    min-width: max-content;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .pflege-filter-formular select {
@@ -939,6 +938,39 @@ footer a:hover {
 }
 
 /* MEDIA */
+@media screen and (max-width: 1130px){
+    .pflege-filter {
+        width: 100%;
+    }
+
+    .pflege-filter-formular {
+        flex-direction: column;
+    }
+
+    .pflege-filter-formular select,
+    .pflege-filter-formular .filter-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+@media screen and (max-width: 835px){
+    .kopfzeile-suche-box {
+        position: absolute; /* Nimmt die Box aus der Navigations-Reihe heraus */
+        top: 100%; /* Setzt sie direkt unter die Kopfzeile */
+        right: 15px; /* Rechtsbündig */
+        z-index: 100; /* Stellt sicher, dass sie über dem Text schwebt */
+    }
+
+    /* Auf dem Handy etwas breiter aufklappen */
+    .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
+    .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
 
 @media screen and (max-width: 600px) {
     main {
