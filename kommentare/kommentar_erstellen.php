@@ -15,11 +15,6 @@ if ($beitrag_id <= 0) {
     exit;
 }
 
-if (!kommentareTabelleExistiert($datenbankverbindung)) {
-    header('Location: ../index.php');
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inhalt = trim($_POST['inhalt'] ?? '');
     $kom_id = isset($_POST['kom_id']) && $_POST['kom_id'] !== ''

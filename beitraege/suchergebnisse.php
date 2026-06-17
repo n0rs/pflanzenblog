@@ -4,7 +4,6 @@ require_once dirname(__DIR__) . '/funktionen/datenbank.php';
 require_once dirname(__DIR__) . '/funktionen/laden.php';
 
 /** @var mysqli $datenbankverbindung */
-$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_id'] : null;
 

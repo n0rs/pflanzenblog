@@ -3,7 +3,6 @@
 /** @var int|null $aktueller_benutzer_id */
 /** @var int $sicherheitsstufe */
 /** @var mysqli $datenbankverbindung */
-/** @var bool $kommentareTabelleVorhanden */
 ?>
 <div class="beitrags-karte <?php echo (isset($detailansicht) && $detailansicht === true) ? 'detailansicht' : ''; ?>" id="post-<?php echo $beitrag['id']; ?>">
 

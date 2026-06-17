@@ -20,8 +20,6 @@ if (!$beitrag) {
     exit;
 }
 
-$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
-
 $detailansicht = true;
 ?>
 

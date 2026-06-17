@@ -20,8 +20,6 @@ if (isset($_SESSION['message_type'])) {
     unset($_SESSION['message_type']);
 }
 
-$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
-
 $beitragsFilter = bereinigeBeitragsFilter($_GET);
 
 $beitraege_pro_seite = 5;

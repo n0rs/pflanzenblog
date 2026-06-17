@@ -1,11 +1,5 @@
 <?php
 
-function kommentareTabelleExistiert(mysqli $datenbankverbindung): bool
-{
-    $ergebnis = $datenbankverbindung->query("SHOW TABLES LIKE 'kommentare'");
-    return $ergebnis && $ergebnis->num_rows > 0;
-}
-
 function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
 {
     $anweisung = $datenbankverbindung->prepare(
