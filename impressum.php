@@ -16,8 +16,8 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
-    <body style="background-image: url('<?php echo projektPfad('icons/hb.jpg'); ?>');">
-        <div class="container">
+    <body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">        
+    <div class="container">
 
             <?php include 'kopfzeile.php'; ?>
 

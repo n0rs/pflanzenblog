@@ -13,6 +13,11 @@ function projektPfad(string $pfad = ''): string
     return $prefix . ltrim($pfad, '/');
 }
 
+function projektUrl(string $pfad = ''): string
+{
+    return '/' . ltrim($pfad, '/');
+}
+
 function inlineIcon(string $filename, array $attributes = []): string
 {
     $path = dirname(__DIR__) . '/icons/' . $filename;
