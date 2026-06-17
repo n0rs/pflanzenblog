@@ -1,7 +1,6 @@
 /* LAYOUT */
 * {
     box-sizing: border-box;
-    --polygon-smallest-viewport-height: 100svh;
 }
 
 ::-webkit-scrollbar {
@@ -145,14 +144,14 @@ nav a:hover {
 .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
     width: 250px;
     background: #ffffff;
-    border: 1px solid #c5e1a5;
+    border: 2px solid #c5e1a5;
     color: #000000;
 
     border-radius: 10px;
     transition: width 0.5s ease-out, background 0.5s, border-color 0.5s, border-radius 0.5s, color 0.5s;
 }
 
-#kopfzeile-suche-icon-button{
+.kopfzeile-suche-icon-button{
     background: #f9fbf9;
     border: 1px solid #c5e1a5;
     border-radius: 999px;
@@ -164,21 +163,8 @@ nav a:hover {
     text-decoration: none;
 }
 
-/* --- NEU: Mobile Anpassung (ganz unten in deine CSS-Datei) --- */
-@media screen and (max-width: 600px) {
-    .kopfzeile-suche-box {
-        position: absolute; /* Nimmt die Box aus der Navigations-Reihe heraus */
-        top: 100%; /* Setzt sie direkt unter die Kopfzeile */
-        right: 15px; /* Rechtsbündig */
-        z-index: 100; /* Stellt sicher, dass sie über dem Text schwebt */
-    }
-
-    /* Auf dem Handy etwas breiter aufklappen */
-    .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
-    .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
-        width: 100%;
-        max-width: 350px;
-    }
+.kopfzeile-suche-icon-button:hover{
+    background: #f9fbf9;
 }
 
 /* BLOG-BEITRÄGE (POST CARD)*/
@@ -975,6 +961,24 @@ footer a:hover {
         margin: 0 ;
     }
 
+
+    .kopfzeilen-text, .text-button {
+        display: none;
+    }
+    .kopfzeilen-icon, .icon-button {
+        color: white;
+        display: inline-block;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    #kopfzeile-suchleiste{
+        display: none;
+    }
+
     .beitrags-filter,
     .sortier-buttons,
     .pflege-filter-formular {
@@ -993,23 +997,6 @@ footer a:hover {
     .pflege-filter-formular .filter-button {
         width: 100%;
         justify-content: center;
-    }
-
-    .kopfzeilen-text, .text-button {
-        display: none;
-    }
-    .kopfzeilen-icon, .icon-button {
-        color: white;
-        display: inline-block;
-    }
-
-    .icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    #kopfzeile-suchleiste{
-        display: none;
     }
 
     .index-ansicht .pflanzen-details,
