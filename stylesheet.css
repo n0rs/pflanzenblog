@@ -590,6 +590,51 @@ footer a:hover {
     right: 20px;
 }
 
+#nach-oben-button {
+    /* Positionierung als schwebender Button */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+
+    /* Optik exakt wie .filter-button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Wichtig, damit der Pfeil in der Mitte ist */
+    background: #f9fbf9;
+    border: 1px solid #c5e1a5;
+    color: #2e7d32;
+    border-radius: 999px;
+    font-size: 1.2rem; /* Leicht vergrößert für das Pfeil-Icon */
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* Feste Größe für einen runden Button */
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Leichter Schatten, damit er sich vom Text abhebt */
+
+    /* Einblend-Effekt */
+    transition: background-color .3s, border-color .3s, opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#nach-oben-button:hover {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+}
+
+#nach-oben-button:active {
+    background: #c8e6c9;
+}
+
+#nach-oben-button.show {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* ICONS */
 
 .icon {
