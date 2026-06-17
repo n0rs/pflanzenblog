@@ -14,21 +14,21 @@ $kommentar_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 pruefeEingeloggt($sicherheitsstufe);
 
 // Kommentar aus der DB ziehen anhand der ID
-$anweisung = $datenbankverbindung->prepare("SELECT * FROM kommentare WHERE id=?");
+$anweisung = $datenbankverbindung->prepare("SELECT id, beitrag_id, benutzer_id FROM kommentare WHERE id=?");
 $anweisung->bind_param('i', $kommentar_id);
 $anweisung->execute();
 $kommentar = $anweisung->get_result()->fetch_assoc();
 
 if (!$kommentar) {
     sendeToast("Kommentar nicht gefunden");
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
 $beitrag_kommentar = (int)$kommentar['beitrag_id'];
 
-if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: ../index.php#post-$beitrag_kommentar");
+if (!istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
+    header('Location: ' . projektPfad("index.php#post-$beitrag_kommentar"));
     exit;
 }
 
@@ -39,5 +39,5 @@ $loeschAnweisung->execute();
 
 // Zurueck zur Beitragsseite
 sendeToast("Kommentar geloescht");
-header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_kommentar#post-$beitrag_kommentar");
+header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_kommentar#post-$beitrag_kommentar"));
 exit;

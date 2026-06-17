@@ -4,11 +4,11 @@ require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var int|null $aktueller_benutzer_id */
 /** @var int $sicherheitsstufe */
 /** @var mysqli $datenbankverbindung */
-/** @var bool $kommentareTabelleVorhanden */
+
+$istDetailseite = isset($detailansicht) && $detailansicht === true;
 
 $kommentare = holeKommentare($datenbankverbindung, (int)$beitrag['id']);
 $kommentarBaum = baueKommentarBaum($kommentare);
-$istDetailseite = isset($detailansicht) && $detailansicht === true;
 ?>
 
 <details class="ausklappen-box" title="Kommentare" <?php echo $istDetailseite ? 'open' : ''; ?>>
