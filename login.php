@@ -56,7 +56,7 @@ if(isset($_POST['anmelden'])) {
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
     <link rel="stylesheet" href="stylesheet.css">
 </head>
-<body style="background-image: url('<?= e(projektUrl('icons/hb.jpg')) ?>');">        
+<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">        
 <div class="container">
 
             <?php include 'kopfzeile.php'; ?>
