@@ -15,13 +15,10 @@ if (!$beitrag_id) {
 }
 
 $meldung = '';
+$aktueller_benutzer_id = $_SESSION['benutzer_id'] ?? null;
 
 try {
-    $laden_anweisung = $datenbankverbindung->prepare("SELECT * FROM beitraege WHERE id = ?");
-    $laden_anweisung->bind_param('i', $beitrag_id);
-    $laden_anweisung->execute();
-    $ergebnis = $laden_anweisung->get_result();
-    $beitrag = $ergebnis->fetch_assoc();
+    $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
     if (!$beitrag) {
         sendeToast("Beitrag nicht gefunden.");
@@ -29,7 +26,7 @@ try {
         exit;
     }
 
-    if ($beitrag['benutzer_id'] !== $_SESSION['benutzer_id'] && $sicherheitsstufe < 2) {
+    if (!istEigentuemer($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
         sendeToast("Nicht berechtigt Beitrag zu bearbeiten.");
         header("Location: ../index.php");
         exit;

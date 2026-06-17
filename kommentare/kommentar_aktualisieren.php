@@ -24,7 +24,7 @@ if ($kommentar_id <= 0 || $inhalt === '') {
 }
 
 $anweisung = $datenbankverbindung->prepare(
-    "SELECT * FROM kommentare WHERE id = ?"
+    "SELECT id, beitrag_id, benutzer_id FROM kommentare WHERE id = ?"
 );
 $anweisung->bind_param('i', $kommentar_id);
 $anweisung->execute();
@@ -38,7 +38,7 @@ if (!$kommentar) {
 
 $beitrag_id = (int)$kommentar['beitrag_id'];
 
-if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
+if (!istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
     sendeToast("Nicht berechtigt Kommentar zu bearbeiten.");
     header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#kommentar-$kommentar_id");
     exit;

@@ -21,7 +21,11 @@ if (isset($_GET['suchbegriff'])) {
         $suchbegriff_erweitert = '%'. $suchbegriff . '%';
 
         $anweisung = $datenbankverbindung->prepare(
-            "SELECT * FROM beitraege b WHERE b.titel LIKE ? OR b.inhalt LIKE ?"
+            "SELECT " . beitragsAuswahlSql() . "
+             FROM beitraege
+             LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
+             WHERE beitraege.titel LIKE ? OR beitraege.inhalt LIKE ?
+             ORDER BY beitraege.datum DESC, beitraege.id DESC"
         );
 
         $anweisung->bind_param(

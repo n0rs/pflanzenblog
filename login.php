@@ -26,7 +26,11 @@ if(isset($_POST['anmelden'])) {
         $meldung = 'Bitte Benutzername und Passwort eingeben.';
     } else {
         // Benutzername in der Datenbank suchen
-        $anweisung = $datenbankverbindung->prepare("SELECT * FROM `benutzer` WHERE `benutzername`=?");
+        $anweisung = $datenbankverbindung->prepare(
+            "SELECT id, benutzername, passwort, sicherheitsstufe
+             FROM benutzer
+             WHERE benutzername = ?"
+        );
         $anweisung->bind_param('s', $benutzername);
         $anweisung->execute();
 

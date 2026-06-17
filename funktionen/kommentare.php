@@ -74,7 +74,7 @@ function zeigeKommentarMitAntworten(
             am <?php echo formatDate($kommentar['datum']); ?>
         </small>
 
-        <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
+        <?php if (istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
             <div class="kommentar-aktionen">
                 <details class="kommentar-bearbeiten-details-inline">
                     <summary title="Bearbeiten">
@@ -141,22 +141,3 @@ function zeigeKommentarMitAntworten(
     <?php
 }
 
-function gruppiereKommentareNachAntworten(array $kommentare): array
-{
-    $gruppen = [];
-
-    foreach ($kommentare as $kommentar) {
-        if (empty($kommentar['kom_id'])) {
-            $kommentar['antworten'] = [];
-            $gruppen[$kommentar['id']] = $kommentar;
-        }
-    }
-
-    foreach ($kommentare as $kommentar) {
-        if (!empty($kommentar['kom_id']) && isset($gruppen[$kommentar['kom_id']])) {
-            $gruppen[$kommentar['kom_id']]['antworten'][] = $kommentar;
-        }
-    }
-
-    return array_values($gruppen);
-}

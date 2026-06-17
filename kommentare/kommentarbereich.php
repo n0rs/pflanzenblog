@@ -6,9 +6,20 @@ require_once dirname(__DIR__) . '/funktionen/laden.php';
 /** @var mysqli $datenbankverbindung */
 /** @var bool $kommentareTabelleVorhanden */
 
+$kommentareTabelleVorhanden = $kommentareTabelleVorhanden ?? kommentareTabelleExistiert($datenbankverbindung);
+$istDetailseite = isset($detailansicht) && $detailansicht === true;
+
+if (!$kommentareTabelleVorhanden): ?>
+<details class="ausklappen-box" title="Kommentare" <?php echo $istDetailseite ? 'open' : ''; ?>>
+    <summary>Kommentare</summary>
+    <p>Kommentare sind derzeit nicht verfuegbar.</p>
+</details>
+<?php
+return;
+endif;
+
 $kommentare = holeKommentare($datenbankverbindung, (int)$beitrag['id']);
 $kommentarBaum = baueKommentarBaum($kommentare);
-$istDetailseite = isset($detailansicht) && $detailansicht === true;
 ?>
 
 <details class="ausklappen-box" title="Kommentare" <?php echo $istDetailseite ? 'open' : ''; ?>>

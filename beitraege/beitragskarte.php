@@ -16,7 +16,7 @@
 
     <?php // 1. BEITRAGSTITEL & AUTOR-AKTIONEN ?>
     <h2><?php echo e($beitrag['titel']); ?></h2>
-    <?php if (istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
+    <?php if (istEigentuemer($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
     <div class="beitrag-aktionen">
         <a href="<?php echo projektPfad('beitraege/beitrag_bearbeiten.php?id=' . (int)$beitrag['id']); ?>">
             <?php echo inlineIcon('pencil.svg', ['class' => 'icon', 'role' => 'img', 'aria-label' => 'Bearbeiten', 'title' => 'Bearbeiten']); ?>

@@ -14,7 +14,7 @@ $kommentar_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 pruefeEingeloggt($sicherheitsstufe);
 
 // Kommentar aus der DB ziehen anhand der ID
-$anweisung = $datenbankverbindung->prepare("SELECT * FROM kommentare WHERE id=?");
+$anweisung = $datenbankverbindung->prepare("SELECT id, beitrag_id, benutzer_id FROM kommentare WHERE id=?");
 $anweisung->bind_param('i', $kommentar_id);
 $anweisung->execute();
 $kommentar = $anweisung->get_result()->fetch_assoc();
@@ -27,7 +27,7 @@ if (!$kommentar) {
 
 $beitrag_kommentar = (int)$kommentar['beitrag_id'];
 
-if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
+if (!istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
     header("Location: ../index.php#post-$beitrag_kommentar");
     exit;
 }
