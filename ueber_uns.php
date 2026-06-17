@@ -15,12 +15,12 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
         <meta name="description" content="Erfahre mehr über das Team und die Mission hinter dem Pflanzenblog.">
         <title>Über uns - Pflanzenblog</title>
         <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
     </head>
-    <body style="background-image: url('<?php echo projektPfad('icons/hb.jpg'); ?>');">
+    <body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
     <div class="container">
 
-        <?php include 'kopfzeile.php'; ?>
+        <?php include __DIR__ . '/kopfzeile.php'; ?>
 
         <main>
             <h2>Über uns</h2>
@@ -60,7 +60,7 @@ $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheit
                 </div>
             </div>
         </main>
-        <?php include 'fusszeile.php'; ?>
+        <?php include __DIR__ . '/fusszeile.php'; ?>
     </div>
     </body>
 </html>

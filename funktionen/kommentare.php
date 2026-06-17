@@ -1,11 +1,5 @@
 <?php
 
-function kommentareTabelleExistiert(mysqli $datenbankverbindung): bool
-{
-    $ergebnis = $datenbankverbindung->query("SHOW TABLES LIKE 'kommentare'");
-    return $ergebnis && $ergebnis->num_rows > 0;
-}
-
 function holeKommentare(mysqli $datenbankverbindung, int $beitrag_id): array
 {
     $anweisung = $datenbankverbindung->prepare(
@@ -40,7 +34,7 @@ function baueKommentarBaum(array $kommentare): array
         $nachId[$kommentar['id']] = $kommentar;
     }
 
-    foreach ($nachId as $id => &$kommentar) {
+    foreach ($nachId as &$kommentar) {
         if (!empty($kommentar['kom_id']) && isset($nachId[$kommentar['kom_id']])) {
             $nachId[$kommentar['kom_id']]['antworten'][] = &$kommentar;
         } else {
@@ -74,7 +68,7 @@ function zeigeKommentarMitAntworten(
             am <?php echo formatDate($kommentar['datum']); ?>
         </small>
 
-        <?php if (istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
+        <?php if (istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)): ?>
             <div class="kommentar-aktionen">
                 <details class="kommentar-bearbeiten-details-inline">
                     <summary title="Bearbeiten">
@@ -141,22 +135,3 @@ function zeigeKommentarMitAntworten(
     <?php
 }
 
-function gruppiereKommentareNachAntworten(array $kommentare): array
-{
-    $gruppen = [];
-
-    foreach ($kommentare as $kommentar) {
-        if (empty($kommentar['kom_id'])) {
-            $kommentar['antworten'] = [];
-            $gruppen[$kommentar['id']] = $kommentar;
-        }
-    }
-
-    foreach ($kommentare as $kommentar) {
-        if (!empty($kommentar['kom_id']) && isset($gruppen[$kommentar['kom_id']])) {
-            $gruppen[$kommentar['kom_id']]['antworten'][] = $kommentar;
-        }
-    }
-
-    return array_values($gruppen);
-}

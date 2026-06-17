@@ -25,10 +25,11 @@ if ($aktueller_benutzer_id == $benutzer_id) {
 
         session_start();
         sendeToast("Konto gelöscht.");
-        header("location: index.php");
+        header('Location: ' . projektPfad('index.php'));
+        exit;
     } else {
         sendeToast("Keine Berechtigung.");
-        header('Location: index.php');
+        header('Location: ' . projektPfad('index.php'));
         exit;
     }
 ?>

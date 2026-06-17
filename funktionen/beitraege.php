@@ -1,9 +1,26 @@
 <?php
 
+function beitragsAuswahlSql(): string
+{
+    return "beitraege.id,
+            beitraege.titel,
+            beitraege.inhalt,
+            beitraege.benutzer_id,
+            beitraege.bild,
+            beitraege.botanischer_name,
+            beitraege.standort,
+            beitraege.bewasserung,
+            beitraege.lichtmenge,
+            beitraege.winterhart,
+            beitraege.schwierigkeitsgrad,
+            beitraege.datum,
+            benutzer.benutzername AS benutzer_benutzername";
+}
+
 function holeBeitrag(mysqli $datenbankverbindung, int $id)
 {
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
+        "SELECT " . beitragsAuswahlSql() . "
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
          WHERE beitraege.id = ?"
@@ -12,19 +29,6 @@ function holeBeitrag(mysqli $datenbankverbindung, int $id)
     $anweisung->execute();
     $ergebnis = $anweisung->get_result();
     return $ergebnis->fetch_assoc();
-}
-
-function holeAlleBeitraege(mysqli $datenbankverbindung): array
-{
-    $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
-         FROM beitraege
-         LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
-         ORDER BY beitraege.datum DESC"
-    );
-    $anweisung->execute();
-    $ergebnis = $anweisung->get_result();
-    return $ergebnis ? $ergebnis->fetch_all(MYSQLI_ASSOC) : [];
 }
 
 function zeigePflanzenDetails(array $beitrag): void
@@ -185,7 +189,7 @@ function holeBeitraegeProSeite(mysqli $datenbankverbindung, int $limit, int $off
     $orderBy = beitragsSortierungSql($filter['sortierung']);
 
     $anweisung = $datenbankverbindung->prepare(
-        "SELECT beitraege.*, benutzer.benutzername AS benutzer_benutzername
+        "SELECT " . beitragsAuswahlSql() . "
          FROM beitraege
          LEFT JOIN benutzer ON beitraege.benutzer_id = benutzer.id
          " . $where . "

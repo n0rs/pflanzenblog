@@ -10,7 +10,7 @@ $aktueller_benutzer_id = $_SESSION['benutzer_id'] ?? null;
 pruefeEingeloggt($sicherheitsstufe);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -19,12 +19,12 @@ $inhalt = trim($_POST['inhalt'] ?? '');
 
 if ($kommentar_id <= 0 || $inhalt === '') {
     sendeToast("Kommentar konnte nicht aktualisiert werden.");
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
 $anweisung = $datenbankverbindung->prepare(
-    "SELECT * FROM kommentare WHERE id = ?"
+    "SELECT id, beitrag_id, benutzer_id FROM kommentare WHERE id = ?"
 );
 $anweisung->bind_param('i', $kommentar_id);
 $anweisung->execute();
@@ -32,15 +32,15 @@ $kommentar = $anweisung->get_result()->fetch_assoc();
 
 if (!$kommentar) {
     sendeToast("Kommentar nicht gefunden.");
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
 $beitrag_id = (int)$kommentar['beitrag_id'];
 
-if (!istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
+if (!istEigentuemer($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)) {
     sendeToast("Nicht berechtigt Kommentar zu bearbeiten.");
-    header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#kommentar-$kommentar_id");
+    header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_id#kommentar-$kommentar_id"));
     exit;
 }
 
@@ -53,5 +53,5 @@ $update->bind_param('si', $inhalt, $kommentar_id);
 $update->execute();
 
 sendeToast("Kommentar aktualisiert.");
-header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#kommentar-$kommentar_id");
+header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_id#kommentar-$kommentar_id"));
 exit;

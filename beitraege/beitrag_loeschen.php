@@ -13,15 +13,10 @@ $beitrag_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 pruefeEingeloggt($sicherheitsstufe);
 
-//beitrag aus der db ziehen anhand von id
-$anweisung = $datenbankverbindung->prepare("SELECT * FROM beitraege WHERE id=?");
-$anweisung->bind_param('i', $beitrag_id);
-$anweisung->execute();
-$beitrag = $anweisung->get_result()->fetch_assoc();
+$beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
-
-if (!istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: ../index.php");
+if (!istEigentuemer($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -37,7 +32,7 @@ $loeschAnweisung->execute();
 
 //zurück auf die startseite
 sendeToast("Beitrag gelöscht");
-header("Location: ../index.php");
+header('Location: ' . projektPfad('index.php'));
 exit;
 
 ?>
