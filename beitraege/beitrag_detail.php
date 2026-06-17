@@ -16,11 +16,9 @@ $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
 // Wenn die ID nicht in der Datenbank existiert (Beitrag wurde evtl. gelöscht)
 if (!$beitrag) {
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
-
-$kommentareTabelleVorhanden = kommentareTabelleExistiert($datenbankverbindung);
 
 $detailansicht = true;
 ?>
@@ -33,10 +31,10 @@ $detailansicht = true;
     <meta name="description" content="Detailansicht für: <?php echo e($beitrag['titel']); ?>">
     <title><?php echo e($beitrag['titel']); ?> - Pflanzenblog</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-    <link rel="stylesheet" href="../stylesheet.css">
+    <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
 </head>
 
-<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">
+<body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
@@ -44,7 +42,7 @@ $detailansicht = true;
     <main>
         <div class="blog-container">
             <div class="zurueck-container">
-                <a href="../index.php#post-<?php echo $beitrag_id ?>" class="zurueck-link">
+                <a href="<?php echo projektPfad('index.php#post-' . $beitrag_id); ?>" class="zurueck-link">
                     ⬅ Zurück zur Übersicht
                 </a>
             </div>

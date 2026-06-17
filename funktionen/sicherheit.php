@@ -8,24 +8,17 @@ function pruefeEingeloggt($sicherheitsstufe)
     }
 }
 
-function istAutor($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)
+function istEigentuemer($datensatz, $aktueller_benutzer_id, $sicherheitsstufe): bool
 {
-    if (!$beitrag) {
+    if (!$datensatz) {
         return false;
     }
     if ($sicherheitsstufe == 2) {
         return true;
     }
-    return $beitrag['benutzer_id'] == $aktueller_benutzer_id;
-}
+    if ($aktueller_benutzer_id === null || !isset($datensatz['benutzer_id'])) {
+        return false;
+    }
 
-function istKommentator($kommentar, $aktueller_benutzer_id, $sicherheitsstufe)
-{
-    if (!$kommentar) {
-        return false;
-    }
-    if ($sicherheitsstufe == 2) {
-        return true;
-    }
-    return $kommentar['benutzer_id'] == $aktueller_benutzer_id;
+    return (int)$datensatz['benutzer_id'] === (int)$aktueller_benutzer_id;
 }

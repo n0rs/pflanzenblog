@@ -11,12 +11,7 @@ pruefeEingeloggt($sicherheitsstufe);
 
 $beitrag_id = isset($_GET['beitrag_id']) ? (int)$_GET['beitrag_id'] : 0;
 if ($beitrag_id <= 0) {
-    header('Location: ../index.php');
-    exit;
-}
-
-if (!kommentareTabelleExistiert($datenbankverbindung)) {
-    header('Location: ../index.php');
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -29,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($inhalt === '') {
         $_SESSION['message'] = 'Bitte geben Sie einen Kommentar ein.';
         $_SESSION['message_type'] = 'error';
-        header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id");
+        header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id"));
         exit;
     }
 
@@ -44,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$elternKommentar) {
             sendeToast("Ungültiger Antwort-Kommentar.");
-            header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id");
+            header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id"));
             exit;
         }
     }
@@ -58,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $anweisung->execute();
 
     sendeToast($kom_id === null ? "Kommentar erstellt" : "Antwort erstellt");
-    header("Location: ../beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id");
+    header('Location: ' . projektPfad("beitraege/beitrag_detail.php?id=$beitrag_id#post-$beitrag_id"));
     exit;
 }
 ?>

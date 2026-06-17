@@ -1,15 +1,13 @@
-FÜR CASCADE BENUTZER LÖSCHEN:
+Datenbank-Schema:
 
-ALTER TABLE beitraege
-ADD CONSTRAINT fk_beitraege_benutzer_cascade
-FOREIGN KEY (benutzer_id) REFERENCES benutzer(id)
-ON DELETE CASCADE;
-
-ALTER TABLE kommentare
-ADD CONSTRAINT fk_kommentare_benutzer_cascade
-FOREIGN KEY (benutzer_id) REFERENCES benutzer(id)
-ON DELETE CASCADE;
-
+CREATE TABLE IF NOT EXISTS `benutzer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `benutzername` varchar(255) NOT NULL,
+  `passwort` varchar(255) NOT NULL,
+  `sicherheitsstufe` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `benutzername` (`benutzername`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `beitraege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,16 +22,10 @@ CREATE TABLE IF NOT EXISTS `beitraege` (
   `schwierigkeitsgrad` varchar(50) DEFAULT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp(),
   `benutzer_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE IF NOT EXISTS `benutzer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `benutzername` varchar(255) NOT NULL,
-  `passwort` varchar(255) NOT NULL,
-  `sicherheitsstufe` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `benutzername` (`benutzername`)
+  KEY `idx_beitraege_benutzer_id` (`benutzer_id`),
+  KEY `idx_beitraege_datum` (`datum`),
+  CONSTRAINT `fk_beitraege_benutzer` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `kommentare` (
@@ -44,10 +36,12 @@ CREATE TABLE IF NOT EXISTS `kommentare` (
   `beitrag_id` int(11) NOT NULL,
   `kom_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `kom_id` (`kom_id`),
-  CONSTRAINT `kommentare_ibfk_1` FOREIGN KEY (`beitrag_id`) REFERENCES `beitraege` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `kommentare_ibfk_2` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `kommentare_ibfk_3` FOREIGN KEY (`kom_id`) REFERENCES `kommentare` (`id`) ON DELETE CASCADE
+  KEY `idx_kommentare_benutzer_id` (`benutzer_id`),
+  KEY `idx_kommentare_beitrag_datum` (`beitrag_id`, `datum`),
+  KEY `idx_kommentare_kom_id` (`kom_id`),
+  CONSTRAINT `fk_kommentare_beitrag` FOREIGN KEY (`beitrag_id`) REFERENCES `beitraege` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_kommentare_benutzer` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_kommentare_elternkommentar` FOREIGN KEY (`kom_id`) REFERENCES `kommentare` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
