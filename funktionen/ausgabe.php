@@ -15,18 +15,7 @@ function projektPfad(string $pfad = ''): string
 
 function projektUrl(string $pfad = ''): string
 {
-    $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
-    $ordner = basename(str_replace('\\', '/', $base));
-
-    if (in_array($ordner, ['beitraege', 'kommentare'], true)) {
-        $base = dirname($base);
-    }
-
-    if ($base === '/' || $base === '\\') {
-        $base = '';
-    }
-
-    return $base . '/' . ltrim($pfad, '/');
+    return '/' . ltrim($pfad, '/');
 }
 
 function inlineIcon(string $filename, array $attributes = []): string
