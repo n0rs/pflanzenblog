@@ -16,7 +16,7 @@ pruefeEingeloggt($sicherheitsstufe);
 $beitrag = holeBeitrag($datenbankverbindung, $beitrag_id);
 
 if (!istEigentuemer($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -32,7 +32,7 @@ $loeschAnweisung->execute();
 
 //zurück auf die startseite
 sendeToast("Beitrag gelöscht");
-header("Location: ../index.php");
+header('Location: ' . projektPfad('index.php'));
 exit;
 
 ?>

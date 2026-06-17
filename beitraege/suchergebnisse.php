@@ -44,16 +44,16 @@ if (isset($_GET['suchbegriff'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suchergebnisse für "<?php echo e($suchbegriff); ?>" - Pflanzenblog</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-    <link rel="stylesheet" href="../stylesheet.css">
+    <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
 </head>
-<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">
+<body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
 
     <main>
         <div class="zurueck-container">
-            <a href="../index.php" class="zurueck-link">⬅ Zurück zur Übersicht</a>
+            <a href="<?php echo projektPfad('index.php'); ?>" class="zurueck-link">⬅ Zurück zur Übersicht</a>
         </div>
 
         <div class="suchleiste-box">

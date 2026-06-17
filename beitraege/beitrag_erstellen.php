@@ -61,7 +61,7 @@ if (isset($_POST['submit_post'])) {
 
                 if ($anweisung->execute()) {
                     sendeToast("Beitrag erstellt");
-                    header("Location: ../index.php");
+                    header('Location: ' . projektPfad('index.php'));
                     exit;
                 } else {
                     $meldung = 'Datenbank-Fehler beim Speichern: ' . $anweisung->error;
@@ -82,9 +82,9 @@ if (isset($_POST['submit_post'])) {
     <meta name="description" content="Erstelle einen neuen Pflanzenblog-Beitrag mit Titel, Inhalt und optionalem Bild.">
     <title>Neuen Beitrag erstellen - Pflanzenblog</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-    <link rel="stylesheet" href="../stylesheet.css">
+    <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
 </head>
-<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">
+<body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
@@ -94,7 +94,7 @@ if (isset($_POST['submit_post'])) {
         <?php if ($meldung !== ''): ?>
             <p class="message error"><?php echo e($meldung); ?></p>
         <?php endif; ?>
-        <form method="post" action="beitrag_erstellen.php" enctype="multipart/form-data">
+        <form method="post" action="<?php echo projektPfad('beitraege/beitrag_erstellen.php'); ?>" enctype="multipart/form-data">
             <div class="zeile">
 
                 <div>

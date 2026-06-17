@@ -10,7 +10,7 @@ pruefeEingeloggt($sicherheitsstufe);
 $beitrag_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$beitrag_id) {
     sendeToast("Ungültige Beitrags-ID.");
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -22,18 +22,18 @@ try {
 
     if (!$beitrag) {
         sendeToast("Beitrag nicht gefunden.");
-        header("Location: ../index.php");
+        header('Location: ' . projektPfad('index.php'));
         exit;
     }
 
     if (!istEigentuemer($beitrag, $aktueller_benutzer_id, $sicherheitsstufe)) {
         sendeToast("Nicht berechtigt Beitrag zu bearbeiten.");
-        header("Location: ../index.php");
+        header('Location: ' . projektPfad('index.php'));
         exit;
     }
 } catch (Throwable $e) {
     sendeToast("Fehler beim Laden des Beitrags.");
-    header("Location: ../index.php");
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -107,7 +107,7 @@ if (isset($_POST['submit_update'])) {
 
                 if ($anweisung->execute()) {
                     sendeToast("Beitrag aktualisiert.");
-                    header("Location: ../index.php#post-$beitrag_id");
+                    header('Location: ' . projektPfad("index.php#post-$beitrag_id"));
                     exit;
                 } else {
                     $meldung = 'Datenbank-Fehler beim Speichern: ' . $anweisung->error;
@@ -125,16 +125,16 @@ if (isset($_POST['submit_update'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beitrag bearbeiten - Pflanzenblog</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-    <link rel="stylesheet" href="../stylesheet.css">
+    <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
 </head>
-<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">
+<body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
 <div class="container">
 
     <?php include dirname(__DIR__) . '/kopfzeile.php'; ?>
 
     <main>
         <div style="margin-bottom: 10px;">
-            <a href="../index.php#post-<?php echo($beitrag_id) ?>" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
+            <a href="<?php echo projektPfad('index.php#post-' . $beitrag_id); ?>" style="text-decoration: none; color: #2e7d32; font-weight: bold;">
                 ⬅ Zurück zur Übersicht
             </a>
         </div>
@@ -143,7 +143,7 @@ if (isset($_POST['submit_update'])) {
             <p class="message error"><?php echo e($meldung); ?></p>
         <?php endif; ?>
 
-        <form method="post" action="beitrag_bearbeiten.php?id=<?php echo $beitrag_id; ?>" enctype="multipart/form-data">
+        <form method="post" action="<?php echo projektPfad('beitraege/beitrag_bearbeiten.php?id=' . $beitrag_id); ?>" enctype="multipart/form-data">
             <div class="zeile">
 
                 <div>

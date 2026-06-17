@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '/funktionen/datenbank.php';
 require_once __DIR__ . '/funktionen/laden.php';
-require_once __DIR__ . '/funktionen/ausgabe.php';
 
 /** @var mysqli $datenbankverbindung */
 
@@ -48,12 +47,12 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
         <meta name="description" content="Entdecke den Pflanzenblog mit aktuellen Beiträgen, Tipps und Kommentaren rund um Garten und Pflanzen.">
         <title>Pflanzenblog</title>
         <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
     </head>
-    <body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">
+    <body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
     <div class="container">
 
-            <?php include 'kopfzeile.php'; ?>
+            <?php include __DIR__ . '/kopfzeile.php'; ?>
 
             <main>
                 <?php if (!empty($message)): ?>
@@ -87,7 +86,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                     <details class="pflege-filter" <?php echo beitragsFilterAktiv($beitragsFilter) ? 'open' : ''; ?>>
                         <summary class="filter-button">Filter</summary>
 
-                        <form action="index.php" method="get" class="pflege-filter-formular">
+                        <form action="<?php echo projektPfad('index.php'); ?>" method="get" class="pflege-filter-formular">
                             <input type="hidden" name="sortierung" value="<?php echo e($beitragsFilter['sortierung']); ?>">
 
                             <select aria-label="Schwierigkeit" name="schwierigkeitsgrad">
@@ -121,7 +120,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                             <button type="submit" class="filter-button">OK</button>
 
                             <?php if (beitragsFilterAktiv($beitragsFilter) || $beitragsFilter['sortierung'] !== 'datum_desc'): ?>
-                                <a href="index.php" class="filter-button filter-zuruecksetzen">Zurücksetzen</a>
+                                <a href="<?php echo projektPfad('index.php'); ?>" class="filter-button filter-zuruecksetzen">Zurücksetzen</a>
                             <?php endif; ?>
                         </form>
                     </details>
@@ -161,7 +160,7 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <?php endif; ?>
 
             </main>
-        <?php include 'fusszeile.php'; ?>
+        <?php include __DIR__ . '/fusszeile.php'; ?>
         </div>
     </body>
 </html>

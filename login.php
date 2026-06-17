@@ -10,7 +10,7 @@ require_once __DIR__ . '/funktionen/laden.php';
 $sicherheitsstufe = isset($_SESSION['sicherheitsstufe']) ? $_SESSION['sicherheitsstufe'] : 0;
 
 if (isset($_SESSION['benutzer_id'])) {
-    header('Location: index.php');
+    header('Location: ' . projektPfad('index.php'));
     exit;
 }
 
@@ -41,7 +41,7 @@ if(isset($_POST['anmelden'])) {
             $_SESSION['benutzer_id'] = $benutzer['id'];
             $_SESSION['sicherheitsstufe'] = $benutzer['sicherheitsstufe'];
             $_SESSION['benutzername'] = $benutzer['benutzername'];
-            header("Location: index.php");
+            header('Location: ' . projektPfad('index.php'));
             exit;
         } else {
             $meldung = 'Benutzername oder Passwort sind nicht korrekt.';
@@ -58,19 +58,19 @@ if(isset($_POST['anmelden'])) {
     <meta name="description" content="Melde dich im Pflanzenblog an, um Beiträge zu erstellen und Kommentare zu schreiben.">
     <title>Login - Pflanzenblog</title>
     <link rel="icon" type="image/svg+xml" href="<?php echo projektPfad('icons/favicon.svg'); ?>">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="<?php echo projektPfad('stylesheet.css'); ?>">
 </head>
-<body style="background-image: url('<?= e(projektUrl('bilder/hb.jpg')) ?>');">        
+<body style="background-image: url('<?php echo e(projektPfad('bilder/hb.jpg')); ?>');">
 <div class="container">
 
-            <?php include 'kopfzeile.php'; ?>
+            <?php include __DIR__ . '/kopfzeile.php'; ?>
 
             <main>
                 <h2>Login</h2>
                 <?php if ($meldung !== ''): ?>
                     <p class="message error"><?php echo e($meldung); ?></p>
                 <?php endif; ?>
-                <form action="login.php" method="POST">
+                <form action="<?php echo projektPfad('login.php'); ?>" method="POST">
                     <div class="eingabe-gruppe">
                         <label>Benutzername:</label>
                         <input type="text" name="benutzername" required value="<?php echo e($benutzername); ?>">
@@ -81,10 +81,10 @@ if(isset($_POST['anmelden'])) {
                         <input type="password" name="passwort" required>
                     </div>
                     <button type="submit" name="anmelden">Anmelden</button>
-                    <p>Noch kein Konto? <a href="registrieren.php">Zur Registrierung</a></p>
+                    <p>Noch kein Konto? <a href="<?php echo projektPfad('registrieren.php'); ?>">Zur Registrierung</a></p>
                 </form>
             </main>
-            <?php include 'fusszeile.php'; ?>
+            <?php include __DIR__ . '/fusszeile.php'; ?>
         </div>
     </body>
 </html>
