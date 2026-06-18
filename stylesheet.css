@@ -73,7 +73,6 @@ main {
                                  KOPFZEILE & NAVIGATION
 =======================================================================================
 */
-
 header {
     position: relative;
     background: #2e7d32;
@@ -110,16 +109,17 @@ header {
     z-index: 9999;
 }
 
-#dropdown-optionen {
+.dropdown-optionen {
     display: block;
     color: #333;
     text-decoration: none;
+    border-bottom: 2px solid #c5e1a5;
     margin-bottom: 5px;
 }
 
 #benutzerDropdown {
     display: none;
-    position: static;
+    position: absolute;
     top: 100%;
     right: 0;
     background: white;
@@ -130,7 +130,6 @@ header {
 }
 
 /* NAVIGATION */
-
 nav {
     display: flex;
     align-items: center;
@@ -152,6 +151,8 @@ nav a {
 nav a:hover {
     color: #a3dca3;
     border-bottom: 2px solid #a3dca3;
+    position: relative;
+    z-index: 9999;
 }
 
 .kopfzeilen-icon {
@@ -184,7 +185,6 @@ nav a:hover {
     border-radius: 999px;
     box-sizing: border-box;
     outline: none;
-
     transition: width 0.2s ease-in, background 0.2s, border-color 0.2s, border-radius 0.2s, color 0.2s;
 }
 
@@ -232,7 +232,6 @@ nav a:hover {
                                BLOG-BEITRAEGE & UEBERSICHT
 =======================================================================================
 */
-
 /*FILTER*/
 .beitrags-filter {
     display: flex;
@@ -461,7 +460,6 @@ nav a:hover {
                         KOMMENTARE & ANTWORTEN BEARBEITUNG/LÖSCHUNG
 =======================================================================================
 */
-
 .kommentieren,
 .antwort_absenden{
     margin-top: 0.2em;
@@ -665,7 +663,6 @@ nav a:hover {
                                 FORMULARE & BUTTONS
 =======================================================================================
 */
-
 .eingabe-gruppe {
     margin-bottom: 1.5rem;
 }
@@ -716,7 +713,6 @@ button:hover, input[type="submit"]:hover {
                                       UEBER UNS
 =======================================================================================
 */
-
 .team-container {
     display: flex;
     flex-direction: column;
@@ -790,7 +786,6 @@ footer a:hover {
                                 UI-KOMPONENTEN & ICONS
 =======================================================================================
 */
-
 #nach-oben-button {
     position: fixed;
     bottom: 30px;
@@ -829,9 +824,7 @@ footer a:hover {
     visibility: visible;
 }
 
-
 /* ICONS */
-
 .icon {
     width: 20px;
     height: 20px;
@@ -855,7 +848,6 @@ footer a:hover {
                                       SUCHLEISTE
 =======================================================================================
 */
-
 .suchleiste-box{
     margin: 20px 0;
 }
