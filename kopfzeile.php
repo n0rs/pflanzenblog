@@ -6,8 +6,8 @@
                  <p style="margin: 0; display: inline;"><?php echo e($_SESSION['benutzername']); ?></p>
 
                  <div id="benutzerDropdown">
-                    <a href="<?php echo projektPfad('benutzer_loeschen.php?id=' . (int)$_SESSION['benutzer_id']); ?>" id="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
-                    <a href="<?php echo projektPfad('logout.php'); ?>" id="dropdown-optionen">Logout</a>
+                    <a href="<?php echo projektPfad('benutzer_loeschen.php?id=' . (int)$_SESSION['benutzer_id']); ?>" class="dropdown-optionen" onclick="return confirm('Konto unwiderruflich löschen?');">Konto löschen</a>
+                    <a href="<?php echo projektPfad('logout.php'); ?>" class="dropdown-optionen">Logout</a>
                  </div>
             </div>
          <?php endif; ?>
