@@ -147,7 +147,12 @@ function beitragsQueryString(array $filter, array $zusatz = []): string
     $parameter = array_merge($filter, $zusatz);
 
     foreach ($parameter as $name => $wert) {
-        if ($wert === '' || $wert === null || ($name === 'sortierung' && $wert === 'datum_desc')) {
+        if (
+            $wert === ''
+            || $wert === null
+            || ($name === 'sortierung' && $wert === 'datum_desc')
+            || ($name === 'seite' && (string)$wert === '1')
+        ) {
             unset($parameter[$name]);
         }
     }
