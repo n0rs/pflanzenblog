@@ -1,7 +1,30 @@
 /* LAYOUT */
 * {
     box-sizing: border-box;
-    --polygon-smallest-viewport-height: 100svh;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1e452a;
+    -webkit-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #2e7d32;
+}
+
+.text-mobile {
+    display: none;
+}
+.text-desktop {
+    display: block;
 }
 
 ::-webkit-scrollbar {
@@ -60,8 +83,8 @@ main {
 header {
     position: relative;
     background: #2e7d32;
-    color: white;
-    padding: 1.5rem 2rem;
+    color: #ffffff;
+    padding: 1rem 1.5rem;
 }
 
 .logo-bereich h1 {
@@ -340,6 +363,7 @@ nav a:hover {
     align-items: center;
     gap: 5px;
     position: relative;
+    z-index: 9999;
 }
 
 #dropdown-optionen {
@@ -350,9 +374,10 @@ nav a:hover {
 }
 
 #benutzerDropdown {
-    display: none; position: static;
+    display: none; 
+    position: static;
     top: 100%;
-    left: 0;
+    right: 0;
     background: white;
     border: 1px solid #ccc;
     padding: 10px;
@@ -371,7 +396,7 @@ nav a:hover {
     top: 15px;
     right: 15px;
     display: flex;
-    gap: 10px; /* Abstand zwischen den beiden Icons */
+    gap: 10px;
 }
 
 /*KOMMENTARE*/
@@ -623,7 +648,7 @@ button:hover, input[type="submit"]:hover {
 footer {
     background-color: #2e7d32;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     margin-top: auto;
 }
 
@@ -919,7 +944,7 @@ footer a:hover {
 /* SEITE UMBLÄTTERN */
 .umblaettern {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .umblaettern-button{
@@ -984,8 +1009,39 @@ footer a:hover {
 }
 
 /* MEDIA */
+@media screen and (max-width: 1130px){
+
+    .pflege-filter {
+        width: 100%;
+    }
+
+    .pflege-filter-formular {
+        flex-direction: column;
+    }
+
+    .pflege-filter-formular select,
+    .pflege-filter-formular .filter-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+@media screen and (max-width: 835px){
+    #kopfzeile-suchleiste{
+        display: none;
+    }
+}
+
 
 @media screen and (max-width: 600px) {
+    .text-desktop {
+        display: none; /* Desktop-Text verstecken */
+    }
+    .text-mobile {
+        display: block; /* Gekürzten Mobile-Text anzeigen */
+    }
+
     main {
         padding: 1rem;
     }
@@ -997,6 +1053,24 @@ footer a:hover {
     .logo-bereich h2{
         display: block;
         margin: 0 ;
+    }
+
+
+    .kopfzeilen-text, .text-button {
+        display: none;
+    }
+    .kopfzeilen-icon, .icon-button {
+        color: white;
+        display: inline-block;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    #kopfzeile-suchleiste{
+        display: none;
     }
 
     .beitrags-filter,
@@ -1019,26 +1093,9 @@ footer a:hover {
         justify-content: center;
     }
 
-    .kopfzeilen-text, .text-button {
-        display: none;
-    }
-    .kopfzeilen-icon, .icon-button {
-        color: white;
-        display: inline-block;
-    }
-
-    .icon {
-        width: 16px;
-        height: 16px;
-    }
-
     .index-ansicht .pflanzen-details,
     .index-ansicht .ausklappen-box {
         display: none;
-    }
-
-    .umblaettern-button {
-        padding: 10px 15px;
     }
 
     /* BLOGBEITRAEGE */

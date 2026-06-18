@@ -27,7 +27,7 @@ endif;
 
 <footer class="site-footer">
     <p><a href="<?php echo projektPfad('impressum.php'); ?>" title="Impressum">Impressum</a></p>
-    <p>© 2026 Pflanzenblog</p>
+    <p>© 2026 Pflanzenblog - Alle Rechte vorbehalten </p>
 </footer>
 
 <a href="#" id="nach-oben-button" aria-label="Nach oben scrollen" title="Nach oben">
