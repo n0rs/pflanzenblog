@@ -27,6 +27,23 @@
     display: block;
 }
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1e452a;
+    -webkit-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #2e7d32;
+}
+
 body {
     font-family: 'Verdana', sans-serif;
     margin: 0;
@@ -123,6 +140,7 @@ nav a:hover {
     padding: 0;
 }
 
+/* Das Eingabefeld (Eindeutige ID) */
 #kopfzeile-suchleiste {
     padding: 10px;
     width: 50px;
@@ -133,6 +151,7 @@ nav a:hover {
     border-radius: 999px;
     box-sizing: border-box;
     outline: none;
+
     transition: width 0.2s ease-in, background 0.2s, border-color 0.2s, border-radius 0.2s, color 0.2s;
 }
 
@@ -151,14 +170,14 @@ nav a:hover {
 .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
     width: 250px;
     background: #ffffff;
-    border: 2px solid #c5e1a5;
+    border: 1px solid #c5e1a5;
     color: #000000;
 
     border-radius: 10px;
     transition: width 0.5s ease-out, background 0.5s, border-color 0.5s, border-radius 0.5s, color 0.5s;
 }
 
-.kopfzeile-suche-icon-button{
+#kopfzeile-suche-icon-button{
     background: #f9fbf9;
     border: 1px solid #c5e1a5;
     border-radius: 999px;
@@ -170,8 +189,21 @@ nav a:hover {
     text-decoration: none;
 }
 
-.kopfzeile-suche-icon-button:hover{
-    background: #f9fbf9;
+/* --- NEU: Mobile Anpassung (ganz unten in deine CSS-Datei) --- */
+@media screen and (max-width: 600px) {
+    .kopfzeile-suche-box {
+        position: absolute; /* Nimmt die Box aus der Navigations-Reihe heraus */
+        top: 100%; /* Setzt sie direkt unter die Kopfzeile */
+        right: 15px; /* Rechtsbündig */
+        z-index: 100; /* Stellt sicher, dass sie über dem Text schwebt */
+    }
+
+    /* Auf dem Handy etwas breiter aufklappen */
+    .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
+    .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
+        width: 100%;
+        max-width: 350px;
+    }
 }
 
 /* BLOG-BEITRÄGE (POST CARD)*/
@@ -241,12 +273,13 @@ nav a:hover {
     border: 1px solid #d9ead9;
     border-radius: 8px;
 
-    position: absolute;
-    top: 100%;
+    /* NEU: Lässt das Formular über den Inhalten schweben */
+
+    top: 100%; /* Positioniert es exakt unterhalb des Buttons */
     left: 0;
-    z-index: 100;
-    min-width: max-content;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    z-index: 100; /* Stellt sicher, dass es über den Blog-Karten liegt */
+    min-width: max-content; /* Verhindert, dass die Dropdowns zusammengequetscht werden */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Leichter Schatten zur Abhebung */
 }
 
 .pflege-filter-formular select {
@@ -341,8 +374,8 @@ nav a:hover {
 }
 
 #benutzerDropdown {
-    position: absolute;
-    display: none;
+    display: none; 
+    position: static;
     top: 100%;
     right: 0;
     background: white;
@@ -660,6 +693,51 @@ footer a:hover {
 .toast-box.show {
     display: block;
     right: 20px;
+}
+
+#nach-oben-button {
+    /* Positionierung als schwebender Button */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+
+    /* Optik exakt wie .filter-button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Wichtig, damit der Pfeil in der Mitte ist */
+    background: #f9fbf9;
+    border: 1px solid #c5e1a5;
+    color: #2e7d32;
+    border-radius: 999px;
+    font-size: 1.2rem; /* Leicht vergrößert für das Pfeil-Icon */
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* Feste Größe für einen runden Button */
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Leichter Schatten, damit er sich vom Text abhebt */
+
+    /* Einblend-Effekt */
+    transition: background-color .3s, border-color .3s, opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#nach-oben-button:hover {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+}
+
+#nach-oben-button:active {
+    background: #c8e6c9;
+}
+
+#nach-oben-button.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ICONS */
