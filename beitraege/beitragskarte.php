@@ -82,6 +82,8 @@
     </div>
 
     <?php //KOMMENTARBEREICH ?>
-   <?php include dirname(__DIR__) . '/kommentare/kommentarbereich.php'; ?>
+    <?php if ($ist_detail): ?>
+        <?php include dirname(__DIR__) . '/kommentare/kommentarbereich.php'; ?>
+    <?php endif; ?>
 
 </div>
