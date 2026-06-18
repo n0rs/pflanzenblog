@@ -163,7 +163,7 @@ nav a:hover {
 
 .kopfzeile-suche-box:hover #kopfzeile-suchleiste::placeholder,
 .kopfzeile-suche-box.offen #kopfzeile-suchleiste::placeholder {
-    color: #2e7d32;
+    color: #1b5e20;
 }
 
 .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
@@ -177,34 +177,23 @@ nav a:hover {
     transition: width 0.5s ease-out, background 0.5s, border-color 0.5s, border-radius 0.5s, color 0.5s;
 }
 
-#kopfzeile-suche-icon-button{
+.kopfzeile-suche-icon-button{
     background: #f9fbf9;
-    border: 1px solid #c5e1a5;
+    border: 2px solid #c5e1a5;
     border-radius: 999px;
     color: #2e7d32;
     cursor: pointer;
-    font-size: 0.88rem;
     font-weight: bold;
+    font-size: 0.95em;
     line-height: 1;
     text-decoration: none;
 }
 
-/* --- NEU: Mobile Anpassung (ganz unten in deine CSS-Datei) --- */
-@media screen and (max-width: 600px) {
-    .kopfzeile-suche-box {
-        position: absolute; /* Nimmt die Box aus der Navigations-Reihe heraus */
-        top: 100%; /* Setzt sie direkt unter die Kopfzeile */
-        right: 15px; /* Rechtsbündig */
-        z-index: 100; /* Stellt sicher, dass sie über dem Text schwebt */
-    }
-
-    /* Auf dem Handy etwas breiter aufklappen */
-    .kopfzeile-suche-box:hover #kopfzeile-suchleiste,
-    .kopfzeile-suche-box.offen #kopfzeile-suchleiste {
-        width: 100%;
-        max-width: 350px;
-    }
+.kopfzeile-suche-icon-button:hover {
+    background: #e8f5e9;
+    border-color: #2e7d32;
 }
+
 
 /* BLOG-BEITRÄGE (POST CARD)*/
 .beitrags-filter {
@@ -263,6 +252,8 @@ nav a:hover {
 }
 
 .pflege-filter-formular {
+    position: absolute;
+
     display: flex;
     gap: 8px;
     align-items: center;
@@ -273,13 +264,11 @@ nav a:hover {
     border: 1px solid #d9ead9;
     border-radius: 8px;
 
-    /* NEU: Lässt das Formular über den Inhalten schweben */
-
-    top: 100%; /* Positioniert es exakt unterhalb des Buttons */
+    top: 100%;
     left: 0;
-    z-index: 100; /* Stellt sicher, dass es über den Blog-Karten liegt */
-    min-width: max-content; /* Verhindert, dass die Dropdowns zusammengequetscht werden */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Leichter Schatten zur Abhebung */
+    z-index: 100;
+    min-width: max-content;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .pflege-filter-formular select {
@@ -696,31 +685,24 @@ footer a:hover {
 }
 
 #nach-oben-button {
-    /* Positionierung als schwebender Button */
     position: fixed;
     bottom: 30px;
     right: 30px;
     z-index: 1000;
-
-    /* Optik exakt wie .filter-button */
     display: inline-flex;
     align-items: center;
-    justify-content: center; /* Wichtig, damit der Pfeil in der Mitte ist */
+    justify-content: center;
     background: #f9fbf9;
-    border: 1px solid #c5e1a5;
+    border: 2px solid #c5e1a5;
     color: #2e7d32;
     border-radius: 999px;
-    font-size: 1.2rem; /* Leicht vergrößert für das Pfeil-Icon */
+    font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
-
-    /* Feste Größe für einen runden Button */
     width: 50px;
     height: 50px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Leichter Schatten, damit er sich vom Text abhebt */
-
-    /* Einblend-Effekt */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: background-color .3s, border-color .3s, opacity .5s, visibility .5s;
     opacity: 0;
     visibility: hidden;
@@ -805,13 +787,13 @@ footer a:hover {
 }
 
 .suchleiste {
-    flex: 1; /* Nimmt den restlichen Platz links vom Button ein */
+    flex: 1;
     font-size: 16px;
 }
 
 /* Der Lupe-Button */
 .suche-icon-button:hover {
-    background-color: #c5e1a5; /* Wird beim Drüberfahren etwas dunkler */
+    background-color: #c5e1a5;
 }
 
 .ausklappen-box {
@@ -1055,7 +1037,6 @@ footer a:hover {
         margin: 0 ;
     }
 
-
     .kopfzeilen-text, .text-button {
         display: none;
     }
@@ -1067,10 +1048,6 @@ footer a:hover {
     .icon {
         width: 16px;
         height: 16px;
-    }
-
-    #kopfzeile-suchleiste{
-        display: none;
     }
 
     .beitrags-filter,
