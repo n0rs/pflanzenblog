@@ -144,17 +144,13 @@ $beitraege = holeBeitraegeProSeite($datenbankverbindung, $beitraege_pro_seite, $
                 <?php if ($gesamt_seiten > 1 && $gesamt_beitraege > 0): ?>
                     <div class="umblaettern">
                         <?php if ($aktuelle_seite > 1): ?>
-                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite - 1])); ?>" class="umblaettern-button davor">
-                                ⬅ <span class="text-button">Neuere Beiträge</span>
-                            </a>
+                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite - 1])); ?>" class="umblaettern-button davor">←</a>
                         <?php endif; ?>
 
                         <span class="umblaettern-text"> Seite <?php echo $aktuelle_seite; ?> von <?php echo $gesamt_seiten; ?> </span>
 
                         <?php if ($aktuelle_seite < $gesamt_seiten): ?>
-                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite + 1])); ?>" class="umblaettern-button danach">
-                                <span class="text-button">Ältere Beiträge</span> ➔
-                            </a>
+                            <a href="?<?php echo e(beitragsQueryString($beitragsFilter, ['seite' => $aktuelle_seite + 1])); ?>" class="umblaettern-button danach">→</a>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
