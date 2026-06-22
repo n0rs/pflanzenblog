@@ -1024,6 +1024,15 @@ h2 .text-desktop {
         width: 100%;
         justify-content: center;
     }
+
+    /*SUCHERGEBNIS*/
+    h2 .text-mobile {
+        display: inline;
+    }
+
+    h2 .text-desktop {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 835px) {
@@ -1069,14 +1078,6 @@ h2 .text-desktop {
         height: 16px;
     }
 
-    /*SUCHERGEBNIS*/
-    h2 .text-mobile {
-        display: inline;
-    }
-
-    h2 .text-desktop {
-        display: none;
-    }
 
     /*FILTER*/
     .beitrags-filter,
