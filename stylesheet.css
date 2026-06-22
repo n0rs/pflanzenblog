@@ -365,11 +365,11 @@ nav a:hover {
     color: #1b5e20;
 }
 
-.beitrags-karte:not(.detailansicht) {
+.beitrags-karte:not(.detailansicht):not(.team-karte) {
     cursor: pointer;
 }
 
-.beitrags-karte:not(.detailansicht):hover {
+.beitrags-karte:not(.detailansicht):not(.team-karte):hover {
     transform: scale(1.02);
 }
 
