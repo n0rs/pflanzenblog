@@ -9,6 +9,8 @@ $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_i
 
 $ergebnis = null;
 $suchbegriff = '';
+$suchbegriff_anzeige = '';
+$suchbegriff_max_zeichen = 40;
 
 if (isset($_GET['suchbegriff'])) {
 
@@ -36,6 +38,11 @@ if (isset($_GET['suchbegriff'])) {
 
         $ergebnis = $anweisung->get_result();
     }
+}
+
+$suchbegriff_anzeige = $suchbegriff;
+if (mb_strlen($suchbegriff_anzeige) > $suchbegriff_max_zeichen) {
+    $suchbegriff_anzeige = mb_substr($suchbegriff_anzeige, 0, $suchbegriff_max_zeichen) . '...';
 }
 ?>
 <html lang="de">
@@ -66,7 +73,10 @@ if (isset($_GET['suchbegriff'])) {
         </div>
 
         <?php if ($suchbegriff != ''): ?>
-            <h2>Suchergebnisse für "<?php echo e($suchbegriff); ?>"</h2>
+            <h2 class="suchergebnis-titel">
+                Suchergebnisse für
+                "<span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e($suchbegriff_anzeige); ?></span>"
+            </h2>
         <?php endif; ?>
 
         <div class="blog-container">

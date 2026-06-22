@@ -604,42 +604,6 @@ nav a:hover {
     max-width: 100%;
 }
 
-/* KOMMENTAR DIREKT AUF DIE DETAILSEITE BEARBEITEN */
-.kommentar-bearbeiten-details {
-    margin-top: 10px;
-}
-
-.kommentar-bearbeiten-details summary {
-    list-style: none;
-}
-
-.kommentar-bearbeiten-details summary::-webkit-details-marker {
-    display: none;
-}
-
-.kommentar-bearbeiten-button {
-    display: inline-block;
-    background: #fffde7;
-    color: #6d5f00;
-    border: 1px solid #d6c95c;
-    border-radius: 4px;
-    padding: 4px 10px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.kommentar-bearbeiten-button:hover {
-    background: #fff9c4;
-}
-
-.kommentar-bearbeiten-formular {
-    margin-top: 10px;
-    padding: 12px;
-    background: #fffef2;
-    border-radius: 6px;
-}
-
 /* EINRUECKUNG NACH TIEFE */
 .tiefe-1 {
     margin-top: 0.5em;
@@ -887,6 +851,24 @@ footer a:hover {
     font-size: 16px;
 }
 
+.suchergebnis-titel,
+.suchergebnis-begriff {
+    max-width: 100%;
+}
+
+.suchergebnis-titel {
+    overflow-wrap: anywhere;
+}
+
+.suchergebnis-begriff {
+    display: inline-block;
+    max-width: 40ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+
 /* Der Lupe-Button */
 .suche-icon-button:hover {
     background-color: #c5e1a5;
@@ -1101,17 +1083,13 @@ footer a:hover {
         display: none;
     }
 
+    .suchergebnis-begriff {
+        max-width: 18ch;
+    }
+
     /* BLOGBEITRAEGE & KOMMENTARE*/
     .beitrags-bild img {
         aspect-ratio: 21/9;
-    }
-
-    /*TODO*/
-    .pflanzendetails-postcard{
-        display: none;
-    }
-    .kommentare-postcard{
-        display: none;
     }
 
     .kommentar {
@@ -1147,8 +1125,7 @@ footer a:hover {
         margin-left: 0;
     }
 
-    .antwort-formular,
-    .kommentar-bearbeiten-formular {
+    .antwort-formular {
         padding: 10px;
     }
 
