@@ -854,7 +854,19 @@ footer a:hover {
 .suchergebnis-titel,
 .suchergebnis-begriff {
     max-width: 100%;
+}
+
+.suchergebnis-titel {
     overflow-wrap: anywhere;
+}
+
+.suchergebnis-begriff {
+    display: inline-block;
+    max-width: 40ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    white-space: nowrap;
 }
 
 /* Der Lupe-Button */
@@ -1069,6 +1081,10 @@ footer a:hover {
     .index-ansicht .pflanzen-details,
     .index-ansicht .ausklappen-box {
         display: none;
+    }
+
+    .suchergebnis-begriff {
+        max-width: 18ch;
     }
 
     /* BLOGBEITRAEGE & KOMMENTARE*/
