@@ -10,7 +10,8 @@ $aktueller_benutzer_id = isset($_SESSION['benutzer_id']) ? $_SESSION['benutzer_i
 $ergebnis = null;
 $suchbegriff = '';
 $suchbegriff_anzeige = '';
-$suchbegriff_max_zeichen = 40;
+$desktop_limit = 40;
+$mobile_limit = 20;
 
 if (isset($_GET['suchbegriff'])) {
 
@@ -40,10 +41,6 @@ if (isset($_GET['suchbegriff'])) {
     }
 }
 
-$suchbegriff_anzeige = $suchbegriff;
-if (mb_strlen($suchbegriff_anzeige) > $suchbegriff_max_zeichen) {
-    $suchbegriff_anzeige = mb_substr($suchbegriff_anzeige, 0, $suchbegriff_max_zeichen) . '...';
-}
 ?>
 <html lang="de">
 <head>
@@ -73,11 +70,23 @@ if (mb_strlen($suchbegriff_anzeige) > $suchbegriff_max_zeichen) {
         </div>
 
         <?php if ($suchbegriff != ''): ?>
-            <h2 class="suchergebnis-titel">
-                Suchergebnisse für
-                "<span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e($suchbegriff_anzeige); ?></span>"
-            </h2>
-        <?php endif; ?>
+                    <h2 class="suchergebnis-titel">
+                        Suchergebnisse für
+                        "<span class="text-desktop">
+                            <?php if (mb_strlen($suchbegriff) <= $desktop_limit): ?>
+                                <span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e($suchbegriff); ?></span>
+                            <?php else: ?>
+                                <span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e(mb_substr($suchbegriff, 0, $desktop_limit)) . "..."; ?></span>
+                            <?php endif; ?>
+                        </span><span class="text-mobile">
+                            <?php if (mb_strlen($suchbegriff) <= $mobile_limit): ?>
+                                <span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e($suchbegriff); ?></span>
+                            <?php else: ?>
+                                <span class="suchergebnis-begriff" title="<?php echo e($suchbegriff); ?>"><?php echo e(mb_substr($suchbegriff, 0, $mobile_limit)) . "..."; ?></span>
+                            <?php endif; ?>
+                        </span>"
+                    </h2>
+                <?php endif; ?>
 
         <div class="blog-container">
             <?php

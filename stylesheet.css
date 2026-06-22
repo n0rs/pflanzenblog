@@ -64,6 +64,7 @@ main {
 .text-mobile {
     display: none;
 }
+
 .text-desktop {
     display: block;
 }
@@ -85,7 +86,7 @@ header {
     font-size: 1.8rem;
 }
 
-.logo-bereich h2{
+.logo-bereich h2 {
     display: none;
 }
 
@@ -97,7 +98,7 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
-    bottom:0.5rem;
+    bottom: 0.5rem;
 }
 
 #benutzerStatusTrigger {
@@ -210,7 +211,7 @@ nav a:hover {
     transition: width 0.5s ease-out, background 0.5s, border-color 0.5s, border-radius 0.5s, color 0.5s;
 }
 
-.kopfzeile-suche-icon-button{
+.kopfzeile-suche-icon-button {
     background: #f9fbf9;
     border: 2px solid #c5e1a5;
     border-radius: 999px;
@@ -305,7 +306,7 @@ nav a:hover {
     left: 0;
     z-index: 100;
     min-width: max-content;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .pflege-filter-formular select {
@@ -353,7 +354,7 @@ nav a:hover {
     padding: 2rem;
     border-radius: 8px;
     border: 1px solid #e0e8e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
     position: relative;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -396,7 +397,7 @@ nav a:hover {
     gap: 10px;
 }
 
-.index-ansicht .pflanzen-details{
+.index-ansicht .pflanzen-details {
     display: none;
 }
 
@@ -417,11 +418,13 @@ nav a:hover {
 .zurueck-container {
     margin-bottom: 10px;
 }
+
 .zurueck-link {
     text-decoration: none;
     color: #2e7d32;
     font-weight: bold;
 }
+
 .zurueck-link:hover {
     text-decoration: underline;
 }
@@ -432,7 +435,7 @@ nav a:hover {
     margin-top: 1rem;
 }
 
-.umblaettern-button{
+.umblaettern-button {
     padding: 0 11px 5px 11px;
     background: #f9fbf9;
     border: 1px solid #c5e1a5;
@@ -448,9 +451,11 @@ nav a:hover {
     background: #e8f5e9;
     border-color: #2e7d32;
 }
+
 .umblaettern-button.davor {
     margin-right: 12px;
 }
+
 .umblaettern-button.danach {
     margin-left: 12px;
 }
@@ -461,13 +466,13 @@ nav a:hover {
 =======================================================================================
 */
 .kommentieren,
-.antwort_absenden{
+.antwort_absenden {
     margin-top: 0.2em;
     border-top: 0.2em solid #e8f5e9;
     padding-top: 0.5em;
 }
 
-.kommentar-formular{
+.kommentar-formular {
     margin-top: 0.5em;
     padding-top: 0.5em;
     max-width: 100%;
@@ -490,7 +495,7 @@ nav a:hover {
 }
 
 .kommentar img {
-    position:absolute;
+    position: absolute;
     right: 15px;
     top: 15px;
 }
@@ -512,6 +517,7 @@ nav a:hover {
     font-size: 0.85rem;
     text-decoration: none;
 }
+
 .kommentar a:hover {
     text-decoration: underline;
 }
@@ -695,7 +701,7 @@ button:hover, input[type="submit"]:hover {
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: block;
 }
 
@@ -741,7 +747,7 @@ footer a:hover {
     color: #a3dca3;
 }
 
-.impressum{
+.impressum {
     padding: 1.5rem;
 }
 
@@ -768,7 +774,7 @@ footer a:hover {
     cursor: pointer;
     width: 50px;
     height: 50px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color .3s, border-color .3s, opacity .5s, visibility .5s;
     opacity: 0;
     visibility: hidden;
@@ -812,7 +818,7 @@ footer a:hover {
                                       SUCHLEISTE
 =======================================================================================
 */
-.suchleiste-box{
+.suchleiste-box {
     margin: 20px 0;
 }
 
@@ -840,6 +846,7 @@ footer a:hover {
     align-items: center;
     text-align: center;
 }
+
 .leer-box span {
     font-size: 16px;
     color: #666666;
@@ -869,6 +876,9 @@ footer a:hover {
     white-space: nowrap;
 }
 
+h2 .text-desktop {
+    display: inline; }
+
 /* Der Lupe-Button */
 .suche-icon-button:hover {
     background-color: #c5e1a5;
@@ -884,7 +894,7 @@ footer a:hover {
 }
 
 .ausklappen-box:hover {
-    background-color: #f1f8e9 ;
+    background-color: #f1f8e9;
 }
 
 .ausklappen-box summary {
@@ -974,7 +984,7 @@ footer a:hover {
 .toast-box {
     position: fixed;
     bottom: 20px;
-    display:none;
+    display: none;
     background-color: #ffffff;
     color: #2f3e2f;
     padding: 16px 24px;
@@ -1000,7 +1010,7 @@ footer a:hover {
                                  MOBILE GERAETE ANSICHT
 =======================================================================================
 */
-@media screen and (max-width: 1130px){
+@media screen and (max-width: 1130px) {
     .pflege-filter {
         width: 100%;
     }
@@ -1016,8 +1026,8 @@ footer a:hover {
     }
 }
 
-@media screen and (max-width: 835px){
-    #kopfzeile-suchleiste{
+@media screen and (max-width: 835px) {
+    #kopfzeile-suchleiste {
         display: none;
     }
 }
@@ -1026,6 +1036,7 @@ footer a:hover {
     .text-desktop {
         display: none;
     }
+
     .text-mobile {
         display: block;
     }
@@ -1035,18 +1046,19 @@ footer a:hover {
     }
 
     /*KOPFZEILE*/
-    .logo-bereich h1{
+    .logo-bereich h1 {
         display: none;
     }
 
-    .logo-bereich h2{
+    .logo-bereich h2 {
         display: block;
-        margin: 0 ;
+        margin: 0;
     }
 
     .kopfzeilen-text, .text-button {
         display: none;
     }
+
     .kopfzeilen-icon, .icon-button {
         color: white;
         display: inline-block;
@@ -1055,6 +1067,15 @@ footer a:hover {
     .icon {
         width: 16px;
         height: 16px;
+    }
+
+    /*SUCHERGEBNIS*/
+    h2 .text-mobile {
+        display: inline;
+    }
+
+    h2 .text-desktop {
+        display: none;
     }
 
     /*FILTER*/
